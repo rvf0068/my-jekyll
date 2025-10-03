@@ -1,0 +1,71 @@
+#+TITLE: Sample Org Post with Features
+#+DATE: 2025-10-03
+#+LAYOUT: post
+
+#+BEGIN_EXPORT html
+---
+layout: post
+title: "Sample Org Post with Features"
+date: 2025-10-03 12:00:00 -0500
+categories: sample org jekyll
+tags: org-mode features
+---
+#+END_EXPORT
+
+This is a sample Org-mode post demonstrating various syntax features.
+
+* URL Links
+Check out the official [[https://orgmode.org][Org-mode website]] for more details.
+
+* LaTeX Math Content
+Org-mode supports inline math like \( E = mc^2 \) and display math:
+
+\[
+\int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}
+\]
+
+* Images
+Include images with =[[file:assets/sample-image.jpg]]= (assuming an image file in org/assets/).
+
+Here's an example image link: [[file:assets/sample-image.jpg]]
+
+* Code Snippets
+Org-mode excels at code blocks. Here's a Python example:
+
+#+BEGIN_SRC python
+def fibonacci(n):
+    if n <= 1:
+        return n
+    else:
+        return fibonacci(n-1) + fibonacci(n-2)
+
+# Example usage
+print(fibonacci(10))  # Outputs 55
+#+END_SRC
+
+And a bash snippet:
+
+#+BEGIN_SRC bash
+#!/bin/bash
+echo "Hello, World!"
+#+END_SRC
+
+* Headings and Lists
+** Subheading
+- Item 1
+- Item 2 with [[https://jekyllrb.com][Jekyll link]]
+  - Subitem
+
+** Table Example
+| Feature    | Description              |
+|------------|--------------------------|
+| Links      | Hyperlinks to URLs       |
+| Math       | LaTeX equations          |
+| Images     | Embedded media           |
+| Code       | Syntax-highlighted blocks|
+
+This post covers most Org syntax basics for Jekyll integration.
+
+#+BEGIN_EXPORT html
+<!-- End of post -->
+#+END_EXPORT
