@@ -2,12 +2,12 @@ title: My Org-Jekyll Blog
 description: A blog powered by Org-mode and Jekyll
 baseurl: "/my-jekyll"
 url: "https://rvf0068.github.io"
-theme: jekyll-theme-hydejack
 paginate: 5
 markdown: kramdown
 plugins:
   - jekyll-paginate
-  - jekyll-theme-hydejack
+  - jekyll-remote-theme
+remote_theme: hydejack/hydejack@9.2.1
 exclude:
   - org/
   - scripts/
