@@ -18,18 +18,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better reference
+          fetch-depth: 0
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.1'
-          bundler-cache: true  # runs 'bundle install' and caches installed gems automatically
+          bundler-cache: true
 
       - name: Setup Emacs
-        uses: purcell/setup-emacs@master
+        uses: purcell/setup-emacs@v3
         with:
-          version: 30.1
+          version: 29.1
           extra-packages: htmlize
 
       - name: Publish Org files to HTML
@@ -38,19 +38,19 @@ jobs:
       - name: Setup new tags if any (placeholder)
         run: ./scripts/create_tag_pages.sh
 
-      - name: Setup Pages
-        id: pages
-        uses: actions/configure-pages@v5
-
       - name: Build with Jekyll
         run: |
           bundle install
-          bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+          bundle exec jekyll build --baseurl "/my-jekyll"
         env:
           JEKYLL_ENV: production
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: _site/
+          retention-days: 1
 
   deploy:
     environment:
@@ -60,6 +60,13 @@ jobs:
     needs: build
     if: github.ref == 'refs/heads/main'
     steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: _site/
+
       - name: Deploy to GitHub Pages
-        id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: site

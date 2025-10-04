@@ -7,15 +7,14 @@ paginate: 5
 markdown: kramdown
 plugins:
   - jekyll-paginate
+  - jekyll-theme-hydejack
 exclude:
   - org/
   - scripts/
   - .github/
 hydejack:
-  theme: dark  # or 'light'
+  theme: dark
   nav_include: true
   author: rvf0068
-  google_analytics: ''  # Add your GA ID if needed
   social:
-    twitter: rvf0068  # Your handle
     github: rvf0068
