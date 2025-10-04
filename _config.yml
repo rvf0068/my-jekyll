@@ -1,12 +1,13 @@
-# Basic Jekyll configuration
 title: My Org-Jekyll Blog
 description: A blog powered by Org-mode and Jekyll
-baseurl: "/my-jekyll"  # For GitHub project page: https://rvf0068.github.io/my-jekyll/
+baseurl: "/my-jekyll"
 url: "https://rvf0068.github.io"
+theme: jekyll-theme-hyde
 paginate: 5
 markdown: kramdown
 plugins:
   - jekyll-paginate
+  - jekyll-theme-hyde
 exclude:
   - org/
   - scripts/

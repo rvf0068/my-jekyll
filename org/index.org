@@ -11,7 +11,7 @@ title: "Home"
 
 Welcome! This is the homepage of my blog, powered by Org-mode and Jekyll.
 
-Check out my [[file:2025-10-03-sample-post.html][sample post]] for examples of features like math, code, and links.
+Check out my [[/2025-10-03-sample-post.html][sample post]] for examples of features like math, code, and links.
 
 * Recent Posts
-- [[file:2025-10-03-sample-post.html][Sample Org Post with Features]]
+- [[/2025-10-03-sample-post.html][Sample Org Post with Features]]
