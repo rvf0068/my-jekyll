@@ -1,0 +1,17 @@
+#+TITLE: Welcome to My Org-Jekyll Blog
+#+DATE: 2025-10-03
+#+LAYOUT: default
+
+#+BEGIN_EXPORT html
+---
+layout: default
+title: "Home"
+---
+#+END_EXPORT
+
+Welcome! This is the homepage of my blog, powered by Org-mode and Jekyll.
+
+Check out my [[file:2025-10-03-sample-post.html][sample post]] for examples of features like math, code, and links.
+
+* Recent Posts
+- [[file:2025-10-03-sample-post.html][Sample Org Post with Features]]
