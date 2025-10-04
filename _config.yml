@@ -12,7 +12,13 @@ exclude:
   - org/
   - scripts/
   - .github/
+  - vendor/
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+include:
+  - _posts/
 minima:
-  skin: dark  # Optional: Minima's dark mode, similar to Hydejack's aesthetic
+  skin: dark
   social_links:
     - { platform: github, user_url: "https://github.com/rvf0068" }
