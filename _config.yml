@@ -9,8 +9,6 @@ plugins:
   - jekyll-paginate
   - github-pages
 exclude:
-  - org/_posts/
-  - org/assets/
   - scripts/
   - .github/
   - vendor/
@@ -19,7 +17,7 @@ exclude:
   - README.md
 include:
   - _posts/
-  - org/index.org
+  - org/
 minima:
   skin: dark
   social_links:
