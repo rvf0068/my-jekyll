@@ -26,7 +26,14 @@ jobs:
           ruby-version: '3.1'
           bundler-cache: true
 
-      - name: Setup Emacs
+      - name: Install Bundler and Gems
+        run: |
+          gem install bundler
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3
+          bundle list
+
+      - name: Set up Emacs
         uses: purcell/setup-emacs@master
         with:
           version: 30.1
@@ -40,8 +47,7 @@ jobs:
 
       - name: Build with Jekyll
         run: |
-          bundle install
-          bundle exec jekyll build --baseurl "/my-jekyll"
+          bundle exec jekyll build --baseurl "/my-jekyll" --trace
         env:
           JEKYLL_ENV: production
 
