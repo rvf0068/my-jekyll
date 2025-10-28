@@ -5,6 +5,7 @@ url: "https://rvf0068.github.io"
 theme: minima
 paginate: 5
 markdown: kramdown
+permalink: /:year/:month/:day/:title.html
 plugins:
   - jekyll-paginate
   - github-pages
