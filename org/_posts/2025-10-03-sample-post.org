@@ -1,7 +1,3 @@
-#+TITLE: Sample Org Post with Features
-#+DATE: 2025-10-03
-#+LAYOUT: post
-
 #+BEGIN_EXPORT html
 ---
 layout: post
@@ -26,9 +22,9 @@ Org-mode supports inline math like \( E = mc^2 \) and display math:
 \]
 
 * Images
-Include images with =[[file:assets/sample-image.jpg]]= (assuming an image file in org/assets/).
+Include images with =[[/my-jekyll/assets/sample-image.jpg]]= syntax.
 
-Here's an example image link: [[file:assets/sample-image.jpg]]
+Here's an example image link: [[/my-jekyll/assets/sample-image.jpg][Sample Image]]
 
 * Code Snippets
 Org-mode excels at code blocks. Here's a Python example:
