@@ -4,14 +4,36 @@
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 (package-initialize)
 
-(unless (package-installed-p 'htmlize)
-  (package-install 'htmlize))
+;; Try to install htmlize, but don't fail if unavailable
+(ignore-errors
+  (unless (package-installed-p 'htmlize)
+    (package-install 'htmlize)))
 
 (require 'ox-html)
 (require 'ox-publish)
-(require 'htmlize)
+;; Require htmlize only if available
+(when (locate-library "htmlize")
+  (require 'htmlize))
 
-(setq org-html-htmlize-output-type nil)  ; Use inline CSS
+;; Configuration for Jekyll baseurl
+(setq jekyll-baseurl "/my-jekyll")
+
+;; Disable syntax highlighting (htmlize) if not available
+;; Set to nil to use inline CSS when htmlize is available
+(setq org-html-htmlize-output-type nil)
+
+;; Custom function to fix Jekyll baseurl links in final HTML output
+;; This prevents org-mode from converting paths starting with baseurl to file:// URLs
+(defun org-html-final-function (contents backend info)
+  "Post-process HTML to fix Jekyll baseurl links."
+  (when (org-export-derived-backend-p backend 'html)
+    ;; Replace file:// URLs with proper HTTP paths for baseurl
+    (let ((file-url-pattern (concat "href=\"file:/+" jekyll-baseurl "/"))
+          (http-path (concat "href=\"" jekyll-baseurl "/")))
+      (setq contents (replace-regexp-in-string file-url-pattern http-path contents))))
+  contents)
+
+(add-to-list 'org-export-filter-final-output-functions 'org-html-final-function)
 
 (setq org-publish-project-alist
       '(("main-site"
