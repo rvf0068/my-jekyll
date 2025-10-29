@@ -16,6 +16,10 @@ article > * {
   display: block;
 }
 
+article {
+  margin-top: 1em;
+}
+
 header,
 footer,
 article > time {
