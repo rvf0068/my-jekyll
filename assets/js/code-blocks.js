@@ -106,8 +106,8 @@
     if (window.Prism) {
       Prism.highlightElement(codeElement);
       // Trigger line numbers plugin if available
-      if (window.Prism && window.Prism.plugins && window.Prism.plugins.lineNumbers) {
-        window.Prism.plugins.lineNumbers.resize(pre);
+      if (Prism.plugins && Prism.plugins.lineNumbers) {
+        Prism.plugins.lineNumbers.resize(pre);
       }
     }
   }
