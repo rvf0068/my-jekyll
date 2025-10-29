@@ -1,0 +1,32 @@
+#+TITLE: Other test
+#+DATE: 2025-10-29 11:56
+#+AUTHOR: rvf0068
+#+JEKYLL_LAYOUT: post
+#+JEKYLL_CATEGORIES: python
+#+JEKYLL_TAGS: org-mode jekyll
+
+This is just a test:
+
+#+begin_src python
+class Clique(frozenset):
+    """
+    Base class for a clique in a graph.
+
+    This class is derived from frozenset, but we modify its representation so
+    that it does not print the word 'frozenset'.
+    """
+    def __repr__(self):
+        u = set(self)
+        if len(u) == 0:
+            return "{}"
+        else:
+            return f"{u}"
+#+end_src
+
+Is it justified to define a class like the previous one? Or is there another simpler data structure in the standard library that we could use?
+
+This is Gemini's answer:
+
+Yes, defining such a class is justified. Your goal is to change the string representation for readability, which is a common reason to subclass a built-in type.
+
+The standard library has no direct alternative that is both an *immutable set* and has a =set=-like =__repr__=. =frozenset= is the correct data structure for an immutable set; your approach of subclassing it to customize its representation is the standard Pythonic way to achieve this.

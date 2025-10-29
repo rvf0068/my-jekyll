@@ -1,5 +1,5 @@
 #+TITLE: Test Post with Automatic Header Generation
-#+DATE: 2025-10-29 17:00:00 -0500
+#+DATE: 2025-10-29 11:00
 #+AUTHOR: Test Author
 #+JEKYLL_LAYOUT: post
 #+JEKYLL_CATEGORIES: test automation
