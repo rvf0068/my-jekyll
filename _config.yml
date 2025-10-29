@@ -1,8 +1,8 @@
 title: My Org-Jekyll Blog
 description: A blog powered by Org-mode and Jekyll
+tagline: A blog powered by Org-mode and Jekyll
 baseurl: "/my-jekyll"
 url: "https://rvf0068.github.io"
-theme: minima
 paginate: 5
 markdown: kramdown
 permalink: /:year/:month/:day/:title.html
@@ -18,6 +18,3 @@ exclude:
   - README.md
   - org/_posts/
   - org/index.org
-minima:
-  social_links:
-    - { platform: github, user_url: "https://github.com/rvf0068" }
