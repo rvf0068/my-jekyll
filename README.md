@@ -7,7 +7,7 @@ This is a Jekyll-based blog that uses Org-mode for authoring posts. The setup au
 - Write blog posts in Org-mode syntax
 - Automatic Jekyll front matter generation from Org properties
 - Support for LaTeX math content with MathJax
-- Code syntax highlighting
+- **Enhanced code blocks** with syntax highlighting, line numbers, and copy-to-clipboard button
 - Customizable layouts and themes
 
 ## Writing Posts
