@@ -4,6 +4,8 @@ body {
   font-size: 130%;
   line-height: 1.35;
   color: #111;
+  margin-left: 1em;
+  margin-right: 1em;
 }
 
 header,

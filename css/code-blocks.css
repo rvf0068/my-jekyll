@@ -3,7 +3,8 @@
 /* Container for code blocks with copy button */
 .org-src-container {
   position: relative;
-  margin: 1.5rem 0;
+  margin: 1.5rem auto;
+  max-width: 700px;
 }
 
 /* Code block wrapper */
@@ -11,7 +12,7 @@
   background-color: #f5f5f5;
   border: 1px solid #e0e0e0;
   border-radius: 6px;
-  padding: 1rem 1rem 1rem 3rem; /* Extra padding on left for line numbers */
+  padding: 1rem;
   overflow-x: auto;
   font-size: 0.9rem;
   line-height: 1.6;
@@ -92,8 +93,8 @@ pre.line-numbers > code {
 .line-numbers .line-numbers-rows {
   position: absolute;
   pointer-events: none;
-  top: 0;
-  left: -3.8rem;
+  top: 1rem; /* Match the top padding of the pre element */
+  left: 0;
   width: 3rem;
   letter-spacing: -1px;
   border-right: 1px solid #d0d0d0;
@@ -181,7 +182,6 @@ pre.line-numbers > code {
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .org-src-container pre {
-    padding-left: 2.5rem;
     font-size: 0.85rem;
   }
   
@@ -190,7 +190,7 @@ pre.line-numbers > code {
   }
   
   .line-numbers .line-numbers-rows {
-    left: -3rem;
+    left: 0;
     width: 2.5rem;
   }
   
