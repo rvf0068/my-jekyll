@@ -1,3 +1,14 @@
+#+BEGIN_EXPORT html
+---
+layout: post
+title: "Comprehensive Demo: Math Emacs Configuration"
+date: 2025-10-28 12:00:00 -0500
+categories: demo mathematics tutorial
+tags: emacs org-mode configuration
+---
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js" async></script>
+#+END_EXPORT
+
 #+title: Comprehensive Demo: Math Emacs Configuration
 #+AUTHOR: Demo Author
 #+date: 2025-10-28
