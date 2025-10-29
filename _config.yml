@@ -16,9 +16,8 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - README.md
-include:
-  - _posts/
-  - org/
+  - org/_posts/
+  - org/index.org
 minima:
   social_links:
     - { platform: github, user_url: "https://github.com/rvf0068" }

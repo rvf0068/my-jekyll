@@ -13,7 +13,7 @@ tags: emacs org-mode configuration
 #+AUTHOR: Demo Author
 #+date: 2025-10-28
 #+filetags: Demo Mathematics Tutorial
-#+options: toc:2 ':t
+#+options: ':t
 
 #+LATEX_HEADER: \usepackage{amsthm}
 #+LATEX_HEADER: \newtheorem{theorem}{Theorem}[section]
