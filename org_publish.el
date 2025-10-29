@@ -34,6 +34,11 @@ INFO is the plist used as a communication channel."
          (layout (or (plist-get info :jekyll-layout) "post"))
          (categories (plist-get info :jekyll-categories))
          (tags-prop (plist-get info :jekyll-tags))
+         ;; Combine tags from both sources
+         (all-tags (delete-dups
+                    (append
+                     (when tags-prop (split-string tags-prop))
+                     (when filetags filetags))))
          ;; Build front matter
          (front-matter (concat "---\n"
                                "layout: " layout "\n"
@@ -45,10 +50,8 @@ INFO is the plist used as a communication channel."
                                  (format "author: %s\n" author))
                                (when categories
                                  (format "categories: %s\n" categories))
-                               (when tags-prop
-                                 (format "tags: %s\n" tags-prop))
-                               (when filetags
-                                 (format "tags: %s\n" (mapconcat 'identity filetags " ")))
+                               (when all-tags
+                                 (format "tags: %s\n" (mapconcat 'identity all-tags " ")))
                                "---\n")))
     front-matter))
 
