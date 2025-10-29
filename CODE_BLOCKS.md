@@ -93,9 +93,9 @@ A small badge in the top-left corner shows the programming language.
 ## Styling
 
 The code blocks use:
-- Light gray background (#f8f8f8)
-- Subtle border
-- Rounded corners
+- Light gray background (#f5f5f5, #f8f8f8 with Prism.js applied)
+- Subtle border (#e0e0e0)
+- Rounded corners (6px border-radius)
 - Proper spacing and padding
 - Computer Modern Typewriter font (matching the site's typography)
 
