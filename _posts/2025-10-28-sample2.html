@@ -1,0 +1,1247 @@
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org6a246f2">1. Introduction</a>
+<ul>
+<li><a href="#org1acbc69">1.1. Configuration Highlights</a></li>
+</ul>
+</li>
+<li><a href="#org0622368">2. Basic Mathematics with CDLaTeX</a>
+<ul>
+<li><a href="#orgdf7b76f">2.1. Using CDLaTeX Symbols</a></li>
+<li><a href="#org099d826">2.2. Inline Math with Math-Delimiters</a></li>
+</ul>
+</li>
+<li><a href="#org093f111">3. Theorem Environments with Yasnippet</a>
+<ul>
+<li><a href="#orgc727b46">3.1. Example: Group Theory</a></li>
+<li><a href="#orgdc2c16b">3.2. Cross-Referencing with <code>C-c r</code></a></li>
+</ul>
+</li>
+<li><a href="#org06485b8">4. Advanced Mathematics</a>
+<ul>
+<li><a href="#org8679f57">4.1. Ring Theory</a></li>
+<li><a href="#org6634bb6">4.2. Complex Analysis</a></li>
+<li><a href="#org0f8ea4f">4.3. Graph Theory Example</a></li>
+</ul>
+</li>
+<li><a href="#org2ecd4a7">5. Equations and Alignment</a>
+<ul>
+<li><a href="#orgc6b7cd5">5.1. Single Equations</a></li>
+<li><a href="#orgede1efb">5.2. Aligned Equations</a></li>
+<li><a href="#orga15dd13">5.3. System of Equations</a></li>
+</ul>
+</li>
+<li><a href="#org063c0bd">6. Integration with Org-Roam</a>
+<ul>
+<li><a href="#orga939992">6.1. Org-Roam Search</a></li>
+</ul>
+</li>
+<li><a href="#org197fe2e">7. Bibliography and Citations</a>
+<ul>
+<li><a href="#org483f022">7.1. Citation Workflow</a></li>
+<li><a href="#orgd8f678e">7.2. Example Citations</a></li>
+</ul>
+</li>
+<li><a href="#org98b8ea0">8. Python and Jupyter Integration</a>
+<ul>
+<li><a href="#org4588293">8.1. Basic Python Source Block</a></li>
+<li><a href="#org6c76707">8.2. Jupyter Integration</a></li>
+<li><a href="#org3c1ac76">8.3. Data Visualization</a></li>
+</ul>
+</li>
+<li><a href="#org81a714e">9. Tables and Data</a>
+<ul>
+<li><a href="#orga0a621e">9.1. Calculations in Tables</a></li>
+</ul>
+</li>
+<li><a href="#org469f3fc">10. Export Options</a>
+<ul>
+<li><a href="#org16ee579">10.1. LaTeX/PDF Export</a></li>
+<li><a href="#orgfe43828">10.2. Jupyter Notebook Export</a></li>
+</ul>
+</li>
+<li><a href="#org90f6093">11. Advanced Features Showcase</a>
+<ul>
+<li><a href="#org1d23c41">11.1. Embark Actions</a></li>
+<li><a href="#orge1a7d14">11.2. Consult Commands</a></li>
+<li><a href="#orgd981caa">11.3. Smartparens</a></li>
+<li><a href="#org1b07367">11.4. Org-Fragtog</a></li>
+</ul>
+</li>
+<li><a href="#org7301910">12. GTD and Task Management</a>
+<ul>
+<li><a href="#orgd7f8cb2">12.1. Capture Templates</a></li>
+<li><a href="#orgf2d65a4">12.2. Example Tasks</a></li>
+<li><a href="#org0b568ec">12.3. Org Agenda</a></li>
+</ul>
+</li>
+<li><a href="#orgcd0d301">13. AI Integration with GPTel</a>
+<ul>
+<li><a href="#org8891f30">13.1. Example AI Queries</a></li>
+</ul>
+</li>
+<li><a href="#org5d61834">14. Magit Integration</a></li>
+<li><a href="#orgfe99f4e">15. PDF Tools and Org-Noter</a>
+<ul>
+<li><a href="#orgb8f39ee">15.1. Reading PDFs</a></li>
+<li><a href="#org4962cc3">15.2. Org-Noter Workflow</a></li>
+</ul>
+</li>
+<li><a href="#org81c0dd0">16. Useful Keybinding Reference</a>
+<ul>
+<li><a href="#orgcff5f2c">16.1. Global Bindings</a></li>
+<li><a href="#org068eae4">16.2. Org-Mode Specific</a></li>
+<li><a href="#org6df40b8">16.3. Bibliography</a></li>
+</ul>
+</li>
+<li><a href="#orgf48fc69">17. Conclusion</a>
+<ul>
+<li><a href="#org6e3ffff">17.1. Next Steps</a></li>
+<li><a href="#org87dee25">17.2. Testing This Configuration</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+---
+layout: post
+title: "Comprehensive Demo: Math Emacs Configuration"
+date: 2025-10-28 12:00:00 -0500
+categories: demo mathematics tutorial
+tags: emacs org-mode configuration
+---
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js" async></script>
+
+<div id="outline-container-org6a246f2" class="outline-2">
+<h2 id="org6a246f2"><span class="section-number-2">1.</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This document demonstrates the full capabilities of the math-emacs configuration, showcasing:
+</p>
+
+<ul class="org-ul">
+<li>Custom yasnippet templates for theorem environments (<code>&lt;f6&gt; t</code>, <code>&lt;f6&gt; d</code>, etc.)</li>
+<li>Smart cross-referencing with <code>C-c r</code> using <code>cross-refs.el</code></li>
+<li>CDLaTeX quick math insertion (<code>`o</code> → \(\omega\), <code>`O</code> → \(\Omega\), etc.)</li>
+<li>Math delimiters with <code>$</code> key binding</li>
+<li>Integration with <code>org-roam</code> for linked notes</li>
+<li>Bibliography management with <code>citar</code></li>
+<li>Jupyter notebook integration</li>
+<li>LaTeX fragment previews with <code>org-fragtog</code></li>
+<li>Export to LaTeX/PDF and Jupyter notebooks</li>
+</ul>
+</div>
+
+<div id="outline-container-org1acbc69" class="outline-3">
+<h3 id="org1acbc69"><span class="section-number-3">1.1.</span> Configuration Highlights</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+This setup uses:
+</p>
+<ul class="org-ul">
+<li><code>straight.el</code> for package management</li>
+<li>Literate configuration in <code>emacs-config.org</code></li>
+<li>Modern completion with Vertico + Orderless + Consult + Embark</li>
+<li><code>gptel</code> for AI assistance</li>
+<li><code>magit</code> for version control</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0622368" class="outline-2">
+<h2 id="org0622368"><span class="section-number-2">2.</span> Basic Mathematics with CDLaTeX</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orgdf7b76f" class="outline-3">
+<h3 id="orgdf7b76f"><span class="section-number-3">2.1.</span> Using CDLaTeX Symbols</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+CDLaTeX makes math input fast. Examples of customized bindings:
+</p>
+
+<ul class="org-ul">
+<li>Type <code>`m</code> to get \(\mu\), then <code>`m</code> again for \(\mapsto\)</li>
+<li>Type <code>`o</code> for \(\omega\), <code>`O</code> for \(\Omega\) or \(\mathrm{Orb}\)</li>
+<li>Type <code>`S</code> for \(\Sigma\) or \(\mathrm{Stab}\)</li>
+<li>Type <code>`p</code> for \(\pi\), \(\varpi\), or \(\perp\)</li>
+<li>Type <code>`-</code> for \(\cap\), \(\leftrightarrow\), or \(\longleftrightarrow\)</li>
+<li>Type <code>`*</code> for \(\times\) or \(\otimes\)</li>
+<li>Type <code>`[</code> for \(\subseteq\)</li>
+<li>Type <code>`&lt;</code> for \(\leq\), \(\langle\), or \(\trianglelefteq\)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org099d826" class="outline-3">
+<h3 id="org099d826"><span class="section-number-3">2.2.</span> Inline Math with Math-Delimiters</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Press <code>$</code> to insert math delimiters: \(E = mc^2\) inline, or press it twice for display math:
+</p>
+
+<p>
+\[\int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}\]
+</p>
+
+<p>
+The <code>$</code> binding works intelligently in both org-mode and LaTeX-mode. 
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org093f111" class="outline-2">
+<h2 id="org093f111"><span class="section-number-2">3.</span> Theorem Environments with Yasnippet</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+This configuration provides custom snippets bound to <code>&lt;f6&gt;</code> keys:
+</p>
+
+<ul class="org-ul">
+<li><code>&lt;f6&gt; t</code> → Theorem</li>
+<li><code>&lt;f6&gt; d</code> → Definition</li>
+<li><code>&lt;f6&gt; l</code> → Lemma</li>
+<li><code>&lt;f6&gt; c</code> → Corollary</li>
+<li><code>&lt;f6&gt; p</code> → Proposition</li>
+<li><code>&lt;f6&gt; f</code> → Proof</li>
+<li><code>&lt;f6&gt; e</code> → Equation</li>
+</ul>
+
+<p>
+Each snippet automatically:
+</p>
+<ol class="org-ol">
+<li>Prompts for a unique label</li>
+<li>Checks for duplicates using <code>my/org-snippet-get-unique-label</code></li>
+<li>Inserts the appropriate <code>#+label:</code> and <code>#+begin_...</code> / <code>#+end_...</code> blocks</li>
+</ol>
+</div>
+
+<div id="outline-container-orgc727b46" class="outline-3">
+<h3 id="orgc727b46"><span class="section-number-3">3.1.</span> Example: Group Theory</h3>
+<div class="outline-text-3" id="text-3-1">
+<div class="definition" id="org5a239e4">
+<p>
+A <b>group</b> is a set \(G\) together with a binary operation \(\cdot: G \times G \to G\) satisfying:
+</p>
+<ol class="org-ol">
+<li><b>Closure</b>: For all \(a, b \in G\), we have \(a \cdot b \in G\)</li>
+<li><b>Associativity</b>: \((a \cdot b) \cdot c = a \cdot (b \cdot c)\) for all \(a, b, c \in G\)</li>
+<li><b>Identity</b>: There exists \(e \in G\) such that \(e \cdot a = a \cdot e = a\) for all \(a \in G\)</li>
+<li><b>Inverses</b>: For each \(a \in G\), there exists \(a^{-1} \in G\) such that \(a \cdot a^{-1} = a^{-1} \cdot a = e\)</li>
+</ol>
+
+</div>
+
+<div class="theorem" id="org7a4849d">
+<p>
+<b>(Lagrange&rsquo;s Theorem)</b> Let \(G\) be a finite group and \(H\) a subgroup of \(G\). Then the order of \(H\) divides the order of \(G\):
+\[|G| = |H| \cdot [G:H]\]
+where \([G:H]\) denotes the index of \(H\) in \(G\).
+</p>
+
+</div>
+
+<p>
+A test of displayed equations:
+\[a+b\]
+</p>
+
+<div class="proof" id="org1c252f4">
+<p>
+Consider the left cosets of \(H\) in \(G\). Each coset \(gH = \{gh : h \in H\}\) has exactly \(|H|\) elements. Moreover, the cosets partition \(G\) into disjoint sets. If there are \(k\) distinct cosets, then:
+\[|G| = k \cdot |H| = [G:H] \cdot |H|\]
+Thus \(|H|\) divides \(|G|\). \qed
+</p>
+
+</div>
+
+<div class="corollary" id="org562a761">
+<p>
+If \(G\) is a group of prime order \(p\), then \(G\) is cyclic.
+</p>
+
+</div>
+
+<div class="lemma" id="orgde97801">
+<p>
+A non-empty subset \(H\) of a group \(G\) is a subgroup if and only if \(ab^{-1} \in H\) for all \(a, b \in H\).
+</p>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgdc2c16b" class="outline-3">
+<h3 id="orgdc2c16b"><span class="section-number-3">3.2.</span> Cross-Referencing with <code>C-c r</code></h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+The <code>cross-refs.el</code> library provides smart cross-referencing. To reference a theorem, type the context word and press <code>C-c r</code>:
+</p>
+
+<ul class="org-ul">
+<li>Type &ldquo;theorem&rdquo; then <code>C-c r</code> → prompts for labels starting with <code>thm:</code></li>
+<li>Type &ldquo;definition&rdquo; then <code>C-c r</code> → prompts for <code>def:</code> labels</li>
+<li>Type &ldquo;lemma&rdquo; then <code>C-c r</code> → prompts for <code>lem:</code> labels</li>
+<li>Type &ldquo;equation&rdquo; then <code>C-c r</code> → prompts for <code>eq:</code> labels</li>
+</ul>
+
+<p>
+Examples:
+</p>
+<ul class="org-ul">
+<li>By <a href="#org7a4849d">1</a>, every subgroup divides the order.</li>
+<li>See <a href="#org5a239e4">1</a> for the group axioms.</li>
+<li>The proof is in <a href="#org1c252f4">1</a>.</li>
+<li>From <a href="#org562a761">1</a>, prime-order groups are cyclic.</li>
+<li>We can reference the theorem <a href="#org73689eb">1</a>.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org06485b8" class="outline-2">
+<h2 id="org06485b8"><span class="section-number-2">4.</span> Advanced Mathematics</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-org8679f57" class="outline-3">
+<h3 id="org8679f57"><span class="section-number-3">4.1.</span> Ring Theory</h3>
+<div class="outline-text-3" id="text-4-1">
+<div class="definition" id="orgacc03b2">
+<p>
+A <b>ring</b> is a set \(R\) equipped with two binary operations \(+\) (addition) and \(\cdot\) (multiplication) such that:
+</p>
+<ol class="org-ol">
+<li>\((R, +)\) is an abelian group</li>
+<li>Multiplication is associative</li>
+<li>The distributive laws hold: \(a \cdot (b + c) = a \cdot b + a \cdot c\) and \((a + b) \cdot c = a \cdot c + b \cdot c\)</li>
+</ol>
+
+</div>
+
+<div class="theorem" id="orgaae8603">
+<p>
+<b>(First Isomorphism Theorem)</b> Let \(\varphi: R \to S\) be a ring homomorphism. Then:
+\[R / \ker(\varphi) \cong \mathrm{Im}(\varphi)\]
+</p>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6634bb6" class="outline-3">
+<h3 id="org6634bb6"><span class="section-number-3">4.2.</span> Complex Analysis</h3>
+<div class="outline-text-3" id="text-4-2">
+<div class="definition" id="orgd15ff41">
+<p>
+A function \(f: U \to \mathbb{C}\) defined on an open set \(U \subseteq \mathbb{C}\) is <b>holomorphic</b> if it is complex differentiable at every point in \(U\).
+</p>
+
+</div>
+
+<div class="theorem" id="org73689eb">
+<p>
+<b>(Cauchy&rsquo;s Integral Formula)</b> Let \(f\) be holomorphic in a simply connected domain \(D\), and let \(\gamma\) be a simple closed contour in \(D\) oriented counterclockwise. For any \(a\) inside \(\gamma\):
+</p>
+
+</div>
+
+\begin{equation}
+\label{orgf6af1f6}
+f(a) = \frac{1}{2\pi i} \oint_{\gamma} \frac{f(z)}{z - a} \, dz
+\end{equation}
+
+<div class="corollary" id="org44b63d8">
+<p>
+<b>(Liouville&rsquo;s Theorem)</b> Every bounded entire function is constant.
+</p>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0f8ea4f" class="outline-3">
+<h3 id="org0f8ea4f"><span class="section-number-3">4.3.</span> Graph Theory Example</h3>
+<div class="outline-text-3" id="text-4-3">
+<div class="definition" id="org9431050">
+<p>
+A <b>graph</b> \(G = (V, E)\) consists of a set \(V\) of vertices and a set \(E \subseteq \binom{V}{2}\) of edges.
+</p>
+
+</div>
+
+<div class="theorem" id="org2bd53dc">
+<p>
+<b>(Handshaking Lemma)</b> In any graph \(G = (V, E)\):
+</p>
+
+</div>
+
+\begin{equation}
+\label{org3f7670c}
+\sum_{v \in V} \deg(v) = 2|E|
+\end{equation}
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2ecd4a7" class="outline-2">
+<h2 id="org2ecd4a7"><span class="section-number-2">5.</span> Equations and Alignment</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-orgc6b7cd5" class="outline-3">
+<h3 id="orgc6b7cd5"><span class="section-number-3">5.1.</span> Single Equations</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+Use <code>&lt;f6&gt; e</code> to insert labeled equations:
+</p>
+
+\begin{equation}
+\label{orgb0d6b44}
+e^{i\pi} + 1 = 0
+\end{equation}
+
+<p>
+The famous Equation \eqref{orgb0d6b44} connects five fundamental constants.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgede1efb" class="outline-3">
+<h3 id="orgede1efb"><span class="section-number-3">5.2.</span> Aligned Equations</h3>
+<div class="outline-text-3" id="text-5-2">
+\begin{align}
+\label{org8714c71}
+ax^2 + bx + c &= 0 \\
+x^2 + \frac{b}{a}x + \frac{c}{a} &= 0 \\
+x^2 + \frac{b}{a}x &= -\frac{c}{a} \\
+x^2 + \frac{b}{a}x + \frac{b^2}{4a^2} &= \frac{b^2}{4a^2} - \frac{c}{a} \\
+\left(x + \frac{b}{2a}\right)^2 &= \frac{b^2 - 4ac}{4a^2} \\
+x &= \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+\end{align}
+</div>
+</div>
+
+<div id="outline-container-orga15dd13" class="outline-3">
+<h3 id="orga15dd13"><span class="section-number-3">5.3.</span> System of Equations</h3>
+<div class="outline-text-3" id="text-5-3">
+<p>
+Consider the linear system:
+</p>
+
+\begin{equation}
+\label{orgdd0db34}
+\begin{cases}
+  2x + 3y - z = 1 \\
+  x - y + 2z = 4 \\
+  3x + 2y + z = 5
+\end{cases}
+\end{equation}
+</div>
+</div>
+</div>
+
+<div id="outline-container-org063c0bd" class="outline-2">
+<h2 id="org063c0bd"><span class="section-number-2">6.</span> Integration with Org-Roam</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+This configuration uses <code>org-roam</code> for networked note-taking. Create links to other notes:
+</p>
+
+<ul class="org-ul">
+<li>Use <code>&lt;f8&gt; f</code> to find or create a roam note</li>
+<li>Use <code>&lt;f8&gt; i</code> to insert a link to a roam note</li>
+<li>Use <code>&lt;f5&gt; d</code> to search within all roam notes using <code>consult-ripgrep</code></li>
+</ul>
+</div>
+
+<div id="outline-container-orga939992" class="outline-3">
+<h3 id="orga939992"><span class="section-number-3">6.1.</span> Org-Roam Search</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+Use <code>&lt;f5&gt; d</code> (<code>bms/org-roam-rg-search</code>) to search across all notes in <code>my-notes-directory</code>.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org197fe2e" class="outline-2">
+<h2 id="org197fe2e"><span class="section-number-2">7.</span> Bibliography and Citations</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+This configuration uses <code>citar</code> with <code>bibtex</code> for bibliography management.
+</p>
+</div>
+
+<div id="outline-container-org483f022" class="outline-3">
+<h3 id="org483f022"><span class="section-number-3">7.1.</span> Citation Workflow</h3>
+<div class="outline-text-3" id="text-7-1">
+<ol class="org-ol">
+<li>Press <code>&lt;f7&gt;</code> to open <code>citar-open</code> (search bibliography)</li>
+<li>Press <code>&lt;f5&gt; b</code> to insert a citation with <code>citar-insert-bibtex</code></li>
+<li>In bibtex-mode, press <code>&lt;f5&gt; b</code> to use <code>bibretrieve</code> to fetch entries</li>
+<li>Use <code>C-c C-c</code> in bibtex-mode to generate auto-keys (format: <code>year-author-title</code>)</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgd8f678e" class="outline-3">
+<h3 id="orgd8f678e"><span class="section-number-3">7.2.</span> Example Citations</h3>
+<div class="outline-text-3" id="text-7-2">
+<p>
+Important results in graph theory can be found in standard references. The chromatic polynomial was introduced by Birkhoff, and Tutte&rsquo;s work on matroids extended these ideas significantly.
+</p>
+
+<p>
+Integration with <code>citar-org-roam</code> allows literature notes to be created automatically with the &ldquo;r&rdquo; template.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org98b8ea0" class="outline-2">
+<h2 id="org98b8ea0"><span class="section-number-2">8.</span> Python and Jupyter Integration</h2>
+<div class="outline-text-2" id="text-8">
+</div>
+<div id="outline-container-org4588293" class="outline-3">
+<h3 id="org4588293"><span class="section-number-3">8.1.</span> Basic Python Source Block</h3>
+<div class="outline-text-3" id="text-8-1">
+<p>
+Use the <code>src-python</code> snippet or type <code>&lt;j</code> for jupyter-python blocks:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# Generate data
+x = np.linspace(0, 2*np.pi, 100)
+y = np.sin(x)
+
+# Simple calculation
+print(f"Maximum value of sin(x): {np.max(y)}")
+print(f"Minimum value of sin(x): {np.min(y)}")
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6c76707" class="outline-3">
+<h3 id="org6c76707"><span class="section-number-3">8.2.</span> Jupyter Integration</h3>
+<div class="outline-text-3" id="text-8-2">
+<p>
+The configuration includes <code>emacs-jupyter</code> for interactive computing. Note the workaround for the login error and the manual <code>zmq</code> compilation requirement.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-jupyter-python">import numpy as np
+import sympy as sp
+
+# Symbolic mathematics with SymPy
+x, y = sp.symbols('x y')
+expr = sp.sin(x)**2 + sp.cos(x)**2
+simplified = sp.simplify(expr)
+print(f"Simplified: {simplified}")
+
+# Calculus
+f = sp.sin(x) * sp.exp(x)
+derivative = sp.diff(f, x)
+integral = sp.integrate(f, x)
+print(f"f(x) = {f}")
+print(f"f'(x) = {derivative}")
+print(f"Integral of f(x)dx = {integral}")
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3c1ac76" class="outline-3">
+<h3 id="org3c1ac76"><span class="section-number-3">8.3.</span> Data Visualization</h3>
+<div class="outline-text-3" id="text-8-3">
+<div class="org-src-container">
+<pre class="src src-python">import matplotlib.pyplot as plt
+import numpy as np
+
+# Create figure
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4))
+
+# Plot 1: Trigonometric functions
+x = np.linspace(0, 4*np.pi, 200)
+ax1.plot(x, np.sin(x), label='sin(x)', linewidth=2)
+ax1.plot(x, np.cos(x), label='cos(x)', linewidth=2)
+ax1.set_xlabel('x')
+ax1.set_ylabel('y')
+ax1.set_title('Trigonometric Functions')
+ax1.legend()
+ax1.grid(True, alpha=0.3)
+
+# Plot 2: Polynomial
+x2 = np.linspace(-2, 2, 100)
+ax2.plot(x2, x2**3 - 3*x2**2 + 2*x2 + 1, linewidth=2, color='red')
+ax2.set_xlabel('x')
+ax2.set_ylabel('y')
+ax2.set_title('Cubic Polynomial')
+ax2.grid(True, alpha=0.3)
+ax2.axhline(y=0, color='k', linewidth=0.5)
+ax2.axvline(x=0, color='k', linewidth=0.5)
+
+plt.tight_layout()
+plt.savefig('sample2_plot.png', dpi=100, bbox_inches='tight')
+return 'sample2_plot.png'
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org81a714e" class="outline-2">
+<h2 id="org81a714e"><span class="section-number-2">9.</span> Tables and Data</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+Org-mode tables are powerful for organizing data:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Theorem</th>
+<th scope="col" class="org-right">Section</th>
+<th scope="col" class="org-left">Reference</th>
+<th scope="col" class="org-left">Key Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Lagrange</td>
+<td class="org-right">2.1</td>
+<td class="org-left"><a href="#org7a4849d">1</a></td>
+<td class="org-left">Subgroup order divides</td>
+</tr>
+
+<tr>
+<td class="org-left">Cauchy Integral</td>
+<td class="org-right">3.2</td>
+<td class="org-left"><a href="#org73689eb">1</a></td>
+<td class="org-left">Holomorphic function value</td>
+</tr>
+
+<tr>
+<td class="org-left">Handshaking</td>
+<td class="org-right">3.3</td>
+<td class="org-left"><a href="#org2bd53dc">1</a></td>
+<td class="org-left">Sum of degrees = 2&vert;E&vert;</td>
+</tr>
+
+<tr>
+<td class="org-left">First Iso. Thm.</td>
+<td class="org-right">3.1</td>
+<td class="org-left"><a href="#orgaae8603">1</a></td>
+<td class="org-left">Kernel and image</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Use <code>C-c |</code> to create tables, and the table will auto-format as you type.
+</p>
+</div>
+
+<div id="outline-container-orga0a621e" class="outline-3">
+<h3 id="orga0a621e"><span class="section-number-3">9.1.</span> Calculations in Tables</h3>
+<div class="outline-text-3" id="text-9-1">
+<p>
+Org tables support formulas:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-right">\(n\)</th>
+<th scope="col" class="org-right">\(n^2\)</th>
+<th scope="col" class="org-right">\(n^3\)</th>
+<th scope="col" class="org-right">\(2^n\)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">1</td>
+<td class="org-right">1</td>
+<td class="org-right">1</td>
+<td class="org-right">2</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-right">4</td>
+<td class="org-right">8</td>
+<td class="org-right">4</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-right">9</td>
+<td class="org-right">27</td>
+<td class="org-right">8</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-right">16</td>
+<td class="org-right">64</td>
+<td class="org-right">16</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-right">25</td>
+<td class="org-right">125</td>
+<td class="org-right">32</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org469f3fc" class="outline-2">
+<h2 id="org469f3fc"><span class="section-number-2">10.</span> Export Options</h2>
+<div class="outline-text-2" id="text-10">
+</div>
+<div id="outline-container-org16ee579" class="outline-3">
+<h3 id="org16ee579"><span class="section-number-3">10.1.</span> LaTeX/PDF Export</h3>
+<div class="outline-text-3" id="text-10-1">
+<p>
+This document can be exported to LaTeX/PDF with <code>C-c C-e l p</code>:
+</p>
+<ul class="org-ul">
+<li>Custom <code>#+LATEX_HEADER</code> declarations define theorem environments</li>
+<li>All <code>#+begin_theorem</code> blocks export correctly</li>
+<li>Cross-references work in the PDF output</li>
+<li>Math fragments render beautifully</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgfe43828" class="outline-3">
+<h3 id="orgfe43828"><span class="section-number-3">10.2.</span> Jupyter Notebook Export</h3>
+<div class="outline-text-3" id="text-10-2">
+<p>
+With <code>ox-ipynb</code>, export to <code>.ipynb</code> format:
+</p>
+<ul class="org-ul">
+<li>Use <code>C-c C-e</code> and select the ipynb export option</li>
+<li>Python and Jupyter source blocks become notebook cells</li>
+<li>Markdown sections become markdown cells</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org90f6093" class="outline-2">
+<h2 id="org90f6093"><span class="section-number-2">11.</span> Advanced Features Showcase</h2>
+<div class="outline-text-2" id="text-11">
+</div>
+<div id="outline-container-org1d23c41" class="outline-3">
+<h3 id="org1d23c41"><span class="section-number-3">11.1.</span> Embark Actions</h3>
+<div class="outline-text-3" id="text-11-1">
+<p>
+With <code>embark</code> (bound to <code>C-=</code>):
+</p>
+<ul class="org-ul">
+<li>In file completion, press <code>C-=</code> then <code>L</code> to insert an org link</li>
+<li>Use embark on citar results to open PDFs, bibtex entries, or notes</li>
+<li>Combine with <code>consult</code> for powerful navigation</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orge1a7d14" class="outline-3">
+<h3 id="orge1a7d14"><span class="section-number-3">11.2.</span> Consult Commands</h3>
+<div class="outline-text-3" id="text-11-2">
+<ul class="org-ul">
+<li><code>&lt;f5&gt; l</code> → <code>consult-line</code> for searching current buffer</li>
+<li><code>&lt;f5&gt; r</code> → <code>consult-ripgrep</code> for project-wide search</li>
+<li><code>&lt;f5&gt; d</code> → <code>bms/org-roam-rg-search</code> for org-roam specific search</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgd981caa" class="outline-3">
+<h3 id="orgd981caa"><span class="section-number-3">11.3.</span> Smartparens</h3>
+<div class="outline-text-3" id="text-11-3">
+<p>
+The <code>smartparens</code> configuration handles paired delimiters:
+</p>
+<ul class="org-ul">
+<li>In org-mode, <code>|</code> is paired for absolute values: \(|x|\)</li>
+<li>In org-mode, <code>=</code>  is paired for verbatim text: <code>code</code></li>
+<li>Works with all bracket types: \(\{x \in \mathbb{R} : x > 0\}\)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org1b07367" class="outline-3">
+<h3 id="org1b07367"><span class="section-number-3">11.4.</span> Org-Fragtog</h3>
+<div class="outline-text-3" id="text-11-4">
+<p>
+LaTeX fragments preview automatically as you move the cursor:
+</p>
+<ul class="org-ul">
+<li>Fragments render when cursor leaves them</li>
+<li>Inline math like \(\sum_{i=1}^{n} i = \frac{n(n+1)}{2}\) appears immediately</li>
+<li>Display math previews in place</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7301910" class="outline-2">
+<h2 id="org7301910"><span class="section-number-2">12.</span> GTD and Task Management</h2>
+<div class="outline-text-2" id="text-12">
+<p>
+The configuration includes a GTD (Getting Things Done) setup with Org Capture:
+</p>
+</div>
+
+<div id="outline-container-orgd7f8cb2" class="outline-3">
+<h3 id="orgd7f8cb2"><span class="section-number-3">12.1.</span> Capture Templates</h3>
+<div class="outline-text-3" id="text-12-1">
+<ul class="org-ul">
+<li><code>C-c c i</code> → Capture to Inbox (TODO item)</li>
+<li><code>C-c c w</code> → Capture web content with org-protocol</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgf2d65a4" class="outline-3">
+<h3 id="orgf2d65a4"><span class="section-number-3">12.2.</span> Example Tasks</h3>
+<div class="outline-text-3" id="text-12-2">
+</div>
+<div id="outline-container-orga012eda" class="outline-4">
+<h4 id="orga012eda"><span class="section-number-4">12.2.1.</span> <span class="todo TODO">TODO</span> Review Lagrange&rsquo;s Theorem proof</h4>
+<div class="outline-text-4" id="text-12-2-1">
+<ul class="org-ul">
+<li>Need to verify the coset partition argument</li>
+<li>Check <a href="#org7a4849d">1</a> for reference</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgdc6efe8" class="outline-4">
+<h4 id="orgdc6efe8"><span class="section-number-4">12.2.2.</span> <span class="done DONE">DONE</span> Write comprehensive demo file</h4>
+<div class="outline-text-4" id="text-12-2-2">
+<ul class="org-ul">
+<li>Created sample2.org with extensive examples</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0b568ec" class="outline-3">
+<h3 id="org0b568ec"><span class="section-number-3">12.3.</span> Org Agenda</h3>
+<div class="outline-text-3" id="text-12-3">
+<p>
+Use <code>C-c a</code> to open the agenda view, which shows:
+</p>
+<ul class="org-ul">
+<li>Scheduled tasks</li>
+<li>Deadlines</li>
+<li>Habit tracking (via <code>org-habit</code>)</li>
+<li>Custom agenda views</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgcd0d301" class="outline-2">
+<h2 id="orgcd0d301"><span class="section-number-2">13.</span> AI Integration with GPTel</h2>
+<div class="outline-text-2" id="text-13">
+<p>
+The configuration includes <code>gptel</code> for AI assistance:
+</p>
+<ul class="org-ul">
+<li>Press <code>C-c g</code> to open GPTel</li>
+<li>Ask questions about mathematics, LaTeX, or Emacs</li>
+<li>Get help with proof strategies or problem-solving</li>
+<li>API key is stored in <code>personal.org</code></li>
+</ul>
+</div>
+
+<div id="outline-container-org8891f30" class="outline-3">
+<h3 id="org8891f30"><span class="section-number-3">13.1.</span> Example AI Queries</h3>
+<div class="outline-text-3" id="text-13-1">
+<p>
+Use GPTel to:
+</p>
+<ul class="org-ul">
+<li>&ldquo;Explain the intuition behind Lagrange&rsquo;s theorem&rdquo;</li>
+<li>&ldquo;Generate LaTeX code for a commutative diagram&rdquo;</li>
+<li>&ldquo;Suggest a proof strategy for showing a function is continuous&rdquo;</li>
+<li>&ldquo;Debug my Emacs Lisp function&rdquo;</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5d61834" class="outline-2">
+<h2 id="org5d61834"><span class="section-number-2">14.</span> Magit Integration</h2>
+<div class="outline-text-2" id="text-14">
+<p>
+Version control with <code>magit</code> (<code>C-c m</code>):
+</p>
+<ul class="org-ul">
+<li>Stage changes with <code>s</code></li>
+<li>Commit with <code>c c</code></li>
+<li>Use <code>gptel-magit</code> for AI-generated commit messages</li>
+<li>Push/pull with <code>P</code> / <code>F</code></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgfe99f4e" class="outline-2">
+<h2 id="orgfe99f4e"><span class="section-number-2">15.</span> PDF Tools and Org-Noter</h2>
+<div class="outline-text-2" id="text-15">
+</div>
+<div id="outline-container-orgb8f39ee" class="outline-3">
+<h3 id="orgb8f39ee"><span class="section-number-3">15.1.</span> Reading PDFs</h3>
+<div class="outline-text-3" id="text-15-1">
+<p>
+With <code>pdf-tools</code>:
+</p>
+<ul class="org-ul">
+<li>Open PDFs in Emacs with native rendering</li>
+<li>Annotate directly in the PDF</li>
+<li>Sync with org-noter notes</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org4962cc3" class="outline-3">
+<h3 id="org4962cc3"><span class="section-number-3">15.2.</span> Org-Noter Workflow</h3>
+<div class="outline-text-3" id="text-15-2">
+<ol class="org-ol">
+<li>Open a PDF in pdf-tools</li>
+<li>Press <code>&lt;f5&gt; n</code> to start <code>org-noter</code></li>
+<li>Take notes that sync with PDF page numbers</li>
+<li>Notes are stored in <code>my-notes-directory</code></li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org81c0dd0" class="outline-2">
+<h2 id="org81c0dd0"><span class="section-number-2">16.</span> Useful Keybinding Reference</h2>
+<div class="outline-text-2" id="text-16">
+</div>
+<div id="outline-container-orgcff5f2c" class="outline-3">
+<h3 id="orgcff5f2c"><span class="section-number-3">16.1.</span> Global Bindings</h3>
+<div class="outline-text-3" id="text-16-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key</th>
+<th scope="col" class="org-left">Command</th>
+<th scope="col" class="org-left">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>C-c a</code></td>
+<td class="org-left"><code>org-agenda</code></td>
+<td class="org-left">Open agenda</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-c c</code></td>
+<td class="org-left"><code>org-capture</code></td>
+<td class="org-left">Capture item</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-c m</code></td>
+<td class="org-left"><code>magit-status</code></td>
+<td class="org-left">Git interface</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-c g</code></td>
+<td class="org-left"><code>gptel</code></td>
+<td class="org-left">AI assistant</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-=</code></td>
+<td class="org-left"><code>embark-act</code></td>
+<td class="org-left">Context actions</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>f2 f2</code></td>
+<td class="org-left"><code>indent-line</code></td>
+<td class="org-left">Fix indentation</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>f2 r</code></td>
+<td class="org-left"><code>recentf</code></td>
+<td class="org-left">Recent files</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>super down</code></td>
+<td class="org-left"><code>duplicate-line</code></td>
+<td class="org-left">Copy line down</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org068eae4" class="outline-3">
+<h3 id="org068eae4"><span class="section-number-3">16.2.</span> Org-Mode Specific</h3>
+<div class="outline-text-3" id="text-16-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key</th>
+<th scope="col" class="org-left">Command</th>
+<th scope="col" class="org-left">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>C-c r</code></td>
+<td class="org-left"><code>my/org-insert-smart-ref</code></td>
+<td class="org-left">Smart cross-reference</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>$</code></td>
+<td class="org-left"><code>math-delimiters-insert</code></td>
+<td class="org-left">Insert math delimiters</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>&lt;f6&gt; t</code></td>
+<td class="org-left">thm snippet</td>
+<td class="org-left">Insert theorem</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>&lt;f6&gt; d</code></td>
+<td class="org-left">def snippet</td>
+<td class="org-left">Insert definition</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>&lt;f6&gt; l</code></td>
+<td class="org-left">lem snippet</td>
+<td class="org-left">Insert lemma</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>&lt;f6&gt; c</code></td>
+<td class="org-left">cor snippet</td>
+<td class="org-left">Insert corollary</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>&lt;f6&gt; p</code></td>
+<td class="org-left">pro snippet</td>
+<td class="org-left">Insert proposition</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>&lt;f6&gt; e</code></td>
+<td class="org-left">equ snippet</td>
+<td class="org-left">Insert equation</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>&lt;f6&gt; f</code></td>
+<td class="org-left">pf snippet</td>
+<td class="org-left">Insert proof</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>&lt;f8&gt; f</code></td>
+<td class="org-left"><code>org-roam-node-find</code></td>
+<td class="org-left">Find/create roam note</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>&lt;f8&gt; i</code></td>
+<td class="org-left"><code>org-roam-node-insert</code></td>
+<td class="org-left">Insert roam link</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>&lt;f5&gt; d</code></td>
+<td class="org-left"><code>bms/org-roam-rg-search</code></td>
+<td class="org-left">Search roam notes</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>&lt;f5&gt; l</code></td>
+<td class="org-left"><code>consult-line</code></td>
+<td class="org-left">Search buffer</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>&lt;f5&gt; r</code></td>
+<td class="org-left"><code>consult-ripgrep</code></td>
+<td class="org-left">Search project</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org6df40b8" class="outline-3">
+<h3 id="org6df40b8"><span class="section-number-3">16.3.</span> Bibliography</h3>
+<div class="outline-text-3" id="text-16-3">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key</th>
+<th scope="col" class="org-left">Command</th>
+<th scope="col" class="org-left">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>&lt;f7&gt;</code></td>
+<td class="org-left"><code>citar-open</code></td>
+<td class="org-left">Open citation</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>&lt;f5&gt; b</code></td>
+<td class="org-left"><code>citar-insert-bibtex</code></td>
+<td class="org-left">Insert citation</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>&lt;f5&gt; n</code></td>
+<td class="org-left"><code>org-noter</code></td>
+<td class="org-left">PDF annotation</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf48fc69" class="outline-2">
+<h2 id="orgf48fc69"><span class="section-number-2">17.</span> Conclusion</h2>
+<div class="outline-text-2" id="text-17">
+<p>
+This document showcases the major features of the math-emacs configuration:
+</p>
+
+<ol class="org-ol">
+<li>Theorem environments with yasnippet (<code>&lt;f6&gt;</code> keys)</li>
+<li>Smart cross-referencing (<code>C-c r</code>)</li>
+<li>CDLaTeX for fast math input</li>
+<li>Math delimiters with <code>$</code></li>
+<li>Org-roam for networked notes (<code>&lt;f8&gt;</code> keys)</li>
+<li>Bibliography with citar (<code>&lt;f7&gt;</code>, <code>&lt;f5&gt; b</code>)</li>
+<li>Jupyter/Python integration</li>
+<li>Modern completion (Vertico/Consult/Embark)</li>
+<li>GPTel AI assistance (<code>C-c g</code>)</li>
+<li>Magit version control (<code>C-c m</code>)</li>
+<li>PDF tools and org-noter</li>
+<li>Export to LaTeX/PDF and Jupyter notebooks</li>
+</ol>
+</div>
+
+<div id="outline-container-org6e3ffff" class="outline-3">
+<h3 id="org6e3ffff"><span class="section-number-3">17.1.</span> Next Steps</h3>
+<div class="outline-text-3" id="text-17-1">
+<p>
+To explore further:
+</p>
+<ul class="org-ul">
+<li>Read <code>emacs-config.org</code> for full configuration details</li>
+<li>Check <code>lisp/cross-refs.el</code> for cross-reference implementation</li>
+<li>Explore snippets in <code>snippets/org-mode/</code> directory</li>
+<li>Review <code>README.org</code> for setup instructions</li>
+<li>Add <code>personal.org</code> for private settings (API keys, paths)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org87dee25" class="outline-3">
+<h3 id="org87dee25"><span class="section-number-3">17.2.</span> Testing This Configuration</h3>
+<div class="outline-text-3" id="text-17-2">
+<p>
+To test without affecting your current setup:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">emacs -Q --eval '(setq user-emacs-directory "/path/to/math-emacs/")' \
+     -l "/path/to/math-emacs/init.el" sample2.org
+</pre>
+</div>
+</div>
+</div>
+</div>
