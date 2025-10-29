@@ -1,0 +1,64 @@
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Plain Description -->
+  <title>
+    {{page.title | strip_newlines | strip_html | escape}} -- {{ site.title | strip_newlines |
+    strip_html | escape }}
+  </title>
+  <meta name="description" content="{{site.tagline}}" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+
+  <!-- Google+ -->
+  <link rel="publisher" href="https://plus.google.com/{{site.googleplus}}" />
+  <meta itemprop="name" content="{{page.title | strip_newlines | strip_html | escape}}" />
+  <meta itemprop="description" content="{{site.tagline | strip_newlines | strip_html | escape}}" />
+  <meta
+    itemprop="image"
+    content="{% if page.image %}{{site.url}}{{page.image}}{% else %}{{site.url}}{{site.socialimg}}{% endif %}"
+  />
+
+  <!-- Facebook -->
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:title"
+    content="{% if page.fulltitle %}{{page.fulltitle | strip_newlines | strip_html | escape}}{% else %}{{page.title | strip_newlines | strip_html | escape}} | {{ site.title | strip_newlines | strip_html | escape }} {% endif %}"
+  />
+  <meta
+    property="og:description"
+    content="{{site.tagline | strip_newlines | strip_html | escape}}"
+  />
+  <meta property="og:url" content="{{site.url}}{{page.url}}" />
+  <meta
+    property="og:site_name"
+    content="{{ site.title | strip_newlines | strip_html | escape }} "
+  />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta
+    name="twitter:title"
+    content="{% if page.fulltitle %}{{page.fulltitle | strip_newlines | strip_html | escape}}{% else %}{{page.title | strip_newlines | strip_html | escape}} | {{ site.title | strip_newlines | strip_html | escape }} {% endif %}"
+  />
+  <meta
+    name="twitter:description"
+    content="{{site.tagline | strip_newlines | strip_html | escape}}"
+  />
+  <meta name="twitter:url" content="{{site.url}}{{page.url}}" />
+
+  <!-- use page.hero_image OR fallback to first img in post -->
+  {% include meta_hero_image.html %}
+
+  <!-- CSS & fonts -->
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css"
+  />
+  <link rel="stylesheet" href="{{site.url}}{{site.baseurl}}/css/vendor/reset.css" />
+  <link rel="stylesheet" href="{{site.url}}{{site.baseurl}}/css/vendor/syntax.css" />
+  <link rel="stylesheet" href="{{site.url}}{{site.baseurl}}/css/app.css" />
+  <!-- Put your fonts here -->
+</head>
