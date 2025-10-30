@@ -108,7 +108,7 @@ A test of displayed equations:
 #+begin_proof
 Consider the left cosets of \(H\) in \(G\). Each coset \(gH = \{gh : h \in H\}\) has exactly \(|H|\) elements. Moreover, the cosets partition \(G\) into disjoint sets. If there are \(k\) distinct cosets, then:
 \[|G| = k \cdot |H| = [G:H] \cdot |H|\]
-Thus \(|H|\) divides \(|G|\). \(\qed\)
+Thus \(|H|\) divides \(|G|\). 
 #+end_proof
 
 #+name: cor:prime-order
@@ -170,12 +170,12 @@ A function \(f: U \to \mathbb{C}\) defined on an open set \(U \subseteq \mathbb{
 #+label: thm:cauchy-integral
 #+begin_theorem
 *(Cauchy's Integral Formula)* Let \(f\) be holomorphic in a simply connected domain \(D\), and let \(\gamma\) be a simple closed contour in \(D\) oriented counterclockwise. For any \(a\) inside \(\gamma\):
-#+end_theorem
 
 #+name: eq:cauchy-formula
 \begin{equation}
 f(a) = \frac{1}{2\pi i} \oint_{\gamma} \frac{f(z)}{z - a} \, dz
 \end{equation}
+#+end_theorem
 
 #+name: cor:liouville
 #+label: cor:liouville
@@ -195,12 +195,13 @@ A *graph* \(G = (V, E)\) consists of a set \(V\) of vertices and a set \(E \subs
 #+label: thm:handshaking
 #+begin_theorem
 *(Handshaking Lemma)* In any graph \(G = (V, E)\):
-#+end_theorem
 
 #+name: eq:handshaking
 \begin{equation}
 \sum_{v \in V} \deg(v) = 2|E|
 \end{equation}
+#+end_theorem
+
 
 * Equations and Alignment
 
