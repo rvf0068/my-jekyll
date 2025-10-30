@@ -158,6 +158,19 @@ Places anchors BEFORE equation blocks and adds \\tag{n} inside equations for dis
     ;; Process equation labels and references
     (setq contents (org-process-equation-references contents))
     
+    ;; Fix LaTeX special characters that weren't properly converted
+    (setq contents (replace-regexp-in-string "{\\\\\"o}" "ö" contents))
+    (setq contents (replace-regexp-in-string "{\\\\\"a}" "ä" contents))
+    (setq contents (replace-regexp-in-string "{\\\\\"u}" "ü" contents))
+    (setq contents (replace-regexp-in-string "{\\\\\"O}" "Ö" contents))
+    (setq contents (replace-regexp-in-string "{\\\\\"A}" "Ä" contents))
+    (setq contents (replace-regexp-in-string "{\\\\\"U}" "Ü" contents))
+    (setq contents (replace-regexp-in-string "{\\\\'e}" "é" contents))
+    (setq contents (replace-regexp-in-string "{\\\\'a}" "á" contents))
+    (setq contents (replace-regexp-in-string "{\\\\'i}" "í" contents))
+    (setq contents (replace-regexp-in-string "{\\\\'o}" "ó" contents))
+    (setq contents (replace-regexp-in-string "{\\\\'u}" "ú" contents))
+    
     ;; Replace file:// URLs with proper HTTP paths for baseurl
     (let ((file-url-pattern (concat "href=\"file:/+" jekyll-baseurl "/"))
           (http-path (concat "href=\"" jekyll-baseurl "/")))
