@@ -27,13 +27,13 @@ This document summarizes the citation feature implementation for the Jekyll blog
 ## Implementation Details
 
 ### Citation Approach
-The blog uses **Org-mode footnotes** for citations rather than the newer `oc.el` citation syntax. This approach:
-- Provides maximum compatibility across Org-mode versions
+The blog uses **Org mode footnotes** for citations rather than the newer `oc.el` citation syntax. This approach:
+- Provides maximum compatibility across Org mode versions
 - Allows manual formatting control over bibliography entries
 - Works reliably without additional package dependencies (citeproc)
 - Renders as HTML footnotes with backlinks
 
-### Org-mode Configuration
+### Org mode Configuration
 Modified `org_publish.el` to:
 - Load `oc` (org-cite) module for potential future use
 - Configure basic citation export processor
