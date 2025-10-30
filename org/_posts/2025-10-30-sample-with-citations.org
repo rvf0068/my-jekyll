@@ -88,5 +88,7 @@ This post has demonstrated:
 
 The bibliography is stored in =references.bib= and uses standard BibTeX format.
 
+* Bibliography
+
 #+print_bibliography:
 
