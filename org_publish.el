@@ -55,6 +55,31 @@ INFO is the plist used as a communication channel."
                                "---\n")))
     front-matter))
 
+;; Function to add descriptions to mathematical reference links before export
+;; This processes links like [[thm:lagrange]] to become [[thm:lagrange][lagrange]]
+(defun org-add-math-link-descriptions ()
+  "Add descriptions to mathematical reference links in the current buffer.
+Links with prefixes thm:, cor:, lem:, prf:, def:, pro:, eq: will get
+automatic descriptions derived from the label name."
+  (save-excursion
+    (goto-char (point-min))
+    (while (re-search-forward
+            "\\[\\[\\(thm:\\|cor:\\|lem:\\|prf:\\|def:\\|pro:\\|eq:\\)\\([^]]+\\)\\]\\]"
+            nil t)
+      (let* ((full-match (match-string 0))
+             (prefix (match-string 1))
+             (label (match-string 2))
+             (link-with-desc (format "[[%s%s][%s]]" prefix label label)))
+        (replace-match link-with-desc t t)))))
+
+;; Hook to run before publishing
+(defun org-publish-before-processing-hook (backend)
+  "Add math link descriptions before export."
+  (when (org-export-derived-backend-p backend 'html)
+    (org-add-math-link-descriptions)))
+
+(add-hook 'org-export-before-processing-hook 'org-publish-before-processing-hook)
+
 ;; Custom function to fix Jekyll baseurl links and add front matter
 ;; This prevents org-mode from converting paths starting with baseurl to file:// URLs
 (defun org-html-final-function (contents backend info)
