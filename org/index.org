@@ -7,8 +7,6 @@ title: "Home"
 
 Welcome! This is the homepage of my blog, powered by Org-mode and Jekyll.
 
-* Recent Posts
-
 #+BEGIN_EXPORT html
 <ul>
 {% for post in site.posts %}

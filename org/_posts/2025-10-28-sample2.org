@@ -1,14 +1,3 @@
-#+BEGIN_EXPORT html
----
-layout: post
-title: "Comprehensive Demo: Math Emacs Configuration"
-date: 2025-10-28 12:00:00 -0500
-categories: demo mathematics tutorial
-tags: emacs org-mode configuration
----
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js" async></script>
-#+END_EXPORT
-
 #+title: Comprehensive Demo: Math Emacs Configuration
 #+AUTHOR: Demo Author
 #+date: 2025-10-28
@@ -144,11 +133,10 @@ The =cross-refs.el= library provides smart cross-referencing. To reference a the
 - Type "equation" then =C-c r= → prompts for =eq:= labels
 
 Examples:
-- By [[thm:lagrange]], every subgroup divides the order.
-- See [[def:group]] for the group axioms.
-- The proof is in [[prf:lagrange]].
-- From [[cor:prime-order]], prime-order groups are cyclic.
-- We can reference the theorem [[thm:cauchy-integral]].
+- By Theorem [[thm:lagrange]], every subgroup divides the order.
+- See Definition [[def:group]] for the group axioms.
+- From Corollary [[cor:prime-order]], prime-order groups are cyclic.
+- We can reference the theorem Theorem [[thm:cauchy-integral]].
   
 * Advanced Mathematics
 
@@ -361,12 +349,12 @@ return 'sample2_plot.png'
 
 Org-mode tables are powerful for organizing data:
 
-| Theorem         | Section | Reference                | Key Result                        |
-|-----------------+---------+--------------------------+-----------------------------------|
-| Lagrange        |     2.1 | [[thm:lagrange]]             | Subgroup order divides            |
-| Cauchy Integral |     3.2 | [[thm:cauchy-integral]]      | Holomorphic function value        |
-| Handshaking     |     3.3 | [[thm:handshaking]]          | Sum of degrees = 2\vert{}E\vert{} |
-| First Iso. Thm. |     3.1 | [[thm:ideal-correspondence]] | Kernel and image                  |
+| Theorem         | Section | Reference                        | Key Result                        |
+|-----------------+---------+----------------------------------+-----------------------------------|
+| Lagrange        |     2.1 | Theorem [[thm:lagrange]]             | Subgroup order divides            |
+| Cauchy Integral |     3.2 | Theorem [[thm:cauchy-integral]]      | Holomorphic function value        |
+| Handshaking     |     3.3 | Theorem [[thm:handshaking]]          | Sum of degrees = 2\vert{}E\vert{} |
+| First Iso. Thm. |     3.1 | Theorem [[thm:ideal-correspondence]] | Kernel and image                  |
 
 Use =C-c |= to create tables, and the table will auto-format as you type.
 
