@@ -1,0 +1,71 @@
+/* Styling for tables exported from org-mode */
+
+/* Basic table styling */
+table {
+  margin: 1.5rem auto;
+  max-width: 700px;
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.95rem;
+}
+
+/* Table headers */
+table thead {
+  background-color: #f5f5f5;
+  border-bottom: 2px solid #0067fb;
+}
+
+table th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: bold;
+  color: #111;
+}
+
+/* Table body cells */
+table tbody td {
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Alternating row colors for better readability */
+table tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+/* Hover effect on rows */
+table tbody tr:hover {
+  background-color: #f0f0f0;
+}
+
+/* Left-aligned columns (org-left class) */
+table .org-left {
+  text-align: left;
+}
+
+/* Right-aligned columns (org-right class) */
+table .org-right {
+  text-align: right;
+}
+
+/* Center-aligned columns (org-center class) */
+table .org-center {
+  text-align: center;
+}
+
+/* Remove border from last row */
+table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Responsive table design */
+@media (max-width: 768px) {
+  table {
+    font-size: 0.85rem;
+  }
+  
+  table th,
+  table td {
+    padding: 0.5rem 0.75rem;
+  }
+}
