@@ -108,7 +108,7 @@ A test of displayed equations:
 #+begin_proof
 Consider the left cosets of \(H\) in \(G\). Each coset \(gH = \{gh : h \in H\}\) has exactly \(|H|\) elements. Moreover, the cosets partition \(G\) into disjoint sets. If there are \(k\) distinct cosets, then:
 \[|G| = k \cdot |H| = [G:H] \cdot |H|\]
-Thus \(|H|\) divides \(|G|\). \qed
+Thus \(|H|\) divides \(|G|\). \(\qed\)
 #+end_proof
 
 #+name: cor:prime-order
