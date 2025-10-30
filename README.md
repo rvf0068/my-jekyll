@@ -161,23 +161,55 @@ Renders with:
 
 ### Citations and Bibliography
 
-For citing research papers and books, you can use Org-mode footnotes to reference entries from a BibTeX file:
+This blog uses Org-mode's native citation system (org-cite) to manage references. Citations are automatically processed during export and a bibliography is generated from the cited works.
+
+#### Setting up Citations
+
+1. Create or use the `references.bib` file in the root directory with your BibTeX entries
+2. Add a bibliography reference to your Org file header:
 
 ```org
 #+TITLE: Your Post Title
-
-This is a citation example [fn:key].
-
-* References
-
-[fn:key] Author, A. (2020). Article title. _Journal Name_, 10(2), 123-145.
+#+BIBLIOGRAPHY: ../../references.bib
 ```
 
-The blog includes a `references.bib` file in the root directory containing BibTeX entries. You can reference these entries in your posts using footnote syntax, and manually write the formatted reference at the bottom of your post.
+3. Use the `[cite:@key]` syntax to cite works in your text:
+
+```org
+This is supported by recent research [cite:@authorkey2020].
+Multiple citations can be combined [cite:@key1;@key2;@key3].
+```
+
+4. Add the bibliography print directive where you want the reference list to appear:
+
+```org
+* References
+
+#+print_bibliography:
+```
+
+#### Example
+
+```org
+#+TITLE: Research Post with Citations
+#+DATE: 2025-10-30
+#+BIBLIOGRAPHY: ../../references.bib
+
+* Introduction
+
+Poset topology has been studied extensively [cite:@quillen1978homotopy].
+Further developments were made [cite:@bjorner1995topology].
+
+* Conclusion
+
+This demonstrates the citation system.
+
+#+print_bibliography:
+```
+
+The bibliography will be automatically generated from the cited works, formatted with author names, year, and publication details.
 
 Example post with citations: `org/_posts/2025-10-30-sample-with-citations.org`
-
-**Note:** While Org-mode 9.5+ includes built-in citation support via `oc.el`, this setup currently uses manual footnotes for citations to ensure maximum compatibility. The bibliography entries in `references.bib` can still be used as a reference source.
 
 ## Publishing
 
@@ -212,18 +244,26 @@ This will:
 The `org_publish.el` file contains Emacs Lisp code that:
 
 1. Configures the Org-mode HTML exporter
-2. Defines custom export options for Jekyll-specific properties
-3. Implements a filter function that:
+2. Enables org-cite for native citation support with BibTeX files
+3. Defines custom export options for Jekyll-specific properties
+4. Implements a filter function that:
    - Processes LaTeX equation labels (`\label{org...}`) and references (`\eqref{org...}`)
    - Places HTML anchors **before** equation blocks (not inside them, to avoid breaking MathJax rendering)
    - Adds `\tag{n}` inside equations to display equation numbers flush-right (like textbooks)
    - Converts equation references to clickable links with numbered labels
+   - Converts LaTeX special characters (e.g., `{\"o}` → `ö`) to proper HTML entities
    - Extracts metadata from Org properties
    - Generates Jekyll front matter
    - Prepends it to the HTML output
    - Fixes any baseurl-related link issues
 
 The front matter is automatically generated only for files in the `_posts/` directory and only when it's not already present.
+
+Citations are processed by Org-mode's built-in `org-cite` system which:
+- Parses `[cite:@key]` references in the text
+- Looks up entries in the specified BibTeX file
+- Generates inline citations in (Author, Year) format
+- Creates a formatted bibliography at the `#+print_bibliography:` location
 
 ## Configuration
 
