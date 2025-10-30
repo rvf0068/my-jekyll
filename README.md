@@ -66,6 +66,79 @@ tags: tag1 tag2
 Your content goes here...
 ```
 
+### Figure and Table Labeling
+
+Org-mode provides native support for labeling and referencing figures and tables, which works both for HTML export (blog) and LaTeX export:
+
+#### Figures
+
+To label a figure, use the `#+NAME:` directive followed by `#+CAPTION:` before the image link:
+
+```org
+#+ATTR_HTML: :width 400 :alt description :align center
+#+ATTR_LATEX: :width 0.5\textwidth
+#+NAME: fig:my-figure
+#+CAPTION: Description of my figure
+[[file:image.png]]
+```
+
+Then reference it in your text using a standard org link:
+
+```org
+See Figure [[fig:my-figure]] for details.
+```
+
+The figure will be automatically numbered (e.g., "Figure 1", "Figure 2") and the reference will become a clickable link to that figure.
+
+#### Tables
+
+Tables work the same way:
+
+```org
+#+NAME: tab:my-table
+#+CAPTION: Description of my table
+| Column 1 | Column 2 |
+|----------+----------|
+| Data 1   | Data 2   |
+| Data 3   | Data 4   |
+```
+
+Reference it with:
+
+```org
+Table [[tab:my-table]] shows the results.
+```
+
+#### Key Features
+
+- **Automatic numbering**: Figures and tables are numbered sequentially (Figure 1, Figure 2, Table 1, Table 2)
+- **Clickable links**: References become HTML anchors that navigate to the figure/table
+- **LaTeX compatibility**: The same syntax works when exporting to LaTeX/PDF
+- **Multiple references**: You can reference the same figure or table multiple times
+- **Inline figures**: Multiple figures can be included in the same section with different attributes
+
+#### Example
+
+```org
+* Results
+
+#+NAME: fig:plot1
+#+CAPTION: Sample data visualization
+[[file:plot.png]]
+
+#+NAME: tab:results
+#+CAPTION: Numerical results
+| Method | Accuracy |
+|--------+----------|
+| A      | 95%      |
+| B      | 92%      |
+
+As shown in Figure [[fig:plot1]], the trend is clear. The detailed values 
+in Table [[tab:results]] confirm this pattern.
+```
+
+For a complete example, see `org/_posts/2025-10-30-generated-images.org`.
+
 ### Equation Referencing
 
 The system automatically processes LaTeX equation labels and references:
