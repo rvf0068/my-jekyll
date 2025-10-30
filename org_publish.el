@@ -15,6 +15,12 @@
 (when (locate-library "htmlize")
   (require 'htmlize))
 
+;; Macro to select different values based on export backend
+(defmacro by-backend (&rest body)
+  "Select export backend-specific values.
+BODY is a list of backend-value pairs, e.g., (latex \"file.tex\") (t \"file.png\")."
+  `(cl-case org-export-current-backend ,@body))
+
 ;; Configuration for Jekyll baseurl
 (setq jekyll-baseurl "/my-jekyll")
 
