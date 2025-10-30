@@ -7,3 +7,8 @@ Gemfile.lock
 .jekyll-cache/
 .jekyll-metadata
 test-math-blocks.html
+*~
+/org/_posts/2025-10-30-generated-images.pdf
+*.tex
+/org/_posts/ltximg/
+/org/_posts/*.tikz

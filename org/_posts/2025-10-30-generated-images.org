@@ -1,0 +1,54 @@
+#+TITLE: Test of Generated Images
+#+DATE: 2025-10-30
+#+AUTHOR: Test Author
+#+JEKYLL_LAYOUT: post
+#+JEKYLL_CATEGORIES: test 
+#+JEKYLL_TAGS: test images
+
+#+latex_header: \usepackage{tkz-berge}
+
+#+property: header-args:latex :imagemagick t :iminoptions -density 300 -resize 400
+#+property: header-args:latex+ :packages '(("" "tikz") ("" "tkz-berge") ("" "tikz-cd")) :border 1pt
+#+property: header-args:latex+ :results raw file :cache yes :exports both
+
+* tikz
+
+This is a tikz picture:
+
+#+name: peterseng
+#+header: :file (by-backend (latex "peterseng.tikz") (beamer "peterseng.tikz") (t "peterseng.png"))
+#+begin_src latex
+\begin{tikzpicture}
+  \grPetersen[rotation=90]
+\end{tikzpicture}
+#+end_src
+   
+#+attr_html: :width 400 :alt peterseng :align center
+#+attr_latex: :float t :width ""
+#+caption: Petersen graph label:peterseng
+#+RESULTS[6cbf1f0e92335f1f296ec82f128fe030c21733ed]: peterseng
+[[file:peterseng.png]]
+
+
+* python
+
+#+begin_src python :var OUT="mymatplotg.png" :results value file :exports both
+import matplotlib.pyplot as plt
+x=[-3,2,4,0]
+fig, ax = plt.subplots()
+ax.set_title('Matplotlib demo')
+ax.plot(x)
+plt.savefig(OUT, format = 'png')
+return OUT
+#+end_src
+
+#+attr_html: :width 300 :alt matplotlibg :align center
+#+caption: matplotlib graph label:mathplotg
+#+RESULTS:
+[[file:mymatplotg.png]]
+
+
+
+# Local Variables:
+# org-confirm-babel-evaluate: nil
+# End:
