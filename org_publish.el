@@ -141,6 +141,19 @@ Places anchors BEFORE equation blocks and adds \\tag{n} inside equations for dis
           (http-path (concat "href=\"" jekyll-baseurl "/")))
       (setq contents (replace-regexp-in-string file-url-pattern http-path contents)))
     
+    ;; Convert relative file links to images (from org/_posts/ to assets/)
+    ;; Pattern 1: <img src="file://../../assets/filename.ext" ... />
+    ;; Pattern 2: <img src="../../assets/filename.ext" ... />
+    ;; Replace with: <img src="/my-jekyll/assets/filename.ext" ... />
+    (setq contents (replace-regexp-in-string
+                    "src=\"file://\\.\\.?/\\.\\.?/assets/\\([^\"]+\\)\""
+                    (concat "src=\"" jekyll-baseurl "/assets/\\1\"")
+                    contents))
+    (setq contents (replace-regexp-in-string
+                    "src=\"\\.\\.?/\\.\\.?/assets/\\([^\"]+\\)\""
+                    (concat "src=\"" jekyll-baseurl "/assets/\\1\"")
+                    contents))
+    
     ;; Add Jekyll front matter for posts (only if not already present)
     (when (and (string-match-p "/_posts/" (or (plist-get info :output-file) ""))
                (not (string-prefix-p "---" contents)))
