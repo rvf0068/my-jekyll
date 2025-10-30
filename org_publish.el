@@ -55,6 +55,39 @@ INFO is the plist used as a communication channel."
                                "---\n")))
     front-matter))
 
+;; Mathematical reference link prefixes
+(defvar org-math-link-prefixes '("thm" "cor" "lem" "prf" "def" "pro" "eq")
+  "List of prefixes for mathematical reference links that should get auto-descriptions.")
+
+;; Function to add descriptions to mathematical reference links before export
+;; This processes links like [[thm:lagrange]] to become [[thm:lagrange][lagrange]]
+(defun org-add-math-link-descriptions ()
+  "Add descriptions to mathematical reference links in the current buffer.
+Links with prefixes from `org-math-link-prefixes` will get
+automatic descriptions derived from the label name."
+  (save-excursion
+    (goto-char (point-min))
+    (let ((prefix-regex (concat "\\("
+                                (mapconcat (lambda (p) (concat p ":"))
+                                          org-math-link-prefixes
+                                          "\\|")
+                                "\\)")))
+      (while (re-search-forward
+              (concat "\\[\\[" prefix-regex "\\([^]]+\\)\\]\\]")
+              nil t)
+        (let* ((prefix (match-string 1))
+               (label (match-string 2))
+               (link-with-desc (format "[[%s%s][%s]]" prefix label label)))
+          (replace-match link-with-desc t t))))))
+
+;; Hook to run before publishing
+(defun org-publish-before-processing-hook (backend)
+  "Add math link descriptions before export."
+  (when (org-export-derived-backend-p backend 'html)
+    (org-add-math-link-descriptions)))
+
+(add-hook 'org-export-before-processing-hook 'org-publish-before-processing-hook)
+
 ;; Custom function to fix Jekyll baseurl links and add front matter
 ;; This prevents org-mode from converting paths starting with baseurl to file:// URLs
 (defun org-html-final-function (contents backend info)
