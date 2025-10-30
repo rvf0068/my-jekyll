@@ -1,0 +1,55 @@
+---
+layout: post
+title: "Test of Generated Images"
+date: 2025-10-30
+author: Test Author
+categories: test
+tags: test images
+---
+
+<div id="outline-container-orgcb054b3" class="outline-2">
+<h2 id="orgcb054b3"><span class="section-number-2">1.</span> tikz</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This is a tikz picture:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-latex" id="orgfd7cc22">\begin{tikzpicture}
+  \grPetersen[rotation=90]
+\end{tikzpicture}
+</pre>
+</div>
+
+
+<div id="org013d877" class="figure">
+<p><img src="/my-jekyll/assets/peterseng.png" alt="peterseng" width="400" align="center" />
+</p>
+<p><span class="figure-number">Figure 1: </span>Petersen graph label:peterseng</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org3f1c3d4" class="outline-2">
+<h2 id="org3f1c3d4"><span class="section-number-2">2.</span> python</h2>
+<div class="outline-text-2" id="text-2">
+<div class="org-src-container">
+<pre class="src src-python">import matplotlib.pyplot as plt
+x=[-3,2,4,0]
+fig, ax = plt.subplots()
+ax.set_title('Matplotlib demo')
+ax.plot(x)
+plt.savefig(OUT, format = 'png')
+return OUT
+</pre>
+</div>
+
+
+<div id="orgd077f93" class="figure">
+<p><img src="/my-jekyll/assets/mymatplotg.png" alt="matplotlibg" width="300" align="center" />
+</p>
+<p><span class="figure-number">Figure 2: </span>matplotlib graph label:mathplotg</p>
+</div>
+</div>
+</div>

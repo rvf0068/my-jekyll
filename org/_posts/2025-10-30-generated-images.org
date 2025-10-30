@@ -16,7 +16,7 @@
 This is a tikz picture:
 
 #+name: peterseng
-#+header: :file (by-backend (latex "peterseng.tikz") (beamer "peterseng.tikz") (t "peterseng.png"))
+#+header: :file peterseng.png
 #+begin_src latex
 \begin{tikzpicture}
   \grPetersen[rotation=90]
