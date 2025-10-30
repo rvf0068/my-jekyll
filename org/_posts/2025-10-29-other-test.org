@@ -30,3 +30,8 @@ This is Gemini's answer:
 Yes, defining such a class is justified. Your goal is to change the string representation for readability, which is a common reason to subclass a built-in type.
 
 The standard library has no direct alternative that is both an *immutable set* and has a =set=-like =__repr__=. =frozenset= is the correct data structure for an immutable set; your approach of subclassing it to customize its representation is the standard Pythonic way to achieve this.
+
+Test inline math: \(a+b=c^{2}\). Test display math: \[G+H\].
+
+This finishes the test.
+
