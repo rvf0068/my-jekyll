@@ -88,11 +88,52 @@ automatic descriptions derived from the label name."
 
 (add-hook 'org-export-before-processing-hook 'org-publish-before-processing-hook)
 
+;; Function to process equation labels and references
+(defun org-process-equation-references (contents)
+  "Process LaTeX equation labels and references in HTML CONTENTS.
+Converts \\label{org...} to HTML anchors and \\eqref{org...} to links
+with numbered descriptions based on the order of labels in the document."
+  (let ((label-counter 0)
+        (label-map (make-hash-table :test 'equal)))
+    ;; First pass: find all \label{org...} and assign numbers
+    (with-temp-buffer
+      (insert contents)
+      (goto-char (point-min))
+      (while (re-search-forward "\\\\label{\\(org[^}]+\\)}" nil t)
+        (let ((label (match-string 1)))
+          (unless (gethash label label-map)
+            (setq label-counter (1+ label-counter))
+            (puthash label label-counter label-map))))
+      
+      ;; Second pass: replace \label{org...} with HTML anchors
+      (goto-char (point-min))
+      (while (re-search-forward "\\\\label{\\(org[^}]+\\)}" nil t)
+        (let* ((label (match-string 1))
+               (number (gethash label label-map))
+               (anchor (format "<span id=\"%s\"></span>" label)))
+          (replace-match anchor t t)))
+      
+      ;; Third pass: replace \eqref{org...} with HTML links
+      (goto-char (point-min))
+      (while (re-search-forward "\\\\eqref{\\(org[^}]+\\)}" nil t)
+        (let* ((label (match-string 1))
+               (number (gethash label label-map))
+               (link (if number
+                        (format "<a href=\"#%s\">(%d)</a>" label number)
+                      ;; If label not found, keep original text
+                      (match-string 0))))
+          (replace-match link t t)))
+      
+      (buffer-string))))
+
 ;; Custom function to fix Jekyll baseurl links and add front matter
 ;; This prevents org-mode from converting paths starting with baseurl to file:// URLs
 (defun org-html-final-function (contents backend info)
   "Post-process HTML to fix Jekyll baseurl links and add Jekyll front matter."
   (when (org-export-derived-backend-p backend 'html)
+    ;; Process equation labels and references
+    (setq contents (org-process-equation-references contents))
+    
     ;; Replace file:// URLs with proper HTTP paths for baseurl
     (let ((file-url-pattern (concat "href=\"file:/+" jekyll-baseurl "/"))
           (http-path (concat "href=\"" jekyll-baseurl "/")))
