@@ -71,7 +71,7 @@ Your content goes here...
 The system automatically processes LaTeX equation labels and references:
 
 - When you write equations with `\label{org...}` tags, they are converted to HTML anchors
-- When you use `\eqref{org...}` to reference equations, they are converted to clickable links with numbered descriptions
+- When you use `\eqref{org...}` to reference equations, they are converted to clickable links with numbered labels
 - Equations are numbered sequentially in the order they appear in the document
 - The same equation can be referenced multiple times, always showing the same number
 
@@ -129,7 +129,7 @@ The `org_publish.el` file contains Emacs Lisp code that:
 3. Implements a filter function that:
    - Processes LaTeX equation labels (`\label{org...}`) and references (`\eqref{org...}`)
    - Converts equation labels to HTML anchors with sequential numbering
-   - Converts equation references to clickable links with numbered descriptions
+   - Converts equation references to clickable links with numbered labels
    - Extracts metadata from Org properties
    - Generates Jekyll front matter
    - Prepends it to the HTML output
