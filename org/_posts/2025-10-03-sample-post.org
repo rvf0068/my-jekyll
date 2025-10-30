@@ -27,9 +27,7 @@ Here's an example image link: [[/my-jekyll/assets/sample-image.jpg][Sample Image
 
 Let us see if this works:
 
-#+BEGIN_EXPORT html
-<img src="/my-jekyll/assets/ciclos6-0.png" alt="ciclos6-0" />
-#+END_EXPORT
+[[file:../../assets/ciclos6-0.png]]
 
 * Code Snippets
 Org-mode excels at code blocks. Here's a Python example:
