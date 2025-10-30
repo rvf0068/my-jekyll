@@ -1,0 +1,34 @@
+#+TITLE: Equation Reference Test
+#+DATE: 2025-10-30
+#+AUTHOR: Test Author
+#+JEKYLL_LAYOUT: post
+#+JEKYLL_TAGS: test equations
+
+* Test Equations
+
+Here is an equation with a label:
+
+\begin{equation}
+\label{org1ffbfb5}
+E = mc^2
+\end{equation}
+
+And we can reference it using \eqref{org1ffbfb5}.
+
+Here is another equation:
+
+\begin{equation}
+\label{org2aabbcc}
+F = ma
+\end{equation}
+
+We can reference the second equation with \eqref{org2aabbcc} and the first with \eqref{org1ffbfb5}.
+
+* More equations
+
+\begin{equation}
+\label{org3ddeeff}
+a^2 + b^2 = c^2
+\end{equation}
+
+The Pythagorean theorem is shown in \eqref{org3ddeeff}.
