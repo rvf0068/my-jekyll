@@ -159,6 +159,26 @@ Renders with:
 
 **Note:** If your proof already contains `\qed` or another end marker, you may see two symbols. The styling automatically adds the square symbol for consistency.
 
+### Citations and Bibliography
+
+For citing research papers and books, you can use Org-mode footnotes to reference entries from a BibTeX file:
+
+```org
+#+TITLE: Your Post Title
+
+This is a citation example [fn:key].
+
+* References
+
+[fn:key] Author, A. (2020). Article title. _Journal Name_, 10(2), 123-145.
+```
+
+The blog includes a `references.bib` file in the root directory containing BibTeX entries. You can reference these entries in your posts using footnote syntax, and manually write the formatted reference at the bottom of your post.
+
+Example post with citations: `org/_posts/2025-10-30-sample-with-citations.org`
+
+**Note:** While Org-mode 9.5+ includes built-in citation support via `oc.el`, this setup currently uses manual footnotes for citations to ensure maximum compatibility. The bibliography entries in `references.bib` can still be used as a reference source.
+
 ## Publishing
 
 To publish your Org files to HTML:

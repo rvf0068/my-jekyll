@@ -1,0 +1,191 @@
+---
+layout: post
+title: "Sample Post with Citations and Mathematics"
+date: 2025-10-30 20:00:00 -0500
+author: Research Author
+categories: mathematics research
+tags: topology combinatorics citations
+---
+
+<div id="outline-container-orgfdaf825" class="outline-2">
+<h2 id="orgfdaf825"><span class="section-number-2">1.</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This post demonstrates the use of citations in an Org-mode Jekyll blog, along with mathematical content and online images.
+</p>
+
+<p>
+Poset topology has been a fruitful area of research in combinatorics. The seminal work by Quillen <sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup> established connections between group theory and topological properties of posets. Later, Björner and others developed this theory further <sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb766140" class="outline-2">
+<h2 id="orgb766140"><span class="section-number-2">2.</span> Poset Fiber Theorems</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+One of the most important results in poset topology is the Poset Fiber Theorem by Björner, Wachs, and Welker <sup><a id="fnr.3" class="footref" href="#fn.3" role="doc-backlink">3</a></sup>. This theorem provides powerful tools for computing homology groups of partially ordered sets.
+</p>
+
+<div class="theorem" id="org5b91e9a">
+<p>
+<b>(Poset Fiber Theorem)</b> Let \(f: P \to Q\) be an order-preserving map between finite posets. If all fibers \(f^{-1}(q)\) are contractible, then the induced map on geometric realizations is a homotopy equivalence.
+</p>
+
+</div>
+
+<p>
+The proof involves careful analysis of the simplicial complexes associated with the posets.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga832e5c" class="outline-2">
+<h2 id="orga832e5c"><span class="section-number-2">3.</span> Mathematical Content</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Let's consider some equations related to the Möbius function on posets.
+</p>
+
+<p>
+The Möbius function \(\mu\) on a poset \(P\) satisfies:
+</p>
+
+<span id="org5678901"></span>
+\begin{equation}\tag{1}
+\sum_{x \leq z \leq y} \mu(x, z) = \delta_{xy}
+\end{equation}
+
+<p>
+where \(\delta_{xy}\) is the Kronecker delta. This is the fundamental property <a href="#org5678901">(1)</a> that defines the Möbius function.
+</p>
+
+<p>
+For the Boolean lattice \(B_n\), we have the explicit formula:
+</p>
+
+<span id="org5678902"></span>
+\begin{equation}\tag{2}
+\mu(S, T) = (-1)^{|T| - |S|}
+\end{equation}
+
+<p>
+for \(S \subseteq T \subseteq [n]\). The formula <a href="#org5678902">(2)</a> is particularly elegant for this special case.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org42103db" class="outline-2">
+<h2 id="org42103db"><span class="section-number-2">4.</span> Enumerative Aspects</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+As discussed in Stanley's comprehensive treatise <sup><a id="fnr.4" class="footref" href="#fn.4" role="doc-backlink">4</a></sup>, enumerative combinatorics provides powerful tools for counting. The chromatic polynomial of a graph can be computed using:
+</p>
+
+<span id="org5678903"></span>
+\begin{equation}\tag{3}
+\chi(G, k) = \sum_{S \subseteq E} (-1)^{|S|} k^{c(S)}
+\end{equation}
+
+<p>
+where \(c(S)\) denotes the number of connected components in the subgraph with edge set \(S\).
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgba01134" class="outline-2">
+<h2 id="orgba01134"><span class="section-number-2">5.</span> Visual Examples</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Here's an image showing the Hasse diagram of a partially ordered set (from Wikipedia):
+</p>
+
+
+<div id="org3c5d344" class="figure">
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Hasse_diagram_of_powerset_of_3.svg/300px-Hasse_diagram_of_powerset_of_3.svg.png" alt="300px-Hasse_diagram_of_powerset_of_3.svg.png" />
+</p>
+</div>
+
+<p>
+And here's another example showing a simplicial complex (from Wikimedia Commons):
+</p>
+
+
+<div id="org19981df" class="figure">
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Simplicial_complex_example.svg/400px-Simplicial_complex_example.svg.png" alt="400px-Simplicial_complex_example.svg.png" />
+</p>
+</div>
+
+<p>
+These diagrams illustrate the geometric realization of abstract combinatorial structures.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7bd5e7f" class="outline-2">
+<h2 id="org7bd5e7f"><span class="section-number-2">6.</span> Applications</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+The techniques developed in these papers have found applications in:
+</p>
+
+<ol class="org-ol">
+<li>Group theory (studying subgroup lattices)</li>
+<li>Representation theory (understanding character values)</li>
+<li>Algebraic topology (computing homology groups)</li>
+<li>Discrete Morse theory (analyzing critical cells)</li>
+</ol>
+
+<p>
+The interplay between combinatorics and topology continues to be a rich source of mathematical insights.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7b16c4f" class="outline-2">
+<h2 id="org7b16c4f"><span class="section-number-2">7.</span> Conclusion</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+This post has demonstrated:
+</p>
+<ul class="org-ul">
+<li>Citations using org-mode footnote syntax linked to BibTeX entries</li>
+<li>Mathematical equations with labels and references (equations <a href="#org5678901">(1)</a>, <a href="#org5678902">(2)</a>, and <a href="#org5678903">(3)</a>)</li>
+<li>Online images from external sources</li>
+<li>Mathematical theorem environments</li>
+</ul>
+
+<p>
+The bibliography is stored in <code>references.bib</code> and uses standard BibTeX format.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org97119b0" class="outline-2">
+<h2 id="org97119b0"><span class="section-number-2">8.</span> References</h2>
+<div class="outline-text-2" id="text-8">
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Quillen, D. (1978). Homotopy properties of the poset of nontrivial p-subgroups of a group. <i>Advances in mathematics</i>, 28(2), 101-128.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Björner, A. (1995). Topological methods. In <i>Handbook of combinatorics</i>, Volume 2, pages 1819-1872.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3" role="doc-backlink">3</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Björner, A., Wachs, M. L., &amp; Welker, V. (2005). Poset fiber theorems. <i>Transactions of the American Mathematical Society</i>, 357(5), 1877-1899.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.4" class="footnum" href="#fnr.4" role="doc-backlink">4</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Stanley, R. P. (1997). <i>Enumerative combinatorics</i>, Volume 1. Cambridge University Press.
+</p></div></div>
+
+
+</div>
+</div>
