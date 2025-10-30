@@ -15,6 +15,12 @@
 (when (locate-library "htmlize")
   (require 'htmlize))
 
+;; Macro to select different values based on export backend
+(defmacro by-backend (&rest body)
+  "Select export backend-specific values.
+BODY is a list of backend-value pairs, e.g., (latex \"file.tex\") (t \"file.png\")."
+  `(cl-case org-export-current-backend ,@body))
+
 ;; Configuration for Jekyll baseurl
 (setq jekyll-baseurl "/my-jekyll")
 
@@ -154,6 +160,15 @@ Places anchors BEFORE equation blocks and adds \\tag{n} inside equations for dis
                     (concat "src=\"" jekyll-baseurl "/assets/\\1\"")
                     contents))
     
+    ;; Convert simple image filenames in posts to baseurl paths
+    ;; Pattern: <img src="filename.png" ... /> in _posts files
+    ;; Replace with: <img src="/my-jekyll/assets/filename.png" ... />
+    (when (string-match-p "/_posts/" (or (plist-get info :output-file) ""))
+      (setq contents (replace-regexp-in-string
+                      "src=\"\\([^/\"]+\\.\\(png\\|jpg\\|gif\\|pdf\\)\\)\""
+                      (concat "src=\"" jekyll-baseurl "/assets/\\1\"")
+                      contents)))
+    
     ;; Add Jekyll front matter for posts (only if not already present)
     (when (and (string-match-p "/_posts/" (or (plist-get info :output-file) ""))
                (not (string-prefix-p "---" contents)))
@@ -210,6 +225,12 @@ Places anchors BEFORE equation blocks and adds \\tag{n} inside equations for dis
          :publishing-directory "./assets"
          :recursive t
          :publishing-function org-publish-attachment)
-        ("all" :components ("main-site" "posts" "resources"))))
+        ("post-resources"
+         :base-directory "./org/_posts"
+         :base-extension "png\\|jpg\\|gif\\|pdf"
+         :publishing-directory "./assets"
+         :recursive nil
+         :publishing-function org-publish-attachment)
+        ("all" :components ("main-site" "posts" "resources" "post-resources"))))
 
 (provide 'org_publish)
