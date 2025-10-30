@@ -25,9 +25,12 @@ This is a tikz picture:
    
 #+attr_html: :width 400 :alt peterseng :align center
 #+attr_latex: :float t :width ""
-#+caption: Petersen graph label:peterseng
+#+name: fig:peterseng
+#+caption: Petersen graph
 #+RESULTS[6cbf1f0e92335f1f296ec82f128fe030c21733ed]: peterseng
 [[file:peterseng.png]]
+
+The Petersen graph shown in Figure [[fig:peterseng]] is a well-known graph in graph theory. This figure was generated using TikZ and the tkz-berge package.
 
 
 * python
@@ -43,9 +46,62 @@ return OUT
 #+end_src
 
 #+attr_html: :width 300 :alt matplotlibg :align center
-#+caption: matplotlib graph label:mathplotg
+#+name: fig:matplotlib
+#+caption: Matplotlib graph showing sample data
 #+RESULTS:
 [[file:mymatplotg.png]]
+
+Figure [[fig:matplotlib]] shows a simple plot created with Python's matplotlib library. The data points are plotted as a line graph demonstrating the plotting capabilities.
+
+* Inline Figures
+
+Org-mode also supports inline figures with proper labeling. Here's an example of an inline figure:
+
+#+attr_html: :width 250 :alt peterseng-inline :align center
+#+attr_latex: :width 0.3\textwidth
+#+name: fig:petersen-inline
+#+caption: Petersen graph (inline example)
+[[file:peterseng.png]]
+
+The inline Figure [[fig:petersen-inline]] is the same Petersen graph but displayed with different attributes. Both Figure [[fig:peterseng]] and Figure [[fig:petersen-inline]] show the same graph structure.
+
+* Tables with Labels
+
+Tables can also be labeled and referenced:
+
+#+name: tab:graph-properties
+#+caption: Properties of common graphs
+| Graph Type  | Vertices | Edges | Chromatic Number |
+|-------------+----------+-------+------------------|
+| Petersen    |       10 |    15 |                3 |
+| Complete K5 |        5 |    10 |                5 |
+| Cycle C6    |        6 |     6 |                2 |
+
+Table [[tab:graph-properties]] summarizes some important properties of well-known graphs.
+
+We can also create more complex tables with calculations:
+
+#+name: tab:calculations
+#+caption: Sample calculations with LaTeX math
+| \(n\) | \(n^2\) | \(n^3\) | \(2^n\) |
+|-------+---------+---------+---------|
+|     1 |       1 |       1 |       2 |
+|     2 |       4 |       8 |       4 |
+|     3 |       9 |      27 |       8 |
+|     4 |      16 |      64 |      16 |
+|     5 |      25 |     125 |      32 |
+
+As shown in Table [[tab:calculations]], the growth rates differ significantly between polynomial and exponential functions.
+
+* Cross-References Summary
+
+This post demonstrates:
+- Figure labels using =#+name: fig:label= 
+- Table labels using =#+name: tab:label=
+- Cross-references using =[[fig:label]]= or =[[tab:label]]=
+- Multiple references to the same figure or table
+
+All figures (Figures [[fig:peterseng]], [[fig:matplotlib]], and [[fig:petersen-inline]]) and tables (Tables [[tab:graph-properties]] and [[tab:calculations]]) can be properly referenced throughout the document.
 
 
 
