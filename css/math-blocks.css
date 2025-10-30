@@ -1,0 +1,162 @@
+/* Styling for mathematical special blocks exported from org-mode */
+
+/* Definition blocks: bold "Definition" header on its own line, text in italics */
+.definition {
+  margin: 1.5em 0;
+  padding: 1em;
+  border-left: 4px solid #2c5aa0;
+  background-color: rgba(44, 90, 160, 0.05);
+}
+
+.definition::before {
+  content: "Definition";
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  font-size: 1.1em;
+}
+
+.definition p,
+.definition ol,
+.definition ul {
+  font-style: italic;
+  margin-bottom: 0.5em;
+}
+
+.definition p:last-child,
+.definition ol:last-child,
+.definition ul:last-child {
+  margin-bottom: 0;
+}
+
+/* Theorem blocks: bold "Theorem" header with optional name, text in normal font */
+.theorem {
+  margin: 1.5em 0;
+  padding: 1em;
+  border-left: 4px solid #c04000;
+  background-color: rgba(192, 64, 0, 0.05);
+}
+
+.theorem::before {
+  content: "Theorem";
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  font-size: 1.1em;
+}
+
+.theorem p {
+  font-style: normal;
+  margin-bottom: 0.5em;
+}
+
+.theorem p:last-child {
+  margin-bottom: 0;
+}
+
+/* Lemma blocks: same as theorem */
+.lemma {
+  margin: 1.5em 0;
+  padding: 1em;
+  border-left: 4px solid #008080;
+  background-color: rgba(0, 128, 128, 0.05);
+}
+
+.lemma::before {
+  content: "Lemma";
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  font-size: 1.1em;
+}
+
+.lemma p {
+  font-style: normal;
+  margin-bottom: 0.5em;
+}
+
+.lemma p:last-child {
+  margin-bottom: 0;
+}
+
+/* Corollary blocks: same as theorem */
+.corollary {
+  margin: 1.5em 0;
+  padding: 1em;
+  border-left: 4px solid #800080;
+  background-color: rgba(128, 0, 128, 0.05);
+}
+
+.corollary::before {
+  content: "Corollary";
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  font-size: 1.1em;
+}
+
+.corollary p {
+  font-style: normal;
+  margin-bottom: 0.5em;
+}
+
+.corollary p:last-child {
+  margin-bottom: 0;
+}
+
+/* Proposition blocks: same as theorem */
+.proposition {
+  margin: 1.5em 0;
+  padding: 1em;
+  border-left: 4px solid #008000;
+  background-color: rgba(0, 128, 0, 0.05);
+}
+
+.proposition::before {
+  content: "Proposition";
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  font-size: 1.1em;
+}
+
+.proposition p {
+  font-style: normal;
+  margin-bottom: 0.5em;
+}
+
+.proposition p:last-child {
+  margin-bottom: 0;
+}
+
+/* Proof blocks: italic "Proof:" header, normal text, square symbol at end */
+.proof {
+  margin: 1.5em 0;
+  padding: 1em;
+  border-left: 4px solid #666;
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.proof::before {
+  content: "Proof:";
+  display: block;
+  font-style: italic;
+  margin-bottom: 0.5em;
+  font-size: 1.1em;
+}
+
+.proof p {
+  font-style: normal;
+  margin-bottom: 0.5em;
+}
+
+.proof p:last-child {
+  margin-bottom: 0;
+}
+
+/* Add square symbol at the end of proof */
+.proof p:last-child::after {
+  content: " \25A0";  /* Unicode for black square ■ */
+  font-size: 1em;
+  margin-left: 0.5em;
+}
