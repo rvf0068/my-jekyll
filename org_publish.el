@@ -109,8 +109,8 @@ Places anchors BEFORE equation blocks and adds \\tag{n} inside equations for dis
       ;; Second pass: process equation blocks with \label{org...}
       ;; Move anchor before \begin{equation} and add \tag{n} inside equation
       (goto-char (point-min))
-      (while (re-search-forward "\\\\begin{equation}\\s-*\n?\\s-*\\\\label{\\(org[^}]+\\)}" nil t)
-        (let* ((label (match-string 1))
+      (while (re-search-forward "\\\\begin{equation}\\s-*\\(\n\\s-*\\)*\\\\label{\\(org[^}]+\\)}" nil t)
+        (let* ((label (match-string 2))
                (number (gethash label label-map))
                (anchor (format "<span id=\"%s\"></span>\n\\begin{equation}\\tag{%d}" label number)))
           (replace-match anchor t t)))
