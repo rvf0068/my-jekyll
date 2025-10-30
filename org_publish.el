@@ -92,7 +92,8 @@ automatic descriptions derived from the label name."
 (defun org-process-equation-references (contents)
   "Process LaTeX equation labels and references in HTML CONTENTS.
 Converts \\label{org...} to HTML anchors and \\eqref{org...} to links
-with numbered descriptions based on the order of labels in the document."
+with numbered descriptions based on the order of labels in the document.
+Places anchors BEFORE equation blocks and adds \\tag{n} inside equations for display."
   (let ((label-counter 0)
         (label-map (make-hash-table :test 'equal)))
     ;; First pass: find all \label{org...} and assign numbers
@@ -105,12 +106,13 @@ with numbered descriptions based on the order of labels in the document."
             (setq label-counter (1+ label-counter))
             (puthash label label-counter label-map))))
       
-      ;; Second pass: replace \label{org...} with HTML anchors
+      ;; Second pass: process equation blocks with \label{org...}
+      ;; Move anchor before \begin{equation} and add \tag{n} inside equation
       (goto-char (point-min))
-      (while (re-search-forward "\\\\label{\\(org[^}]+\\)}" nil t)
-        (let* ((label (match-string 1))
+      (while (re-search-forward "\\\\begin{equation}\\s-*\\(\n\\s-*\\)*\\\\label{\\(org[^}]+\\)}" nil t)
+        (let* ((label (match-string 2))
                (number (gethash label label-map))
-               (anchor (format "<span id=\"%s\"></span>" label)))
+               (anchor (format "<span id=\"%s\"></span>\n\\begin{equation}\\tag{%d}" label number)))
           (replace-match anchor t t)))
       
       ;; Third pass: replace \eqref{org...} with HTML links
