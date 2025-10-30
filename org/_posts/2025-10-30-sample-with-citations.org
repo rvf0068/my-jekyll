@@ -1,19 +1,20 @@
 #+TITLE: Sample Post with Citations and Mathematics
-#+DATE: 2025-10-30 20:00:00 -0500
+#+DATE: 2025-10-30
 #+AUTHOR: Research Author
 #+JEKYLL_LAYOUT: post
 #+JEKYLL_CATEGORIES: mathematics research
 #+JEKYLL_TAGS: topology combinatorics citations
+#+BIBLIOGRAPHY: ../../references.bib
 
 * Introduction
 
 This post demonstrates the use of citations in an Org-mode Jekyll blog, along with mathematical content and online images.
 
-Poset topology has been a fruitful area of research in combinatorics. The seminal work by Quillen [fn:quillen] established connections between group theory and topological properties of posets. Later, Björner and others developed this theory further [fn:bjorner].
+Poset topology has been a fruitful area of research in combinatorics. The seminal work by Quillen [cite:@quillen1978homotopy] established connections between group theory and topological properties of posets. Later, Björner and others developed this theory further [cite:@bjorner1995topology].
 
 * Poset Fiber Theorems
 
-One of the most important results in poset topology is the Poset Fiber Theorem by Björner, Wachs, and Welker [fn:posetfiber]. This theorem provides powerful tools for computing homology groups of partially ordered sets.
+One of the most important results in poset topology is the Poset Fiber Theorem by Björner, Wachs, and Welker [cite:@posetfiber]. This theorem provides powerful tools for computing homology groups of partially ordered sets.
 
 #+begin_theorem
 *(Poset Fiber Theorem)* Let $f: P \to Q$ be an order-preserving map between finite posets. If all fibers $f^{-1}(q)$ are contractible, then the induced map on geometric realizations is a homotopy equivalence.
@@ -45,7 +46,7 @@ for $S \subseteq T \subseteq [n]$. The formula \eqref{org5678902} is particularl
 
 * Enumerative Aspects
 
-As discussed in Stanley's comprehensive treatise [fn:stanley], enumerative combinatorics provides powerful tools for counting. The chromatic polynomial of a graph can be computed using:
+As discussed in Stanley's comprehensive treatise [cite:@stanley1997enumerative], enumerative combinatorics provides powerful tools for counting. The chromatic polynomial of a graph can be computed using:
 
 \begin{equation}
 \label{org5678903}
@@ -80,20 +81,12 @@ The interplay between combinatorics and topology continues to be a rich source o
 * Conclusion
 
 This post has demonstrated:
-- Citations using org-mode footnote syntax linked to BibTeX entries
+- Citations using org-mode citation syntax with BibTeX entries
 - Mathematical equations with labels and references (equations \eqref{org5678901}, \eqref{org5678902}, and \eqref{org5678903})
 - Online images from external sources
 - Mathematical theorem environments
 
 The bibliography is stored in =references.bib= and uses standard BibTeX format.
 
-* References
-
-[fn:posetfiber] Björner, A., Wachs, M. L., & Welker, V. (2005). Poset fiber theorems. /Transactions of the American Mathematical Society/, 357(5), 1877-1899.
-
-[fn:quillen] Quillen, D. (1978). Homotopy properties of the poset of nontrivial p-subgroups of a group. /Advances in mathematics/, 28(2), 101-128.
-
-[fn:stanley] Stanley, R. P. (1997). /Enumerative combinatorics/, Volume 1. Cambridge University Press.
-
-[fn:bjorner] Björner, A. (1995). Topological methods. In /Handbook of combinatorics/, Volume 2, pages 1819-1872.
+#+print_bibliography:
 

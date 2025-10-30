@@ -17,12 +17,19 @@
 
 ;; Enable org-cite for citation support
 (require 'oc)
-(when (require 'oc-basic nil t)
-  ;; Configure citation export processors to use basic style
-  (setq org-cite-export-processors
-        '((html basic)
-          (latex biblatex)
-          (t basic))))
+(require 'oc-basic)
+(require 'oc-biblatex)
+(require 'oc-csl)
+
+;; Configure citation export processors to use basic style for HTML
+(setq org-cite-export-processors
+      '((html basic)
+        (latex biblatex)
+        (t basic)))
+
+;; Set global bibliography file (absolute path from repo root)
+(setq org-cite-global-bibliography 
+      (list (expand-file-name "./references.bib")))
 
 ;; Macro to select different values based on export backend
 (defmacro by-backend (&rest body)
