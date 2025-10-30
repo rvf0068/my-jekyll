@@ -193,10 +193,10 @@ Places anchors BEFORE equation blocks and adds \\tag{n} inside equations for dis
          :with-toc nil)
         ("resources"
          :base-directory "./org"
-         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|svg"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf"
          :publishing-directory "./assets"
          :recursive t
          :publishing-function org-publish-attachment)
-        ("themkat" :components ("main-site" "posts" "resources"))))
+        ("all" :components ("main-site" "posts" "resources"))))
 
 (provide 'org_publish)
