@@ -207,7 +207,7 @@ This demonstrates the citation system.
 #+print_bibliography:
 ```
 
-The bibliography will be automatically generated from the works you cited, formatted with author names, year, and publication details.
+The bibliography will be automatically generated from the cited works, formatted with author names, year, and publication details.
 
 Example post with citations: `org/_posts/2025-10-30-sample-with-citations.org`
 
