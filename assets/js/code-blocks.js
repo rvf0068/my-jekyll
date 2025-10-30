@@ -7,6 +7,7 @@
   // Language mapping from Org-mode class names to Prism language identifiers
   const languageMap = {
     'python': 'python',
+    'jupyter-python': 'python',
     'bash': 'bash',
     'shell': 'bash',
     'javascript': 'javascript',
