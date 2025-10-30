@@ -4,7 +4,7 @@
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 (package-initialize)
 
-;; Try to install htmlize, but don't fail if unavailable
+;; Try to install required packages, but don't fail if unavailable
 (ignore-errors
   (unless (package-installed-p 'htmlize)
     (package-install 'htmlize)))
@@ -14,6 +14,15 @@
 ;; Require htmlize only if available
 (when (locate-library "htmlize")
   (require 'htmlize))
+
+;; Enable org-cite for citation support
+(require 'oc)
+(when (require 'oc-basic nil t)
+  ;; Configure citation export processors to use basic style
+  (setq org-cite-export-processors
+        '((html basic)
+          (latex biblatex)
+          (t basic))))
 
 ;; Macro to select different values based on export backend
 (defmacro by-backend (&rest body)
