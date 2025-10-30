@@ -6,8 +6,8 @@ author: Demo Author
 tags: Demo Mathematics Tutorial
 ---
 
-<div id="outline-container-orgfab966c" class="outline-2">
-<h2 id="orgfab966c"><span class="section-number-2">1.</span> Introduction</h2>
+<div id="outline-container-orgd7dc461" class="outline-2">
+<h2 id="orgd7dc461"><span class="section-number-2">1.</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 This document demonstrates the full capabilities of the math-emacs configuration, showcasing:
@@ -26,8 +26,8 @@ This document demonstrates the full capabilities of the math-emacs configuration
 </ul>
 </div>
 
-<div id="outline-container-org9be99a8" class="outline-3">
-<h3 id="org9be99a8"><span class="section-number-3">1.1.</span> Configuration Highlights</h3>
+<div id="outline-container-orgd833872" class="outline-3">
+<h3 id="orgd833872"><span class="section-number-3">1.1.</span> Configuration Highlights</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 This setup uses:
@@ -43,12 +43,12 @@ This setup uses:
 </div>
 </div>
 
-<div id="outline-container-org99d1638" class="outline-2">
-<h2 id="org99d1638"><span class="section-number-2">2.</span> Basic Mathematics with CDLaTeX</h2>
+<div id="outline-container-org402b307" class="outline-2">
+<h2 id="org402b307"><span class="section-number-2">2.</span> Basic Mathematics with CDLaTeX</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-org4858bde" class="outline-3">
-<h3 id="org4858bde"><span class="section-number-3">2.1.</span> Using CDLaTeX Symbols</h3>
+<div id="outline-container-org3bc8a02" class="outline-3">
+<h3 id="org3bc8a02"><span class="section-number-3">2.1.</span> Using CDLaTeX Symbols</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 CDLaTeX makes math input fast. Examples of customized bindings:
@@ -67,8 +67,8 @@ CDLaTeX makes math input fast. Examples of customized bindings:
 </div>
 </div>
 
-<div id="outline-container-orge660476" class="outline-3">
-<h3 id="orge660476"><span class="section-number-3">2.2.</span> Inline Math with Math-Delimiters</h3>
+<div id="outline-container-orgf5ab752" class="outline-3">
+<h3 id="orgf5ab752"><span class="section-number-3">2.2.</span> Inline Math with Math-Delimiters</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 Press <code>$</code> to insert math delimiters: \(E = mc^2\) inline, or press it twice for display math:
@@ -85,8 +85,8 @@ The <code>$</code> binding works intelligently in both org-mode and LaTeX-mode.
 </div>
 </div>
 
-<div id="outline-container-orgfd7997d" class="outline-2">
-<h2 id="orgfd7997d"><span class="section-number-2">3.</span> Theorem Environments with Yasnippet</h2>
+<div id="outline-container-org2d4623c" class="outline-2">
+<h2 id="org2d4623c"><span class="section-number-2">3.</span> Theorem Environments with Yasnippet</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 This configuration provides custom snippets bound to <code>&lt;f6&gt;</code> keys:
@@ -112,10 +112,10 @@ Each snippet automatically:
 </ol>
 </div>
 
-<div id="outline-container-orgdf70d05" class="outline-3">
-<h3 id="orgdf70d05"><span class="section-number-3">3.1.</span> Example: Group Theory</h3>
+<div id="outline-container-orgcace364" class="outline-3">
+<h3 id="orgcace364"><span class="section-number-3">3.1.</span> Example: Group Theory</h3>
 <div class="outline-text-3" id="text-3-1">
-<div class="definition" id="orgf9fbc46">
+<div class="definition" id="orgd4e8d82">
 <p>
 A <b>group</b> is a set \(G\) together with a binary operation \(\cdot: G \times G \to G\) satisfying:
 </p>
@@ -128,7 +128,7 @@ A <b>group</b> is a set \(G\) together with a binary operation \(\cdot: G \times
 
 </div>
 
-<div class="theorem" id="orge1d030e">
+<div class="theorem" id="org88b5583">
 <p>
 <b>(Lagrange&rsquo;s Theorem)</b> Let \(G\) be a finite group and \(H\) a subgroup of \(G\). Then the order of \(H\) divides the order of \(G\):
 \[|G| = |H| \cdot [G:H]\]
@@ -142,7 +142,7 @@ A test of displayed equations:
 \[a+b\]
 </p>
 
-<div class="proof" id="org4ace999">
+<div class="proof" id="orgadec6ee">
 <p>
 Consider the left cosets of \(H\) in \(G\). Each coset \(gH = \{gh : h \in H\}\) has exactly \(|H|\) elements. Moreover, the cosets partition \(G\) into disjoint sets. If there are \(k\) distinct cosets, then:
 \[|G| = k \cdot |H| = [G:H] \cdot |H|\]
@@ -151,14 +151,14 @@ Thus \(|H|\) divides \(|G|\).
 
 </div>
 
-<div class="corollary" id="org6b9321a">
+<div class="corollary" id="org0d9f76d">
 <p>
 If \(G\) is a group of prime order \(p\), then \(G\) is cyclic.
 </p>
 
 </div>
 
-<div class="lemma" id="org30b70b0">
+<div class="lemma" id="orgb79ba88">
 <p>
 A non-empty subset \(H\) of a group \(G\) is a subgroup if and only if \(ab^{-1} \in H\) for all \(a, b \in H\).
 </p>
@@ -167,8 +167,8 @@ A non-empty subset \(H\) of a group \(G\) is a subgroup if and only if \(ab^{-1}
 </div>
 </div>
 
-<div id="outline-container-org9e779fc" class="outline-3">
-<h3 id="org9e779fc"><span class="section-number-3">3.2.</span> Cross-Referencing with <code>C-c r</code></h3>
+<div id="outline-container-orgb81aeee" class="outline-3">
+<h3 id="orgb81aeee"><span class="section-number-3">3.2.</span> Cross-Referencing with <code>C-c r</code></h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 The <code>cross-refs.el</code> library provides smart cross-referencing. To reference a theorem, type the context word and press <code>C-c r</code>:
@@ -185,23 +185,23 @@ The <code>cross-refs.el</code> library provides smart cross-referencing. To refe
 Examples:
 </p>
 <ul class="org-ul">
-<li>By Theorem <a href="#orge1d030e">lagrange</a>, every subgroup divides the order.</li>
-<li>See Definition <a href="#orgf9fbc46">group</a> for the group axioms.</li>
-<li>From Corollary <a href="#org6b9321a">prime-order</a>, prime-order groups are cyclic.</li>
-<li>We can reference the theorem Theorem <a href="#orgba6bb92">cauchy-integral</a>.</li>
+<li>By Theorem <a href="#org88b5583">lagrange</a>, every subgroup divides the order.</li>
+<li>See Definition <a href="#orgd4e8d82">group</a> for the group axioms.</li>
+<li>From Corollary <a href="#org0d9f76d">prime-order</a>, prime-order groups are cyclic.</li>
+<li>We can reference the theorem Theorem <a href="#org30838ab">cauchy-integral</a>.</li>
 </ul>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgea435d9" class="outline-2">
-<h2 id="orgea435d9"><span class="section-number-2">4.</span> Advanced Mathematics</h2>
+<div id="outline-container-org586e5d5" class="outline-2">
+<h2 id="org586e5d5"><span class="section-number-2">4.</span> Advanced Mathematics</h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-org4a69266" class="outline-3">
-<h3 id="org4a69266"><span class="section-number-3">4.1.</span> Ring Theory</h3>
+<div id="outline-container-org6db5365" class="outline-3">
+<h3 id="org6db5365"><span class="section-number-3">4.1.</span> Ring Theory</h3>
 <div class="outline-text-3" id="text-4-1">
-<div class="definition" id="org9cc6dcc">
+<div class="definition" id="org6caf6cb">
 <p>
 A <b>ring</b> is a set \(R\) equipped with two binary operations \(+\) (addition) and \(\cdot\) (multiplication) such that:
 </p>
@@ -213,7 +213,7 @@ A <b>ring</b> is a set \(R\) equipped with two binary operations \(+\) (addition
 
 </div>
 
-<div class="theorem" id="org4eed825">
+<div class="theorem" id="org65ce185">
 <p>
 <b>(First Isomorphism Theorem)</b> Let \(\varphi: R \to S\) be a ring homomorphism. Then:
 \[R / \ker(\varphi) \cong \mathrm{Im}(\varphi)\]
@@ -223,29 +223,29 @@ A <b>ring</b> is a set \(R\) equipped with two binary operations \(+\) (addition
 </div>
 </div>
 
-<div id="outline-container-org8a7bb8d" class="outline-3">
-<h3 id="org8a7bb8d"><span class="section-number-3">4.2.</span> Complex Analysis</h3>
+<div id="outline-container-org116a69a" class="outline-3">
+<h3 id="org116a69a"><span class="section-number-3">4.2.</span> Complex Analysis</h3>
 <div class="outline-text-3" id="text-4-2">
-<div class="definition" id="orge7bfaf5">
+<div class="definition" id="org7125b62">
 <p>
 A function \(f: U \to \mathbb{C}\) defined on an open set \(U \subseteq \mathbb{C}\) is <b>holomorphic</b> if it is complex differentiable at every point in \(U\).
 </p>
 
 </div>
 
-<div class="theorem" id="orgba6bb92">
+<div class="theorem" id="org30838ab">
 <p>
 <b>(Cauchy&rsquo;s Integral Formula)</b> Let \(f\) be holomorphic in a simply connected domain \(D\), and let \(\gamma\) be a simple closed contour in \(D\) oriented counterclockwise. For any \(a\) inside \(\gamma\):
 </p>
 
-<span id="org3ddaa13"></span>
+<span id="org43bbbf2"></span>
 \begin{equation}\tag{1}
 f(a) = \frac{1}{2\pi i} \oint_{\gamma} \frac{f(z)}{z - a} \, dz
 \end{equation}
 
 </div>
 
-<div class="corollary" id="org4c6b456">
+<div class="corollary" id="org551cad8">
 <p>
 <b>(Liouville&rsquo;s Theorem)</b> Every bounded entire function is constant.
 </p>
@@ -254,22 +254,22 @@ f(a) = \frac{1}{2\pi i} \oint_{\gamma} \frac{f(z)}{z - a} \, dz
 </div>
 </div>
 
-<div id="outline-container-org7f0168c" class="outline-3">
-<h3 id="org7f0168c"><span class="section-number-3">4.3.</span> Graph Theory Example</h3>
+<div id="outline-container-org12b3e86" class="outline-3">
+<h3 id="org12b3e86"><span class="section-number-3">4.3.</span> Graph Theory Example</h3>
 <div class="outline-text-3" id="text-4-3">
-<div class="definition" id="orge379fa3">
+<div class="definition" id="org44271d9">
 <p>
 A <b>graph</b> \(G = (V, E)\) consists of a set \(V\) of vertices and a set \(E \subseteq \binom{V}{2}\) of edges.
 </p>
 
 </div>
 
-<div class="theorem" id="org1baf173">
+<div class="theorem" id="orgf384630">
 <p>
 <b>(Handshaking Lemma)</b> In any graph \(G = (V, E)\):
 </p>
 
-<span id="org728bb2b"></span>
+<span id="org7b70c39"></span>
 \begin{equation}\tag{2}
 \sum_{v \in V} \deg(v) = 2|E|
 \end{equation}
@@ -280,33 +280,33 @@ A <b>graph</b> \(G = (V, E)\) consists of a set \(V\) of vertices and a set \(E 
 </div>
 
 
-<div id="outline-container-org8c6f3e3" class="outline-2">
-<h2 id="org8c6f3e3"><span class="section-number-2">5.</span> Equations and Alignment</h2>
+<div id="outline-container-org4aa5ffe" class="outline-2">
+<h2 id="org4aa5ffe"><span class="section-number-2">5.</span> Equations and Alignment</h2>
 <div class="outline-text-2" id="text-5">
 </div>
-<div id="outline-container-orgf3e2ef3" class="outline-3">
-<h3 id="orgf3e2ef3"><span class="section-number-3">5.1.</span> Single Equations</h3>
+<div id="outline-container-org6481561" class="outline-3">
+<h3 id="org6481561"><span class="section-number-3">5.1.</span> Single Equations</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 Use <code>&lt;f6&gt; e</code> to insert labeled equations:
 </p>
 
-<span id="org8c92f3a"></span>
+<span id="org85d4a68"></span>
 \begin{equation}\tag{3}
 e^{i\pi} + 1 = 0
 \end{equation}
 
 <p>
-The famous Equation <a href="#org8c92f3a">(3)</a> connects five fundamental constants.
+The famous Equation <a href="#org85d4a68">(3)</a> connects five fundamental constants.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgba6f508" class="outline-3">
-<h3 id="orgba6f508"><span class="section-number-3">5.2.</span> Aligned Equations</h3>
+<div id="outline-container-org7cb52bb" class="outline-3">
+<h3 id="org7cb52bb"><span class="section-number-3">5.2.</span> Aligned Equations</h3>
 <div class="outline-text-3" id="text-5-2">
 \begin{align}
-\label{orgbaa4940}
+\label{org0bfd877}
 ax^2 + bx + c &= 0 \\
 x^2 + \frac{b}{a}x + \frac{c}{a} &= 0 \\
 x^2 + \frac{b}{a}x &= -\frac{c}{a} \\
@@ -317,14 +317,14 @@ x &= \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
 </div>
 </div>
 
-<div id="outline-container-org2430b60" class="outline-3">
-<h3 id="org2430b60"><span class="section-number-3">5.3.</span> System of Equations</h3>
+<div id="outline-container-orgda54b7d" class="outline-3">
+<h3 id="orgda54b7d"><span class="section-number-3">5.3.</span> System of Equations</h3>
 <div class="outline-text-3" id="text-5-3">
 <p>
 Consider the linear system:
 </p>
 
-<span id="org818d9f8"></span>
+<span id="org86afc9d"></span>
 \begin{equation}\tag{5}
 \begin{cases}
   2x + 3y - z = 1 \\
@@ -336,8 +336,8 @@ Consider the linear system:
 </div>
 </div>
 
-<div id="outline-container-org08c4ff0" class="outline-2">
-<h2 id="org08c4ff0"><span class="section-number-2">6.</span> Integration with Org-Roam</h2>
+<div id="outline-container-orgb861aec" class="outline-2">
+<h2 id="orgb861aec"><span class="section-number-2">6.</span> Integration with Org-Roam</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 This configuration uses <code>org-roam</code> for networked note-taking. Create links to other notes:
@@ -350,8 +350,8 @@ This configuration uses <code>org-roam</code> for networked note-taking. Create 
 </ul>
 </div>
 
-<div id="outline-container-orgb4010f0" class="outline-3">
-<h3 id="orgb4010f0"><span class="section-number-3">6.1.</span> Org-Roam Search</h3>
+<div id="outline-container-orgdf480c3" class="outline-3">
+<h3 id="orgdf480c3"><span class="section-number-3">6.1.</span> Org-Roam Search</h3>
 <div class="outline-text-3" id="text-6-1">
 <p>
 Use <code>&lt;f5&gt; d</code> (<code>bms/org-roam-rg-search</code>) to search across all notes in <code>my-notes-directory</code>.
@@ -360,16 +360,16 @@ Use <code>&lt;f5&gt; d</code> (<code>bms/org-roam-rg-search</code>) to search ac
 </div>
 </div>
 
-<div id="outline-container-org259bb9d" class="outline-2">
-<h2 id="org259bb9d"><span class="section-number-2">7.</span> Bibliography and Citations</h2>
+<div id="outline-container-org07fe25e" class="outline-2">
+<h2 id="org07fe25e"><span class="section-number-2">7.</span> Bibliography and Citations</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 This configuration uses <code>citar</code> with <code>bibtex</code> for bibliography management.
 </p>
 </div>
 
-<div id="outline-container-org3d0b45c" class="outline-3">
-<h3 id="org3d0b45c"><span class="section-number-3">7.1.</span> Citation Workflow</h3>
+<div id="outline-container-org1d112d3" class="outline-3">
+<h3 id="org1d112d3"><span class="section-number-3">7.1.</span> Citation Workflow</h3>
 <div class="outline-text-3" id="text-7-1">
 <ol class="org-ol">
 <li>Press <code>&lt;f7&gt;</code> to open <code>citar-open</code> (search bibliography)</li>
@@ -380,8 +380,8 @@ This configuration uses <code>citar</code> with <code>bibtex</code> for bibliogr
 </div>
 </div>
 
-<div id="outline-container-org6dc95e0" class="outline-3">
-<h3 id="org6dc95e0"><span class="section-number-3">7.2.</span> Example Citations</h3>
+<div id="outline-container-orga02a8f0" class="outline-3">
+<h3 id="orga02a8f0"><span class="section-number-3">7.2.</span> Example Citations</h3>
 <div class="outline-text-3" id="text-7-2">
 <p>
 Important results in graph theory can be found in standard references. The chromatic polynomial was introduced by Birkhoff, and Tutte&rsquo;s work on matroids extended these ideas significantly.
@@ -394,12 +394,12 @@ Integration with <code>citar-org-roam</code> allows literature notes to be creat
 </div>
 </div>
 
-<div id="outline-container-org3047187" class="outline-2">
-<h2 id="org3047187"><span class="section-number-2">8.</span> Python and Jupyter Integration</h2>
+<div id="outline-container-org77bd041" class="outline-2">
+<h2 id="org77bd041"><span class="section-number-2">8.</span> Python and Jupyter Integration</h2>
 <div class="outline-text-2" id="text-8">
 </div>
-<div id="outline-container-org111f989" class="outline-3">
-<h3 id="org111f989"><span class="section-number-3">8.1.</span> Basic Python Source Block</h3>
+<div id="outline-container-org79e3c58" class="outline-3">
+<h3 id="org79e3c58"><span class="section-number-3">8.1.</span> Basic Python Source Block</h3>
 <div class="outline-text-3" id="text-8-1">
 <p>
 Use the <code>src-python</code> snippet or type <code>&lt;j</code> for jupyter-python blocks:
@@ -421,8 +421,8 @@ print(f"Minimum value of sin(x): {np.min(y)}")
 </div>
 </div>
 
-<div id="outline-container-orge4b3027" class="outline-3">
-<h3 id="orge4b3027"><span class="section-number-3">8.2.</span> Jupyter Integration</h3>
+<div id="outline-container-org77792f5" class="outline-3">
+<h3 id="org77792f5"><span class="section-number-3">8.2.</span> Jupyter Integration</h3>
 <div class="outline-text-3" id="text-8-2">
 <p>
 The configuration includes <code>emacs-jupyter</code> for interactive computing. Note the workaround for the login error and the manual <code>zmq</code> compilation requirement.
@@ -450,8 +450,8 @@ print(f"Integral of f(x)dx = {integral}")
 </div>
 </div>
 
-<div id="outline-container-org0221f9a" class="outline-3">
-<h3 id="org0221f9a"><span class="section-number-3">8.3.</span> Data Visualization</h3>
+<div id="outline-container-orgf729c67" class="outline-3">
+<h3 id="orgf729c67"><span class="section-number-3">8.3.</span> Data Visualization</h3>
 <div class="outline-text-3" id="text-8-3">
 <div class="org-src-container">
 <pre class="src src-python">import matplotlib.pyplot as plt
@@ -489,8 +489,8 @@ return 'sample2_plot.png'
 </div>
 </div>
 
-<div id="outline-container-org8f72606" class="outline-2">
-<h2 id="org8f72606"><span class="section-number-2">9.</span> Tables and Data</h2>
+<div id="outline-container-org819b2a8" class="outline-2">
+<h2 id="org819b2a8"><span class="section-number-2">9.</span> Tables and Data</h2>
 <div class="outline-text-2" id="text-9">
 <p>
 Org-mode tables are powerful for organizing data:
@@ -520,28 +520,28 @@ Org-mode tables are powerful for organizing data:
 <tr>
 <td class="org-left">Lagrange</td>
 <td class="org-right">2.1</td>
-<td class="org-left">Theorem <a href="#orge1d030e">lagrange</a></td>
+<td class="org-left">Theorem <a href="#org88b5583">lagrange</a></td>
 <td class="org-left">Subgroup order divides</td>
 </tr>
 
 <tr>
 <td class="org-left">Cauchy Integral</td>
 <td class="org-right">3.2</td>
-<td class="org-left">Theorem <a href="#orgba6bb92">cauchy-integral</a></td>
+<td class="org-left">Theorem <a href="#org30838ab">cauchy-integral</a></td>
 <td class="org-left">Holomorphic function value</td>
 </tr>
 
 <tr>
 <td class="org-left">Handshaking</td>
 <td class="org-right">3.3</td>
-<td class="org-left">Theorem <a href="#org1baf173">handshaking</a></td>
+<td class="org-left">Theorem <a href="#orgf384630">handshaking</a></td>
 <td class="org-left">Sum of degrees = 2&vert;E&vert;</td>
 </tr>
 
 <tr>
 <td class="org-left">First Iso. Thm.</td>
 <td class="org-right">3.1</td>
-<td class="org-left">Theorem <a href="#org4eed825">ideal-correspondence</a></td>
+<td class="org-left">Theorem <a href="#org65ce185">ideal-correspondence</a></td>
 <td class="org-left">Kernel and image</td>
 </tr>
 </tbody>
@@ -552,8 +552,8 @@ Use <code>C-c |</code> to create tables, and the table will auto-format as you t
 </p>
 </div>
 
-<div id="outline-container-orga20e66b" class="outline-3">
-<h3 id="orga20e66b"><span class="section-number-3">9.1.</span> Calculations in Tables</h3>
+<div id="outline-container-org8db47e1" class="outline-3">
+<h3 id="org8db47e1"><span class="section-number-3">9.1.</span> Calculations in Tables</h3>
 <div class="outline-text-3" id="text-9-1">
 <p>
 Org tables support formulas:
@@ -627,12 +627,12 @@ Org tables support formulas:
 </div>
 </div>
 
-<div id="outline-container-orge09b454" class="outline-2">
-<h2 id="orge09b454"><span class="section-number-2">10.</span> Export Options</h2>
+<div id="outline-container-orgbd9f1cf" class="outline-2">
+<h2 id="orgbd9f1cf"><span class="section-number-2">10.</span> Export Options</h2>
 <div class="outline-text-2" id="text-10">
 </div>
-<div id="outline-container-orgcffb26b" class="outline-3">
-<h3 id="orgcffb26b"><span class="section-number-3">10.1.</span> LaTeX/PDF Export</h3>
+<div id="outline-container-org93c8de1" class="outline-3">
+<h3 id="org93c8de1"><span class="section-number-3">10.1.</span> LaTeX/PDF Export</h3>
 <div class="outline-text-3" id="text-10-1">
 <p>
 This document can be exported to LaTeX/PDF with <code>C-c C-e l p</code>:
@@ -646,8 +646,8 @@ This document can be exported to LaTeX/PDF with <code>C-c C-e l p</code>:
 </div>
 </div>
 
-<div id="outline-container-org1e18d23" class="outline-3">
-<h3 id="org1e18d23"><span class="section-number-3">10.2.</span> Jupyter Notebook Export</h3>
+<div id="outline-container-orgdcdc431" class="outline-3">
+<h3 id="orgdcdc431"><span class="section-number-3">10.2.</span> Jupyter Notebook Export</h3>
 <div class="outline-text-3" id="text-10-2">
 <p>
 With <code>ox-ipynb</code>, export to <code>.ipynb</code> format:
@@ -661,12 +661,12 @@ With <code>ox-ipynb</code>, export to <code>.ipynb</code> format:
 </div>
 </div>
 
-<div id="outline-container-org9c052e7" class="outline-2">
-<h2 id="org9c052e7"><span class="section-number-2">11.</span> Advanced Features Showcase</h2>
+<div id="outline-container-orga1a1a9c" class="outline-2">
+<h2 id="orga1a1a9c"><span class="section-number-2">11.</span> Advanced Features Showcase</h2>
 <div class="outline-text-2" id="text-11">
 </div>
-<div id="outline-container-org0ecd3f6" class="outline-3">
-<h3 id="org0ecd3f6"><span class="section-number-3">11.1.</span> Embark Actions</h3>
+<div id="outline-container-org9ba33d9" class="outline-3">
+<h3 id="org9ba33d9"><span class="section-number-3">11.1.</span> Embark Actions</h3>
 <div class="outline-text-3" id="text-11-1">
 <p>
 With <code>embark</code> (bound to <code>C-=</code>):
@@ -679,8 +679,8 @@ With <code>embark</code> (bound to <code>C-=</code>):
 </div>
 </div>
 
-<div id="outline-container-org1352c97" class="outline-3">
-<h3 id="org1352c97"><span class="section-number-3">11.2.</span> Consult Commands</h3>
+<div id="outline-container-orga0f97aa" class="outline-3">
+<h3 id="orga0f97aa"><span class="section-number-3">11.2.</span> Consult Commands</h3>
 <div class="outline-text-3" id="text-11-2">
 <ul class="org-ul">
 <li><code>&lt;f5&gt; l</code> → <code>consult-line</code> for searching current buffer</li>
@@ -690,8 +690,8 @@ With <code>embark</code> (bound to <code>C-=</code>):
 </div>
 </div>
 
-<div id="outline-container-org9d4628e" class="outline-3">
-<h3 id="org9d4628e"><span class="section-number-3">11.3.</span> Smartparens</h3>
+<div id="outline-container-org38a8ddf" class="outline-3">
+<h3 id="org38a8ddf"><span class="section-number-3">11.3.</span> Smartparens</h3>
 <div class="outline-text-3" id="text-11-3">
 <p>
 The <code>smartparens</code> configuration handles paired delimiters:
@@ -704,8 +704,8 @@ The <code>smartparens</code> configuration handles paired delimiters:
 </div>
 </div>
 
-<div id="outline-container-org6aa6c7e" class="outline-3">
-<h3 id="org6aa6c7e"><span class="section-number-3">11.4.</span> Org-Fragtog</h3>
+<div id="outline-container-orgf8369ad" class="outline-3">
+<h3 id="orgf8369ad"><span class="section-number-3">11.4.</span> Org-Fragtog</h3>
 <div class="outline-text-3" id="text-11-4">
 <p>
 LaTeX fragments preview automatically as you move the cursor:
@@ -719,16 +719,16 @@ LaTeX fragments preview automatically as you move the cursor:
 </div>
 </div>
 
-<div id="outline-container-org4e4801b" class="outline-2">
-<h2 id="org4e4801b"><span class="section-number-2">12.</span> GTD and Task Management</h2>
+<div id="outline-container-org0645514" class="outline-2">
+<h2 id="org0645514"><span class="section-number-2">12.</span> GTD and Task Management</h2>
 <div class="outline-text-2" id="text-12">
 <p>
 The configuration includes a GTD (Getting Things Done) setup with Org Capture:
 </p>
 </div>
 
-<div id="outline-container-org20ff0b8" class="outline-3">
-<h3 id="org20ff0b8"><span class="section-number-3">12.1.</span> Capture Templates</h3>
+<div id="outline-container-org2ee0e73" class="outline-3">
+<h3 id="org2ee0e73"><span class="section-number-3">12.1.</span> Capture Templates</h3>
 <div class="outline-text-3" id="text-12-1">
 <ul class="org-ul">
 <li><code>C-c c i</code> → Capture to Inbox (TODO item)</li>
@@ -737,22 +737,22 @@ The configuration includes a GTD (Getting Things Done) setup with Org Capture:
 </div>
 </div>
 
-<div id="outline-container-org7d6682a" class="outline-3">
-<h3 id="org7d6682a"><span class="section-number-3">12.2.</span> Example Tasks</h3>
+<div id="outline-container-orgcf91582" class="outline-3">
+<h3 id="orgcf91582"><span class="section-number-3">12.2.</span> Example Tasks</h3>
 <div class="outline-text-3" id="text-12-2">
 </div>
-<div id="outline-container-org13b59c0" class="outline-4">
-<h4 id="org13b59c0"><span class="section-number-4">12.2.1.</span> <span class="todo TODO">TODO</span> Review Lagrange&rsquo;s Theorem proof</h4>
+<div id="outline-container-orgc349487" class="outline-4">
+<h4 id="orgc349487"><span class="section-number-4">12.2.1.</span> <span class="todo TODO">TODO</span> Review Lagrange&rsquo;s Theorem proof</h4>
 <div class="outline-text-4" id="text-12-2-1">
 <ul class="org-ul">
 <li>Need to verify the coset partition argument</li>
-<li>Check <a href="#orge1d030e">lagrange</a> for reference</li>
+<li>Check <a href="#org88b5583">lagrange</a> for reference</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgc39bae0" class="outline-4">
-<h4 id="orgc39bae0"><span class="section-number-4">12.2.2.</span> <span class="done DONE">DONE</span> Write comprehensive demo file</h4>
+<div id="outline-container-org5dd9d10" class="outline-4">
+<h4 id="org5dd9d10"><span class="section-number-4">12.2.2.</span> <span class="done DONE">DONE</span> Write comprehensive demo file</h4>
 <div class="outline-text-4" id="text-12-2-2">
 <ul class="org-ul">
 <li>Created sample2.org with extensive examples</li>
@@ -761,8 +761,8 @@ The configuration includes a GTD (Getting Things Done) setup with Org Capture:
 </div>
 </div>
 
-<div id="outline-container-org37c8b4d" class="outline-3">
-<h3 id="org37c8b4d"><span class="section-number-3">12.3.</span> Org Agenda</h3>
+<div id="outline-container-orgb0d9ce6" class="outline-3">
+<h3 id="orgb0d9ce6"><span class="section-number-3">12.3.</span> Org Agenda</h3>
 <div class="outline-text-3" id="text-12-3">
 <p>
 Use <code>C-c a</code> to open the agenda view, which shows:
@@ -777,8 +777,8 @@ Use <code>C-c a</code> to open the agenda view, which shows:
 </div>
 </div>
 
-<div id="outline-container-org60c804a" class="outline-2">
-<h2 id="org60c804a"><span class="section-number-2">13.</span> AI Integration with GPTel</h2>
+<div id="outline-container-org9f4e30c" class="outline-2">
+<h2 id="org9f4e30c"><span class="section-number-2">13.</span> AI Integration with GPTel</h2>
 <div class="outline-text-2" id="text-13">
 <p>
 The configuration includes <code>gptel</code> for AI assistance:
@@ -791,8 +791,8 @@ The configuration includes <code>gptel</code> for AI assistance:
 </ul>
 </div>
 
-<div id="outline-container-orgec4378f" class="outline-3">
-<h3 id="orgec4378f"><span class="section-number-3">13.1.</span> Example AI Queries</h3>
+<div id="outline-container-org833cbbc" class="outline-3">
+<h3 id="org833cbbc"><span class="section-number-3">13.1.</span> Example AI Queries</h3>
 <div class="outline-text-3" id="text-13-1">
 <p>
 Use GPTel to:
@@ -807,8 +807,8 @@ Use GPTel to:
 </div>
 </div>
 
-<div id="outline-container-org8ad511c" class="outline-2">
-<h2 id="org8ad511c"><span class="section-number-2">14.</span> Magit Integration</h2>
+<div id="outline-container-orgd358287" class="outline-2">
+<h2 id="orgd358287"><span class="section-number-2">14.</span> Magit Integration</h2>
 <div class="outline-text-2" id="text-14">
 <p>
 Version control with <code>magit</code> (<code>C-c m</code>):
@@ -822,12 +822,12 @@ Version control with <code>magit</code> (<code>C-c m</code>):
 </div>
 </div>
 
-<div id="outline-container-orgf79f77c" class="outline-2">
-<h2 id="orgf79f77c"><span class="section-number-2">15.</span> PDF Tools and Org-Noter</h2>
+<div id="outline-container-org144f155" class="outline-2">
+<h2 id="org144f155"><span class="section-number-2">15.</span> PDF Tools and Org-Noter</h2>
 <div class="outline-text-2" id="text-15">
 </div>
-<div id="outline-container-orgdb79040" class="outline-3">
-<h3 id="orgdb79040"><span class="section-number-3">15.1.</span> Reading PDFs</h3>
+<div id="outline-container-org3c79ae2" class="outline-3">
+<h3 id="org3c79ae2"><span class="section-number-3">15.1.</span> Reading PDFs</h3>
 <div class="outline-text-3" id="text-15-1">
 <p>
 With <code>pdf-tools</code>:
@@ -840,8 +840,8 @@ With <code>pdf-tools</code>:
 </div>
 </div>
 
-<div id="outline-container-orgb139c3b" class="outline-3">
-<h3 id="orgb139c3b"><span class="section-number-3">15.2.</span> Org-Noter Workflow</h3>
+<div id="outline-container-org7542fb4" class="outline-3">
+<h3 id="org7542fb4"><span class="section-number-3">15.2.</span> Org-Noter Workflow</h3>
 <div class="outline-text-3" id="text-15-2">
 <ol class="org-ol">
 <li>Open a PDF in pdf-tools</li>
@@ -853,12 +853,12 @@ With <code>pdf-tools</code>:
 </div>
 </div>
 
-<div id="outline-container-org93cd542" class="outline-2">
-<h2 id="org93cd542"><span class="section-number-2">16.</span> Useful Keybinding Reference</h2>
+<div id="outline-container-org3a88535" class="outline-2">
+<h2 id="org3a88535"><span class="section-number-2">16.</span> Useful Keybinding Reference</h2>
 <div class="outline-text-2" id="text-16">
 </div>
-<div id="outline-container-orgf8b2775" class="outline-3">
-<h3 id="orgf8b2775"><span class="section-number-3">16.1.</span> Global Bindings</h3>
+<div id="outline-container-org6a44d92" class="outline-3">
+<h3 id="org6a44d92"><span class="section-number-3">16.1.</span> Global Bindings</h3>
 <div class="outline-text-3" id="text-16-1">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -930,8 +930,8 @@ With <code>pdf-tools</code>:
 </div>
 </div>
 
-<div id="outline-container-org82f2d58" class="outline-3">
-<h3 id="org82f2d58"><span class="section-number-3">16.2.</span> Org-Mode Specific</h3>
+<div id="outline-container-org2d31bf4" class="outline-3">
+<h3 id="org2d31bf4"><span class="section-number-3">16.2.</span> Org-Mode Specific</h3>
 <div class="outline-text-3" id="text-16-2">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -1039,8 +1039,8 @@ With <code>pdf-tools</code>:
 </div>
 </div>
 
-<div id="outline-container-org7f39c7c" class="outline-3">
-<h3 id="org7f39c7c"><span class="section-number-3">16.3.</span> Bibliography</h3>
+<div id="outline-container-orgc0ab60e" class="outline-3">
+<h3 id="orgc0ab60e"><span class="section-number-3">16.3.</span> Bibliography</h3>
 <div class="outline-text-3" id="text-16-3">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -1083,8 +1083,8 @@ With <code>pdf-tools</code>:
 </div>
 </div>
 
-<div id="outline-container-orgb443525" class="outline-2">
-<h2 id="orgb443525"><span class="section-number-2">17.</span> Conclusion</h2>
+<div id="outline-container-orgaa20869" class="outline-2">
+<h2 id="orgaa20869"><span class="section-number-2">17.</span> Conclusion</h2>
 <div class="outline-text-2" id="text-17">
 <p>
 This document showcases the major features of the math-emacs configuration:
@@ -1106,8 +1106,8 @@ This document showcases the major features of the math-emacs configuration:
 </ol>
 </div>
 
-<div id="outline-container-org9eeeaea" class="outline-3">
-<h3 id="org9eeeaea"><span class="section-number-3">17.1.</span> Next Steps</h3>
+<div id="outline-container-org68786c2" class="outline-3">
+<h3 id="org68786c2"><span class="section-number-3">17.1.</span> Next Steps</h3>
 <div class="outline-text-3" id="text-17-1">
 <p>
 To explore further:
@@ -1122,8 +1122,8 @@ To explore further:
 </div>
 </div>
 
-<div id="outline-container-org8e85d6d" class="outline-3">
-<h3 id="org8e85d6d"><span class="section-number-3">17.2.</span> Testing This Configuration</h3>
+<div id="outline-container-org348dd80" class="outline-3">
+<h3 id="org348dd80"><span class="section-number-3">17.2.</span> Testing This Configuration</h3>
 <div class="outline-text-3" id="text-17-2">
 <p>
 To test without affecting your current setup:
