@@ -6,39 +6,66 @@ date: 2025-11-03 12:00:00 -0500
 categories: python pyodide interactive
 tags: python matplotlib sympy demo
 ---
+
+<script src="https://cdn.jsdelivr.net/pyodide/v0.26.0/full/pyodide.js"></script>
 #+END_EXPORT
 
 This page demonstrates a live Python cell powered by Pyodide, allowing you to run Python code directly in your browser with Sympy and Matplotlib support.
 
 #+BEGIN_EXPORT html
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Python cell demo</title>
-  <script src="https://cdn.jsdelivr.net/pyodide/v0.26.0/full/pyodide.js"></script>
-</head>
-<body>
-  <h3>Python cell</h3>
-  <textarea id="code" rows="4" cols="40">2 + 2</textarea><br>
-  <button id="run">Run</button>
-  <pre id="output"></pre>
+<h2>Compute with Sympy and Plot</h2>
+<textarea id="python-code" rows="10" cols="80">
+import sympy as sp
+x = sp.Symbol('x')
+expr = sp.sin(x) / x
+sp.diff(expr, x)
 
-  <script type="text/javascript">
-    async function main() {
-      const pyodide = await loadPyodide();
-      document.getElementById("run").onclick = async () => {
-        const code = document.getElementById("code").value;
-        try {
-          const result = await pyodide.runPythonAsync(code);
-          document.getElementById("output").textContent = result;
-        } catch (err) {
-          document.getElementById("output").textContent = err;
-        }
-      };
-    }
-    main();
-  </script>
-</body>
-</html>
+import matplotlib.pyplot as plt
+import numpy as np
+xv = np.linspace(-10,10,400)
+yv = np.sinc(xv)
+plt.plot(xv, yv)
+plt.title("sinc(x)")
+plt.show()
+</textarea>
+<br>
+<button id="run-btn">Run</button>
+<div id="output"></div>
+
+<script type="text/javascript">
+  async function main() {
+    const pyodide = await loadPyodide();
+    // Load required packages
+    await pyodide.loadPackage(['matplotlib', 'numpy', 'sympy']);
+    document.getElementById("run-btn").onclick = async () => {
+      const code = document.getElementById("python-code").value;
+      const outputDiv = document.getElementById("output");
+      outputDiv.innerHTML = "Running...";
+      try {
+        await pyodide.runPythonAsync(`
+import io, base64, sys
+from js import document
+import matplotlib.pyplot as plt
+plt.ioff()
+
+sys.stdout = io.StringIO()
+sys.stderr = io.StringIO()
+` + code + `
+out = sys.stdout.getvalue() + sys.stderr.getvalue()
+document.getElementById("output").innerText = out
+if plt.get_fignums():
+    buf = io.BytesIO()
+    plt.savefig(buf, format="png")
+    buf.seek(0)
+    data = base64.b64encode(buf.read()).decode()
+    document.getElementById("output").innerHTML += '<br><img src="data:image/png;base64,' + data + '"/>'
+    plt.close('all')
+`)
+      } catch (err) {
+        outputDiv.innerText = err;
+      }
+    };
+  }
+  main();
+</script>
 #+END_EXPORT
