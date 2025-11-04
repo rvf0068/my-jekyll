@@ -6,20 +6,14 @@ categories: python pyodide interactive
 tags: python matplotlib sympy demo
 ---
 
+<script src="https://cdn.jsdelivr.net/pyodide/v0.26.0/full/pyodide.js"></script>
+
 <p>
 This page demonstrates a live Python cell powered by Pyodide, allowing you to run Python code directly in your browser with Sympy and Matplotlib support.
 </p>
 
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Live Python Cell (Sympy + Matplotlib)</title>
-  <script src="https://cdn.jsdelivr.net/pyodide/v0.26.0/full/pyodide.js"></script>
-</head>
-<body>
-  <h2>Compute with Sympy and Plot</h2>
-  <textarea id="python-code" rows="10" cols="80">
+<h2>Compute with Sympy and Plot</h2>
+<textarea id="python-code" rows="10" cols="80">
 import sympy as sp
 x = sp.Symbol('x')
 expr = sp.sin(x) / x
@@ -32,20 +26,20 @@ yv = np.sinc(xv)
 plt.plot(xv, yv)
 plt.title("sinc(x)")
 plt.show()
-  </textarea>
-  <br>
-  <button id="run-btn">Run</button>
-  <div id="output"></div>
+</textarea>
+<br>
+<button id="run-btn">Run</button>
+<div id="output"></div>
 
-  <script type="text/javascript">
-    async function main() {
-      const pyodide = await loadPyodide();
-      document.getElementById("run-btn").onclick = async () => {
-        const code = document.getElementById("python-code").value;
-        const outputDiv = document.getElementById("output");
-        outputDiv.innerHTML = "Running...";
-        try {
-          await pyodide.runPythonAsync(`
+<script type="text/javascript">
+  async function main() {
+    const pyodide = await loadPyodide();
+    document.getElementById("run-btn").onclick = async () => {
+      const code = document.getElementById("python-code").value;
+      const outputDiv = document.getElementById("output");
+      outputDiv.innerHTML = "Running...";
+      try {
+        await pyodide.runPythonAsync(`
 import io, base64, sys
 from js import document
 import matplotlib.pyplot as plt
@@ -64,12 +58,10 @@ if plt.get_fignums():
     document.getElementById("output").innerHTML += '<br><img src="data:image/png;base64,' + data + '"/>'
     plt.close('all')
 `)
-        } catch (err) {
-          outputDiv.innerText = err;
-        }
-      };
-    }
-    main();
-  </script>
-</body>
-</html>
+      } catch (err) {
+        outputDiv.innerText = err;
+      }
+    };
+  }
+  main();
+</script>
