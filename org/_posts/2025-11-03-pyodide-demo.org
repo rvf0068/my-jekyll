@@ -23,18 +23,6 @@ This page demonstrates a live Python cell powered by Pyodide, allowing you to ru
   <textarea id="code" rows="4" cols="40">2 + 2</textarea><br>
   <button id="run">Run</button>
   <pre id="output"></pre>
-
-  <script>
-    async function main() {
-      let pyodide = await loadPyodide();
-      document.getElementById("run").onclick = async () => {
-        let code = document.getElementById("code").value;
-        let result = await pyodide.runPythonAsync(code);
-        document.getElementById("output").textContent = result;
-      };
-    }
-    main();
-  </script>
 </body>
 </html>
 #+END_EXPORT
