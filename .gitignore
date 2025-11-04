@@ -12,3 +12,4 @@ test-math-blocks.html
 *.tex
 /org/_posts/ltximg/
 /org/_posts/*.tikz
+screenshot-*.png
