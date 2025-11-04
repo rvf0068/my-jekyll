@@ -1,15 +1,16 @@
+#+BEGIN_EXPORT html
 ---
 layout: post
 title: "Live Python Cell with Pyodide"
-date: 2025-11-04 00:00:00 -0500
+date: 2025-11-03 12:00:00 -0500
 categories: python pyodide interactive
 tags: python matplotlib sympy demo
 ---
+#+END_EXPORT
 
-<p>
 This page demonstrates a live Python cell powered by Pyodide, allowing you to run Python code directly in your browser with Sympy and Matplotlib support.
-</p>
 
+#+BEGIN_EXPORT html
 <!DOCTYPE html>
 <html>
 <head>
@@ -75,3 +76,4 @@ if plt.get_fignums():
   </script>
 </body>
 </html>
+#+END_EXPORT
