@@ -7,6 +7,8 @@ title: "Home"
 
 Welcome! This is the homepage of my blog, powered by Org-mode and Jekyll.
 
+Check out the [[/my-jekyll/2025/11/03/pyodide-demo.html][Live Python Cell with Pyodide]] demo page!
+
 #+BEGIN_EXPORT html
 <ul>
 {% for post in site.posts %}
