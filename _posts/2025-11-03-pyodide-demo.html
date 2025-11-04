@@ -34,6 +34,8 @@ plt.show()
 <script type="text/javascript">
   async function main() {
     const pyodide = await loadPyodide();
+    // Load required packages
+    await pyodide.loadPackage(['matplotlib', 'numpy', 'sympy']);
     document.getElementById("run-btn").onclick = async () => {
       const code = document.getElementById("python-code").value;
       const outputDiv = document.getElementById("output");
