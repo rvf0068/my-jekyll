@@ -11,15 +11,6 @@
   <meta name="description" content="{{site.tagline}}" />
   <link rel="icon" type="image/png" href="/favicon.png" />
 
-  <!-- Google+ -->
-  <link rel="publisher" href="https://plus.google.com/{{site.googleplus}}" />
-  <meta itemprop="name" content="{{page.title | strip_newlines | strip_html | escape}}" />
-  <meta itemprop="description" content="{{site.tagline | strip_newlines | strip_html | escape}}" />
-  <meta
-    itemprop="image"
-    content="{% if page.image %}{{site.url}}{{page.image}}{% else %}{{site.url}}{{site.socialimg}}{% endif %}"
-  />
-
   <!-- Facebook -->
   <meta property="og:type" content="website" />
   <meta
@@ -36,20 +27,8 @@
     content="{{ site.title | strip_newlines | strip_html | escape }} "
   />
 
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary" />
-  <meta
-    name="twitter:title"
-    content="{% if page.fulltitle %}{{page.fulltitle | strip_newlines | strip_html | escape}}{% else %}{{page.title | strip_newlines | strip_html | escape}} | {{ site.title | strip_newlines | strip_html | escape }} {% endif %}"
-  />
-  <meta
-    name="twitter:description"
-    content="{{site.tagline | strip_newlines | strip_html | escape}}"
-  />
-  <meta name="twitter:url" content="{{site.url}}{{page.url}}" />
-
   <!-- use page.hero_image OR fallback to first img in post -->
-  {% include meta_hero_image.html %}
+  <!-- {% include meta_hero_image.html %} -->
 
   <!-- CSS & fonts -->
   <link
