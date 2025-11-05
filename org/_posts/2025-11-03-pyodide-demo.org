@@ -33,4 +33,9 @@ another test:
 #+begin_export html
 <input id='code' value='sum([1,2,3,4,5])'>
     <button onclick='evaluatePython()'>Run</button>
+ <br>
+    <div>
+        Output:
+    </div>
+    <textarea id='output' style='width: 100%;' rows='6' disabled></textarea>
 #+end_export
