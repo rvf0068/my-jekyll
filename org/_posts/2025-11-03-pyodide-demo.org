@@ -63,3 +63,27 @@ another test:
       }
     </script>    
 #+end_export
+
+still another:
+
+#+BEGIN_EXPORT html
+<textarea id="code" rows="4" cols="40">2 + 2</textarea><br>
+<button id="run">Run</button>
+<pre id="output"></pre>
+
+<script type="text/javascript">
+  async function main() {
+    const pyodide = await loadPyodide();
+    document.getElementById("run").onclick = async () => {
+      const code = document.getElementById("code").value;
+      try {
+        const result = await pyodide.runPythonAsync(code);
+        document.getElementById("output").textContent = result;
+      } catch (err) {
+        document.getElementById("output").textContent = err;
+      }
+    };
+  }
+  main();
+</script>
+#+END_EXPORT
