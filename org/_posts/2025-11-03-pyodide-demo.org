@@ -13,8 +13,6 @@ tags: python matplotlib sympy demo
 This page demonstrates a live Python cell powered by Pyodide, allowing you to run Python code directly in your browser with Sympy and Matplotlib support.
 
 #+BEGIN_EXPORT html
-<html>
-  <body>
     Pyodide test page <br>
     Open your browser console to see Pyodide output
     <script type="text/javascript">
@@ -28,6 +26,5 @@ This page demonstrates a live Python cell powered by Pyodide, allowing you to ru
       }
       main();
     </script>
-  </body>
-</html>
 #+END_EXPORT
+
