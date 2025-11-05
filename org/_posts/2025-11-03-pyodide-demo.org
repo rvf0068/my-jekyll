@@ -18,11 +18,7 @@ This page demonstrates a live Python cell powered by Pyodide, allowing you to ru
     <script type="text/javascript">
       async function main(){
         let pyodide = await loadPyodide();
-        console.log(pyodide.runPython(`
-            import sys
-            sys.version
-        `));
-        pyodide.runPython("print(1 + 2)");
+        console.log(pyodide.runPython("print(1 + 2)"));
       }
       main();
     </script>
