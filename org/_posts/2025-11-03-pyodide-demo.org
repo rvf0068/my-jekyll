@@ -34,4 +34,32 @@ another test:
         Output:
     </div>
     <textarea id='output' style='width: 100%;' rows='6' disabled></textarea>
+
+    <script>
+      const output = document.getElementById("output");
+      const code = document.getElementById("code");
+
+      function addToOutput(s) {
+        output.value += ">>>" + code.value + "\n" + s + "\n";
+      }
+
+      output.value = "Initializing...\n";
+      // init Pyodide
+      async function main() {
+        let pyodide = await loadPyodide();
+        output.value += "Ready!\n";
+        return pyodide;
+      }
+      let pyodideReadyPromise = main();
+
+      async function evaluatePython() {
+        let pyodide = await pyodideReadyPromise;
+        try {
+          let output = pyodide.runPython(code.value);
+          addToOutput(output);
+        } catch (err) {
+          addToOutput(err);
+        }
+      }
+    </script>    
 #+end_export
