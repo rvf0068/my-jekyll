@@ -28,3 +28,9 @@ This page demonstrates a live Python cell powered by Pyodide, allowing you to ru
     </script>
 #+END_EXPORT
 
+another test:
+
+#+begin_export html
+<input id='code' value='sum([1,2,3,4,5])'>
+    <button onclick='evaluatePython()'>Run</button>
+#+end_export
