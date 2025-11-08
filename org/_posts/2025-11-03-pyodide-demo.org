@@ -7,6 +7,10 @@
 
 This page demonstrates a live Python cell powered by Pyodide, allowing you to run Python code directly in your browser with Sympy and Matplotlib support.
 
+Let us see if finally the html page regenerates...
+
+A math test: \(a+b^{2}\). Another: \(\rho\colon G\to \mathrm{GL}(V)\).
+
 #+BEGIN_EXPORT html
     Pyodide test page <br>
     Open your browser console to see Pyodide output
