@@ -116,8 +116,9 @@ The new filter automatically:
 - Generates unique IDs for each cell
 - Creates appropriate HTML with textarea, button, and output area
 - Detects matplotlib usage and generates image-based output
+- Detects sympy usage and loads the sympy package
 - Initializes Pyodide only once per page
-- Loads required packages (matplotlib, numpy) for plotting cells
+- Loads required packages (matplotlib, numpy, sympy) as needed
 
 This makes it much easier to create interactive Python content without manually writing all the HTML and JavaScript!
 

@@ -314,7 +314,7 @@ The Sympy package will be loaded automatically when your code imports it.
 
 #### Example Post
 
-See `org/_posts/2025-11-09-python-cell-filter-test.org` for a complete demonstration of interactive Python cells with various examples including regular computations, Sympy symbolic math, and matplotlib plotting.
+See `org/_posts/2025-11-08-python-cell-filter-test.org` for a complete demonstration of interactive Python cells with various examples including regular computations, Sympy symbolic math, and matplotlib plotting.
 
 ### Citations and Bibliography
 

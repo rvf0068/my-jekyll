@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Python Cell Filter Test"
-date: 2025-11-09
+date: 2025-11-08
 author: Author
 categories: python
 tags: pyodide python-cell matplotlib test
@@ -12,8 +12,8 @@ tags: pyodide python-cell matplotlib test
 This post demonstrates the new org-mode filters for python-cell blocks that automatically generate interactive Pyodide cells.
 </p>
 
-<div id="outline-container-org97a6542" class="outline-2">
-<h2 id="org97a6542"><span class="section-number-2">1.</span> Regular Python Cells</h2>
+<div id="outline-container-orge3617e2" class="outline-2">
+<h2 id="orge3617e2"><span class="section-number-2">1.</span> Regular Python Cells</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Here is a simple Python calculation using the new <code>python-cell</code> syntax:
@@ -104,14 +104,14 @@ Let's try something with a list comprehension:
 </div>
 </div>
 
-<div id="outline-container-org9d252a1" class="outline-2">
-<h2 id="org9d252a1"><span class="section-number-2">2.</span> Python Cells with Sympy</h2>
+<div id="outline-container-org27c7a59" class="outline-2">
+<h2 id="org27c7a59"><span class="section-number-2">2.</span> Python Cells with Sympy</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Now let's test symbolic mathematics with Sympy:
 </p>
 
-<!-- Python cell pycell4 -->
+<!-- Python cell pycell4 with sympy -->
 <div class="py-cell">
   <textarea id="pycell4-code" rows="4" cols="40">import sympy as sp
 x = sp.symbols('x')
@@ -125,6 +125,12 @@ expr
 <script>
 (async () => {
   const pyodide = await pyodideReady;
+  await pyodide.loadPackage(["micropip"]);
+  await pyodide.runPythonAsync(`
+import micropip
+await micropip.install(["sympy"])
+  `);
+  
   document.getElementById("pycell4-run").onclick = async () => {
     const code = document.getElementById("pycell4-code").value;
     try {
@@ -141,7 +147,7 @@ expr
 Another symbolic calculation - integration:
 </p>
 
-<!-- Python cell pycell5 -->
+<!-- Python cell pycell5 with sympy -->
 <div class="py-cell">
   <textarea id="pycell5-code" rows="4" cols="40">import sympy as sp
 x = sp.symbols('x')
@@ -154,6 +160,12 @@ sp.integrate(sp.sin(x), x)
 <script>
 (async () => {
   const pyodide = await pyodideReady;
+  await pyodide.loadPackage(["micropip"]);
+  await pyodide.runPythonAsync(`
+import micropip
+await micropip.install(["sympy"])
+  `);
+  
   document.getElementById("pycell5-run").onclick = async () => {
     const code = document.getElementById("pycell5-code").value;
     try {
@@ -168,8 +180,8 @@ sp.integrate(sp.sin(x), x)
 </div>
 </div>
 
-<div id="outline-container-orgef8c587" class="outline-2">
-<h2 id="orgef8c587"><span class="section-number-2">3.</span> Matplotlib Cells</h2>
+<div id="outline-container-org6cd8916" class="outline-2">
+<h2 id="org6cd8916"><span class="section-number-2">3.</span> Matplotlib Cells</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 The filter automatically detects matplotlib usage and generates appropriate HTML for image output.
@@ -363,8 +375,8 @@ img_data
 </div>
 </div>
 
-<div id="outline-container-orgd5dcf84" class="outline-2">
-<h2 id="orgd5dcf84"><span class="section-number-2">4.</span> Testing the Feature</h2>
+<div id="outline-container-orge121f1a" class="outline-2">
+<h2 id="orge121f1a"><span class="section-number-2">4.</span> Testing the Feature</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 The new filter automatically:
@@ -374,8 +386,9 @@ The new filter automatically:
 <li>Generates unique IDs for each cell</li>
 <li>Creates appropriate HTML with textarea, button, and output area</li>
 <li>Detects matplotlib usage and generates image-based output</li>
+<li>Detects sympy usage and loads the sympy package</li>
 <li>Initializes Pyodide only once per page</li>
-<li>Loads required packages (matplotlib, numpy) for plotting cells</li>
+<li>Loads required packages (matplotlib, numpy, sympy) as needed</li>
 </ul>
 
 <p>
