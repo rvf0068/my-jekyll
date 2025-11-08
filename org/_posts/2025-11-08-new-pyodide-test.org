@@ -8,9 +8,6 @@
 Let us see if this works:
 
 #+begin_export html
-{% raw %}
-<!-- Pyodide loader (only once per page) -->
-<script src="https://cdn.jsdelivr.net/pyodide/v0.29.0/full/pyodide.js"></script>
 <script>
   const pyodideReady = loadPyodide();
 </script>
@@ -58,5 +55,6 @@ Let us see if this works:
     };
   })();
 </script>
-{% endraw %}
 #+end_export
+
+A math test: \(a+b^{2}\). Another: \(\rho\colon G\to \mathrm{GL}(V)\).
