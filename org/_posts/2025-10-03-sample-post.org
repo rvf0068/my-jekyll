@@ -1,12 +1,9 @@
-#+BEGIN_EXPORT html
----
-layout: post
-title: "Sample Org Post with Features"
-date: 2025-10-03 12:00:00 -0500
-categories: sample org jekyll
-tags: org-mode features
----
-#+END_EXPORT
+#+TITLE: Sample Org Post with Features
+#+DATE: 2025-10-03
+#+JEKYLL_LAYOUT: post
+#+JEKYLL_CATEGORIES: sample org jekyll
+#+JEKYLL_TAGS: org-mode features
+
 
 This is a sample Org-mode post demonstrating various syntax features.
 

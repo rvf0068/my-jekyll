@@ -1,14 +1,9 @@
-#+BEGIN_EXPORT html
----
-layout: post
-title: "Live Python Cell with Pyodide"
-date: 2025-11-03 12:00:00 -0500
-categories: python pyodide interactive
-tags: python matplotlib sympy demo
----
-
-<script src="https://cdn.jsdelivr.net/pyodide/v0.26.0/full/pyodide.js"></script>
-#+END_EXPORT
+#+TITLE: Live Python Cell with Pyodide
+#+DATE: 2025-11-03
+#+AUTHOR: Author
+#+JEKYLL_LAYOUT: post
+#+JEKYLL_CATEGORIES: python
+#+JEKYLL_TAGS: test
 
 This page demonstrates a live Python cell powered by Pyodide, allowing you to run Python code directly in your browser with Sympy and Matplotlib support.
 
