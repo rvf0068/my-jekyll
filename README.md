@@ -9,6 +9,7 @@ This is a Jekyll-based blog that uses Org-mode for authoring posts. The setup au
 - Support for LaTeX math content with MathJax
 - **Automatic equation referencing** with numbered links for LaTeX equations
 - **Enhanced code blocks** with syntax highlighting, line numbers, and copy-to-clipboard button
+- **Interactive Python cells** powered by Pyodide - run Python code directly in the browser
 - Customizable layouts and themes
 
 ## Writing Posts
@@ -232,6 +233,89 @@ Renders with:
 
 **Note:** If your proof already contains `\qed` or another end marker, you may see two symbols. The styling automatically adds the square symbol for consistency.
 
+### Interactive Python Cells with Pyodide
+
+This blog supports interactive Python code execution directly in the browser using Pyodide. You can create executable Python cells using the special `python-cell` source block type.
+
+#### Basic Usage
+
+To create an interactive Python cell, use `#+begin_src python-cell` instead of the regular `#+begin_src python`:
+
+```org
+#+begin_src python-cell
+2 + 2
+#+end_src
+```
+
+This will automatically generate an interactive cell with:
+- A text area containing the code
+- A "Run" button to execute the code
+- An output area to display results
+
+#### How It Works
+
+The export filter automatically:
+1. Detects `python-cell` source blocks during export
+2. Generates unique IDs for each cell
+3. Creates HTML with textarea, button, and output elements
+4. Adds Pyodide initialization code (loaded once per page)
+5. Sets up JavaScript to handle code execution
+
+#### Matplotlib Support
+
+The filter automatically detects when your code uses matplotlib and generates appropriate HTML for image output. Any code containing `plt.show()`, `plt.plot()`, or other matplotlib plotting functions will display images instead of text output:
+
+```org
+#+begin_src python-cell
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(0, 2*np.pi, 100)
+y = np.sin(x)
+
+plt.plot(x, y)
+plt.title("Sine Wave")
+plt.xlabel("x")
+plt.ylabel("sin(x)")
+plt.grid(True)
+plt.show()
+#+end_src
+```
+
+When matplotlib is detected, the system:
+- Loads matplotlib and numpy via micropip
+- Configures matplotlib to use the AGG backend
+- Captures the plot as a PNG image
+- Displays it as a base64-encoded image in the output area
+- Clears the plot after rendering (using `plt.clf()`)
+
+#### Example with Sympy
+
+You can also use Sympy for symbolic mathematics:
+
+```org
+#+begin_src python-cell
+import sympy as sp
+x = sp.symbols('x')
+expr = sp.expand((x + 2)**3)
+expr
+#+end_src
+```
+
+The Sympy package will be loaded automatically when your code imports it.
+
+#### Features
+
+- **No manual HTML/JavaScript required** - just write Python code in org-mode
+- **Automatic package loading** - matplotlib, numpy, and sympy are loaded as needed
+- **Multiple cells per page** - each cell has unique IDs and independent state
+- **Editable code** - users can modify and re-run the code in their browser
+- **Fast execution** - Pyodide compiles to WebAssembly for near-native performance
+
+#### Example Post
+
+See `org/_posts/2025-11-09-python-cell-filter-test.org` for a complete demonstration of interactive Python cells with various examples including regular computations, Sympy symbolic math, and matplotlib plotting.
+
 ### Citations and Bibliography
 
 This blog uses Org-mode's native citation system (org-cite) to manage references. Citations are automatically processed during export and a bibliography is generated from the cited works.
@@ -319,16 +403,18 @@ The `org_publish.el` file contains Emacs Lisp code that:
 1. Configures the Org-mode HTML exporter
 2. Enables org-cite for native citation support with BibTeX files
 3. Defines custom export options for Jekyll-specific properties
-4. Implements a filter function that:
-   - Processes LaTeX equation labels (`\label{org...}`) and references (`\eqref{org...}`)
-   - Places HTML anchors **before** equation blocks (not inside them, to avoid breaking MathJax rendering)
-   - Adds `\tag{n}` inside equations to display equation numbers flush-right (like textbooks)
-   - Converts equation references to clickable links with numbered labels
-   - Converts LaTeX special characters (e.g., `{\"o}` → `ö`) to proper HTML entities
-   - Extracts metadata from Org properties
-   - Generates Jekyll front matter
-   - Prepends it to the HTML output
-   - Fixes any baseurl-related link issues
+4. Implements filter functions that:
+   - **Convert `python-cell` source blocks** to interactive Pyodide cells with proper HTML/JavaScript
+   - **Detect matplotlib usage** and generate image-based output for plots
+   - Process LaTeX equation labels (`\label{org...}`) and references (`\eqref{org...}`)
+   - Place HTML anchors **before** equation blocks (not inside them, to avoid breaking MathJax rendering)
+   - Add `\tag{n}` inside equations to display equation numbers flush-right (like textbooks)
+   - Convert equation references to clickable links with numbered labels
+   - Convert LaTeX special characters (e.g., `{\"o}` → `ö`) to proper HTML entities
+   - Extract metadata from Org properties
+   - Generate Jekyll front matter
+   - Prepend it to the HTML output
+   - Fix any baseurl-related link issues
 
 The front matter is automatically generated only for files in the `_posts/` directory and only when it's not already present.
 

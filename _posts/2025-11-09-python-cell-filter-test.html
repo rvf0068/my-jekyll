@@ -1,0 +1,391 @@
+---
+layout: post
+title: "Python Cell Filter Test"
+date: 2025-11-09
+author: Author
+categories: python
+tags: pyodide python-cell matplotlib test
+---
+<script src="https://cdn.jsdelivr.net/pyodide/v0.26.0/full/pyodide.js"></script>
+
+<p>
+This post demonstrates the new org-mode filters for python-cell blocks that automatically generate interactive Pyodide cells.
+</p>
+
+<div id="outline-container-org97a6542" class="outline-2">
+<h2 id="org97a6542"><span class="section-number-2">1.</span> Regular Python Cells</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Here is a simple Python calculation using the new <code>python-cell</code> syntax:
+</p>
+
+<script>
+  const pyodideReady = loadPyodide();
+</script>
+
+<!-- Python cell pycell1 -->
+<div class="py-cell">
+  <textarea id="pycell1-code" rows="4" cols="40">2 + 2
+</textarea><br>
+  <button id="pycell1-run">Run</button>
+  <pre id="pycell1-out"></pre>
+</div>
+
+<script>
+(async () => {
+  const pyodide = await pyodideReady;
+  document.getElementById("pycell1-run").onclick = async () => {
+    const code = document.getElementById("pycell1-code").value;
+    try {
+      const result = await pyodide.runPythonAsync(code);
+      document.getElementById("pycell1-out").textContent = result;
+    } catch (err) {
+      document.getElementById("pycell1-out").textContent = err;
+    }
+  };
+})();
+</script>
+
+<p>
+Another example with variables:
+</p>
+
+<!-- Python cell pycell2 -->
+<div class="py-cell">
+  <textarea id="pycell2-code" rows="4" cols="40">x = 5
+y = 10
+x * y + 7
+</textarea><br>
+  <button id="pycell2-run">Run</button>
+  <pre id="pycell2-out"></pre>
+</div>
+
+<script>
+(async () => {
+  const pyodide = await pyodideReady;
+  document.getElementById("pycell2-run").onclick = async () => {
+    const code = document.getElementById("pycell2-code").value;
+    try {
+      const result = await pyodide.runPythonAsync(code);
+      document.getElementById("pycell2-out").textContent = result;
+    } catch (err) {
+      document.getElementById("pycell2-out").textContent = err;
+    }
+  };
+})();
+</script>
+
+<p>
+Let's try something with a list comprehension:
+</p>
+
+<!-- Python cell pycell3 -->
+<div class="py-cell">
+  <textarea id="pycell3-code" rows="4" cols="40">sum([i**2 for i in range(10)])
+</textarea><br>
+  <button id="pycell3-run">Run</button>
+  <pre id="pycell3-out"></pre>
+</div>
+
+<script>
+(async () => {
+  const pyodide = await pyodideReady;
+  document.getElementById("pycell3-run").onclick = async () => {
+    const code = document.getElementById("pycell3-code").value;
+    try {
+      const result = await pyodide.runPythonAsync(code);
+      document.getElementById("pycell3-out").textContent = result;
+    } catch (err) {
+      document.getElementById("pycell3-out").textContent = err;
+    }
+  };
+})();
+</script>
+</div>
+</div>
+
+<div id="outline-container-org9d252a1" class="outline-2">
+<h2 id="org9d252a1"><span class="section-number-2">2.</span> Python Cells with Sympy</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Now let's test symbolic mathematics with Sympy:
+</p>
+
+<!-- Python cell pycell4 -->
+<div class="py-cell">
+  <textarea id="pycell4-code" rows="4" cols="40">import sympy as sp
+x = sp.symbols('x')
+expr = sp.expand((x + 2)**3)
+expr
+</textarea><br>
+  <button id="pycell4-run">Run</button>
+  <pre id="pycell4-out"></pre>
+</div>
+
+<script>
+(async () => {
+  const pyodide = await pyodideReady;
+  document.getElementById("pycell4-run").onclick = async () => {
+    const code = document.getElementById("pycell4-code").value;
+    try {
+      const result = await pyodide.runPythonAsync(code);
+      document.getElementById("pycell4-out").textContent = result;
+    } catch (err) {
+      document.getElementById("pycell4-out").textContent = err;
+    }
+  };
+})();
+</script>
+
+<p>
+Another symbolic calculation - integration:
+</p>
+
+<!-- Python cell pycell5 -->
+<div class="py-cell">
+  <textarea id="pycell5-code" rows="4" cols="40">import sympy as sp
+x = sp.symbols('x')
+sp.integrate(sp.sin(x), x)
+</textarea><br>
+  <button id="pycell5-run">Run</button>
+  <pre id="pycell5-out"></pre>
+</div>
+
+<script>
+(async () => {
+  const pyodide = await pyodideReady;
+  document.getElementById("pycell5-run").onclick = async () => {
+    const code = document.getElementById("pycell5-code").value;
+    try {
+      const result = await pyodide.runPythonAsync(code);
+      document.getElementById("pycell5-out").textContent = result;
+    } catch (err) {
+      document.getElementById("pycell5-out").textContent = err;
+    }
+  };
+})();
+</script>
+</div>
+</div>
+
+<div id="outline-container-orgef8c587" class="outline-2">
+<h2 id="orgef8c587"><span class="section-number-2">3.</span> Matplotlib Cells</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+The filter automatically detects matplotlib usage and generates appropriate HTML for image output.
+</p>
+
+<p>
+Here's a simple plot:
+</p>
+
+<!-- Python cell pycell6 with matplotlib -->
+<div class="py-cell">
+  <textarea id="pycell6-code" rows="8" cols="60">import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(0, 2*np.pi, 100)
+y = np.sin(x)
+
+plt.plot(x, y)
+plt.title("Sine Wave")
+plt.xlabel("x")
+plt.ylabel("sin(x)")
+plt.grid(True)
+plt.show()
+</textarea><br>
+  <button id="pycell6-run">Run</button><br>
+  <div id="pycell6-out"></div>
+</div>
+
+<script>
+(async () => {
+  const pyodide = await pyodideReady;
+  await pyodide.loadPackage(["micropip"]);
+  await pyodide.runPythonAsync(`
+import micropip
+await micropip.install(["matplotlib", "numpy"])
+  `);
+  
+  document.getElementById("pycell6-run").onclick = async () => {
+    const code = document.getElementById("pycell6-code").value;
+    try {
+      const result = await pyodide.runPythonAsync(`
+import matplotlib
+matplotlib.use("AGG")
+import io, base64
+${code}
+buf = io.BytesIO()
+plt.savefig(buf, format='png')
+buf.seek(0)
+img_data = base64.b64encode(buf.read()).decode()
+plt.clf()
+buf.close()
+img_data
+      `);
+      const img = document.createElement("img");
+      img.src = "data:image/png;base64," + result;
+      const out = document.getElementById("pycell6-out");
+      out.innerHTML = "";
+      out.appendChild(img);
+    } catch (err) {
+      document.getElementById("pycell6-out").textContent = err;
+    }
+  };
+})();
+</script>
+
+<p>
+A more complex plot with multiple curves:
+</p>
+
+<!-- Python cell pycell7 with matplotlib -->
+<div class="py-cell">
+  <textarea id="pycell7-code" rows="8" cols="60">import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(0, 2*np.pi, 100)
+
+plt.plot(x, np.sin(x), label='sin(x)')
+plt.plot(x, np.cos(x), label='cos(x)')
+plt.plot(x, np.sin(x)**2, label='sin²(x)', linestyle='--')
+
+plt.title("Trigonometric Functions")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.legend()
+plt.grid(True)
+plt.show()
+</textarea><br>
+  <button id="pycell7-run">Run</button><br>
+  <div id="pycell7-out"></div>
+</div>
+
+<script>
+(async () => {
+  const pyodide = await pyodideReady;
+  await pyodide.loadPackage(["micropip"]);
+  await pyodide.runPythonAsync(`
+import micropip
+await micropip.install(["matplotlib", "numpy"])
+  `);
+  
+  document.getElementById("pycell7-run").onclick = async () => {
+    const code = document.getElementById("pycell7-code").value;
+    try {
+      const result = await pyodide.runPythonAsync(`
+import matplotlib
+matplotlib.use("AGG")
+import io, base64
+${code}
+buf = io.BytesIO()
+plt.savefig(buf, format='png')
+buf.seek(0)
+img_data = base64.b64encode(buf.read()).decode()
+plt.clf()
+buf.close()
+img_data
+      `);
+      const img = document.createElement("img");
+      img.src = "data:image/png;base64," + result;
+      const out = document.getElementById("pycell7-out");
+      out.innerHTML = "";
+      out.appendChild(img);
+    } catch (err) {
+      document.getElementById("pycell7-out").textContent = err;
+    }
+  };
+})();
+</script>
+
+<p>
+A scatter plot example:
+</p>
+
+<!-- Python cell pycell8 with matplotlib -->
+<div class="py-cell">
+  <textarea id="pycell8-code" rows="8" cols="60">import matplotlib.pyplot as plt
+import numpy as np
+
+np.random.seed(42)
+x = np.random.randn(50)
+y = np.random.randn(50)
+colors = np.random.rand(50)
+sizes = 1000 * np.random.rand(50)
+
+plt.scatter(x, y, c=colors, s=sizes, alpha=0.6, cmap='viridis')
+plt.colorbar()
+plt.title("Random Scatter Plot")
+plt.xlabel("X-axis")
+plt.ylabel("Y-axis")
+plt.show()
+</textarea><br>
+  <button id="pycell8-run">Run</button><br>
+  <div id="pycell8-out"></div>
+</div>
+
+<script>
+(async () => {
+  const pyodide = await pyodideReady;
+  await pyodide.loadPackage(["micropip"]);
+  await pyodide.runPythonAsync(`
+import micropip
+await micropip.install(["matplotlib", "numpy"])
+  `);
+  
+  document.getElementById("pycell8-run").onclick = async () => {
+    const code = document.getElementById("pycell8-code").value;
+    try {
+      const result = await pyodide.runPythonAsync(`
+import matplotlib
+matplotlib.use("AGG")
+import io, base64
+${code}
+buf = io.BytesIO()
+plt.savefig(buf, format='png')
+buf.seek(0)
+img_data = base64.b64encode(buf.read()).decode()
+plt.clf()
+buf.close()
+img_data
+      `);
+      const img = document.createElement("img");
+      img.src = "data:image/png;base64," + result;
+      const out = document.getElementById("pycell8-out");
+      out.innerHTML = "";
+      out.appendChild(img);
+    } catch (err) {
+      document.getElementById("pycell8-out").textContent = err;
+    }
+  };
+})();
+</script>
+</div>
+</div>
+
+<div id="outline-container-orgd5dcf84" class="outline-2">
+<h2 id="orgd5dcf84"><span class="section-number-2">4.</span> Testing the Feature</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+The new filter automatically:
+</p>
+<ul class="org-ul">
+<li>Detects <code>#+begin_src python-cell</code> blocks</li>
+<li>Generates unique IDs for each cell</li>
+<li>Creates appropriate HTML with textarea, button, and output area</li>
+<li>Detects matplotlib usage and generates image-based output</li>
+<li>Initializes Pyodide only once per page</li>
+<li>Loads required packages (matplotlib, numpy) for plotting cells</li>
+</ul>
+
+<p>
+This makes it much easier to create interactive Python content without manually writing all the HTML and JavaScript!
+</p>
+
+<p>
+A math test to ensure other features still work: \(e^{i\pi} + 1 = 0\).
+</p>
+</div>
+</div>
+
+<!-- PROCESSED-BY-ORG-HTML-FINAL-FUNCTION -->

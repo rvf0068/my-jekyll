@@ -1,26 +1,32 @@
 ---
 layout: post
 title: "Live Python Cell with Pyodide"
-date: 2025-11-03 12:00:00 -0500
-categories: python pyodide interactive
-tags: python matplotlib sympy demo
+date: 2025-11-03
+author: Author
+categories: python
+tags: test
 ---
-
-<script src="https://cdn.jsdelivr.net/pyodide/v0.26.0/full/pyodide.js"></script>
-
 <p>
 This page demonstrates a live Python cell powered by Pyodide, allowing you to run Python code directly in your browser with Sympy and Matplotlib support.
 </p>
 
-    Pyodide test page <br>
-    Open your browser console to see Pyodide output
-    <script type="text/javascript">
-      async function main(){
-        let pyodide = await loadPyodide();
-        console.log(pyodide.runPython("print(1 + 2)"));
-      }
-      main();
-    </script>
+<p>
+Let us see if finally the html page regenerates&#x2026;
+</p>
+
+<p>
+A math test: \(a+b^{2}\). Another: \(\rho\colon G\to \mathrm{GL}(V)\).
+</p>
+
+Pyodide test page <br>
+Open your browser console to see Pyodide output
+<script type="text/javascript">
+  async function main(){
+    let pyodide = await loadPyodide();
+    console.log(pyodide.runPython("print(1 + 2)"));
+  }
+  main();
+</script>
 
 <p>
 another test:
@@ -85,3 +91,5 @@ still another:
   }
   main();
 </script>
+
+<!-- PROCESSED-BY-ORG-HTML-FINAL-FUNCTION -->
