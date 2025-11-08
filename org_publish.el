@@ -102,6 +102,99 @@ automatic descriptions derived from the label name."
                (link-with-desc (format "[[%s%s][%s]]" prefix label label)))
           (replace-match link-with-desc t t))))))
 
+;; Counter for generating unique cell IDs
+(defvar org-python-cell-counter 0
+  "Counter for generating unique Python cell IDs.")
+
+;; Track if pyodide has been initialized on the page
+(defvar org-python-pyodide-initialized nil
+  "Flag to track if Pyodide initialization code has been added.")
+
+;; Function to detect if code contains matplotlib
+(defun org-python-code-uses-matplotlib (code)
+  "Return non-nil if CODE uses matplotlib (plt.show() or plt.plot() etc)."
+  (or (string-match-p "plt\\.show()" code)
+      (string-match-p "plt\\.plot(" code)
+      (string-match-p "plt\\.scatter(" code)
+      (string-match-p "plt\\.bar(" code)
+      (string-match-p "plt\\.hist(" code)
+      (string-match-p "plt\\.imshow(" code)
+      (string-match-p "import matplotlib" code)
+      (string-match-p "from matplotlib" code)))
+
+;; Function to convert python-cell source blocks to HTML
+(defun org-python-cell-block-filter (text backend info)
+  "Convert python-cell source blocks to interactive Pyodide cells.
+TEXT is the transcoded HTML content.
+BACKEND is the export backend being used.
+INFO is the export plist."
+  (if (org-export-derived-backend-p backend 'html)
+      (progn
+        ;; Reset counter for each document
+        (setq org-python-cell-counter 0)
+        (setq org-python-pyodide-initialized nil)
+        
+        (with-temp-buffer
+          (insert text)
+          (goto-char (point-min))
+          
+          ;; Find all python-cell source blocks
+          ;; Org exports them as <div class="org-src-container"><pre class="src src-python-cell">
+          (while (re-search-forward 
+                  "<div class=\"org-src-container\">\\s-*<pre class=\"src src-python-cell\">\\(\\(?:.\\|\n\\)*?\\)</pre>\\s-*</div>"
+                  nil t)
+            (let* ((code-html (match-string 1))
+                   ;; Decode HTML entities back to plain text
+                   (code (with-temp-buffer
+                           (insert code-html)
+                           (goto-char (point-min))
+                           (while (re-search-forward "<span[^>]*>\\([^<]*\\)</span>" nil t)
+                             (replace-match "\\1"))
+                           (goto-char (point-min))
+                           (while (search-forward "&lt;" nil t)
+                             (replace-match "<"))
+                           (goto-char (point-min))
+                           (while (search-forward "&gt;" nil t)
+                             (replace-match ">"))
+                           (goto-char (point-min))
+                           (while (search-forward "&amp;" nil t)
+                             (replace-match "&"))
+                           (goto-char (point-min))
+                           (while (search-forward "&quot;" nil t)
+                             (replace-match "\""))
+                           (buffer-string)))
+                   (cell-id (format "pycell%d" (setq org-python-cell-counter 
+                                                     (1+ org-python-cell-counter))))
+                   (is-matplotlib (org-python-code-uses-matplotlib code))
+                   (pyodide-init (if (not org-python-pyodide-initialized)
+                                     (progn
+                                       (setq org-python-pyodide-initialized t)
+                                       "<script>\n  const pyodideReady = loadPyodide();\n</script>\n\n")
+                                   ""))
+                   (html-code (if is-matplotlib
+                                  ;; Matplotlib cell: output is an image
+                                  (format "%s<!-- Python cell %s with matplotlib -->\n<div class=\"py-cell\">\n  <textarea id=\"%s-code\" rows=\"8\" cols=\"60\">%s</textarea><br>\n  <button id=\"%s-run\">Run</button><br>\n  <div id=\"%s-out\"></div>\n</div>\n\n<script>\n(async () => {\n  const pyodide = await pyodideReady;\n  await pyodide.loadPackage([\"micropip\"]);\n  await pyodide.runPythonAsync(`\nimport micropip\nawait micropip.install([\"matplotlib\", \"numpy\"])\n  `);\n  \n  document.getElementById(\"%s-run\").onclick = async () => {\n    const code = document.getElementById(\"%s-code\").value;\n    try {\n      const result = await pyodide.runPythonAsync(`\nimport matplotlib\nmatplotlib.use(\"AGG\")\nimport io, base64\n${code}\nbuf = io.BytesIO()\nplt.savefig(buf, format='png')\nbuf.seek(0)\nimg_data = base64.b64encode(buf.read()).decode()\nplt.clf()\nbuf.close()\nimg_data\n      `);\n      const img = document.createElement(\"img\");\n      img.src = \"data:image/png;base64,\" + result;\n      const out = document.getElementById(\"%s-out\");\n      out.innerHTML = \"\";\n      out.appendChild(img);\n    } catch (err) {\n      document.getElementById(\"%s-out\").textContent = err;\n    }\n  };\n})();\n</script>"
+                                          pyodide-init cell-id
+                                          cell-id code
+                                          cell-id
+                                          cell-id
+                                          cell-id cell-id
+                                          cell-id
+                                          cell-id)
+                                ;; Regular cell: output is text
+                                (format "%s<!-- Python cell %s -->\n<div class=\"py-cell\">\n  <textarea id=\"%s-code\" rows=\"4\" cols=\"40\">%s</textarea><br>\n  <button id=\"%s-run\">Run</button>\n  <pre id=\"%s-out\"></pre>\n</div>\n\n<script>\n(async () => {\n  const pyodide = await pyodideReady;\n  document.getElementById(\"%s-run\").onclick = async () => {\n    const code = document.getElementById(\"%s-code\").value;\n    try {\n      const result = await pyodide.runPythonAsync(code);\n      document.getElementById(\"%s-out\").textContent = result;\n    } catch (err) {\n      document.getElementById(\"%s-out\").textContent = err;\n    }\n  };\n})();\n</script>"
+                                        pyodide-init cell-id
+                                        cell-id code
+                                        cell-id
+                                        cell-id
+                                        cell-id cell-id
+                                        cell-id
+                                        cell-id))))
+              (replace-match html-code t t)))
+          
+          (buffer-string)))
+    text))
+
 ;; Hook to run before publishing
 (defun org-publish-before-processing-hook (backend)
   "Add math link descriptions before export."
@@ -155,54 +248,67 @@ Places anchors BEFORE equation blocks and adds \\tag{n} inside equations for dis
 (defun org-html-final-function (contents backend info)
   "Post-process HTML to fix Jekyll baseurl links and add Jekyll front matter."
   (when (org-export-derived-backend-p backend 'html)
-    ;; Process equation labels and references
-    (setq contents (org-process-equation-references contents))
-    
-    ;; Fix LaTeX special characters that weren't properly converted
-    (setq contents (replace-regexp-in-string "{\\\\\"o}" "ö" contents))
-    (setq contents (replace-regexp-in-string "{\\\\\"a}" "ä" contents))
-    (setq contents (replace-regexp-in-string "{\\\\\"u}" "ü" contents))
-    (setq contents (replace-regexp-in-string "{\\\\\"O}" "Ö" contents))
-    (setq contents (replace-regexp-in-string "{\\\\\"A}" "Ä" contents))
-    (setq contents (replace-regexp-in-string "{\\\\\"U}" "Ü" contents))
-    (setq contents (replace-regexp-in-string "{\\\\'e}" "é" contents))
-    (setq contents (replace-regexp-in-string "{\\\\'a}" "á" contents))
-    (setq contents (replace-regexp-in-string "{\\\\'i}" "í" contents))
-    (setq contents (replace-regexp-in-string "{\\\\'o}" "ó" contents))
-    (setq contents (replace-regexp-in-string "{\\\\'u}" "ú" contents))
-    
-    ;; Replace file:// URLs with proper HTTP paths for baseurl
-    (let ((file-url-pattern (concat "href=\"file:/+" jekyll-baseurl "/"))
-          (http-path (concat "href=\"" jekyll-baseurl "/")))
-      (setq contents (replace-regexp-in-string file-url-pattern http-path contents)))
-    
-    ;; Convert relative file links to images (from org/_posts/ to assets/)
-    ;; Pattern 1: <img src="file://../../assets/filename.ext" ... />
-    ;; Pattern 2: <img src="../../assets/filename.ext" ... />
-    ;; Replace with: <img src="/my-jekyll/assets/filename.ext" ... />
-    (setq contents (replace-regexp-in-string
-                    "src=\"file://\\.\\.?/\\.\\.?/assets/\\([^\"]+\\)\""
-                    (concat "src=\"" jekyll-baseurl "/assets/\\1\"")
-                    contents))
-    (setq contents (replace-regexp-in-string
-                    "src=\"\\.\\.?/\\.\\.?/assets/\\([^\"]+\\)\""
-                    (concat "src=\"" jekyll-baseurl "/assets/\\1\"")
-                    contents))
-    
-    ;; Convert simple image filenames in posts to baseurl paths
-    ;; Pattern: <img src="filename.png" ... /> in _posts files
-    ;; Replace with: <img src="/my-jekyll/assets/filename.png" ... />
-    (when (string-match-p "/_posts/" (or (plist-get info :output-file) ""))
+    ;; Guard against double-processing - if already processed, return as-is
+    (unless (string-match-p "<!-- PROCESSED-BY-ORG-HTML-FINAL-FUNCTION -->" contents)
+      ;; Process python-cell blocks first
+      (setq contents (org-python-cell-block-filter contents backend info))
+      
+      ;; Add Pyodide script if python cells were found
+      (when (string-match-p "const pyodideReady = loadPyodide()" contents)
+        (setq contents (concat "<script src=\"https://cdn.jsdelivr.net/pyodide/v0.26.0/full/pyodide.js\"></script>\n\n"
+                               contents)))
+      
+      ;; Process equation labels and references
+      (setq contents (org-process-equation-references contents))
+      
+      ;; Fix LaTeX special characters that weren't properly converted
+      (setq contents (replace-regexp-in-string "{\\\\\"o}" "ö" contents))
+      (setq contents (replace-regexp-in-string "{\\\\\"a}" "ä" contents))
+      (setq contents (replace-regexp-in-string "{\\\\\"u}" "ü" contents))
+      (setq contents (replace-regexp-in-string "{\\\\\"O}" "Ö" contents))
+      (setq contents (replace-regexp-in-string "{\\\\\"A}" "Ä" contents))
+      (setq contents (replace-regexp-in-string "{\\\\\"U}" "Ü" contents))
+      (setq contents (replace-regexp-in-string "{\\\\'e}" "é" contents))
+      (setq contents (replace-regexp-in-string "{\\\\'a}" "á" contents))
+      (setq contents (replace-regexp-in-string "{\\\\'i}" "í" contents))
+      (setq contents (replace-regexp-in-string "{\\\\'o}" "ó" contents))
+      (setq contents (replace-regexp-in-string "{\\\\'u}" "ú" contents))
+      
+      ;; Replace file:// URLs with proper HTTP paths for baseurl
+      (let ((file-url-pattern (concat "href=\"file:/+" jekyll-baseurl "/"))
+            (http-path (concat "href=\"" jekyll-baseurl "/")))
+        (setq contents (replace-regexp-in-string file-url-pattern http-path contents)))
+      
+      ;; Convert relative file links to images (from org/_posts/ to assets/)
+      ;; Pattern 1: <img src="file://../../assets/filename.ext" ... />
+      ;; Pattern 2: <img src="../../assets/filename.ext" ... />
+      ;; Replace with: <img src="/my-jekyll/assets/filename.ext" ... />
       (setq contents (replace-regexp-in-string
-                      "src=\"\\([^/\"]+\\.\\(png\\|jpg\\|gif\\|pdf\\)\\)\""
+                      "src=\"file://\\.\\.?/\\.\\.?/assets/\\([^\"]+\\)\""
                       (concat "src=\"" jekyll-baseurl "/assets/\\1\"")
-                      contents)))
-    
-    ;; Add Jekyll front matter for posts (only if not already present)
-    (when (and (string-match-p "/_posts/" (or (plist-get info :output-file) ""))
-               (not (string-prefix-p "---" contents)))
-      (let ((front-matter (org-jekyll-front-matter info)))
-        (setq contents (concat front-matter contents)))))
+                      contents))
+      (setq contents (replace-regexp-in-string
+                      "src=\"\\.\\.?/\\.\\.?/assets/\\([^\"]+\\)\""
+                      (concat "src=\"" jekyll-baseurl "/assets/\\1\"")
+                      contents))
+      
+      ;; Convert simple image filenames in posts to baseurl paths
+      ;; Pattern: <img src="filename.png" ... /> in _posts files
+      ;; Replace with: <img src="/my-jekyll/assets/filename.png" ... />
+      (when (string-match-p "/_posts/" (or (plist-get info :output-file) ""))
+        (setq contents (replace-regexp-in-string
+                        "src=\"\\([^/\"]+\\.\\(png\\|jpg\\|gif\\|pdf\\)\\)\""
+                        (concat "src=\"" jekyll-baseurl "/assets/\\1\"")
+                        contents)))
+      
+      ;; Add Jekyll front matter for posts (only if not already present)
+      (when (and (string-match-p "/_posts/" (or (plist-get info :output-file) ""))
+                 (not (string-prefix-p "---" contents)))
+        (let ((front-matter (org-jekyll-front-matter info)))
+          (setq contents (concat front-matter contents))))
+      
+      ;; Add processing marker at the end
+      (setq contents (concat contents "\n<!-- PROCESSED-BY-ORG-HTML-FINAL-FUNCTION -->\n"))))
   contents)
 
 ;; Only add the filter if it's not already in the list
@@ -231,6 +337,7 @@ Places anchors BEFORE equation blocks and adds \\tag{n} inside equations for dis
          :base-extension "org"
          :publishing-directory "./"
          :recursive t
+         :exclude "_posts"  ;; Exclude _posts subdirectory - handled by "posts" project
          :publishing-function org-html-publish-to-html
          :headline-levels 4
          :html-extension "html"

@@ -1,0 +1,67 @@
+---
+layout: post
+title: "New Pyodide test"
+date: 2025-11-08
+author: Author
+categories: python
+tags: test
+---
+<script src="https://cdn.jsdelivr.net/pyodide/v0.26.0/full/pyodide.js"></script>
+
+<p>
+Let us see if this works:
+</p>
+
+<script>
+  const pyodideReady = loadPyodide();
+</script>
+
+<!-- Code cell 1 -->
+<div class="py-cell">
+  <textarea id="pycode1" rows="4" cols="40">2 + 2</textarea><br>
+  <button id="run1">Run</button>
+  <pre id="out1"></pre>
+</div>
+
+<script>
+  (async () => {
+    const pyodide = await pyodideReady;
+    document.getElementById("run1").onclick = async () => {
+      const code = document.getElementById("pycode1").value;
+      try {
+        const result = await pyodide.runPythonAsync(code);
+        document.getElementById("out1").textContent = result;
+      } catch (err) {
+        document.getElementById("out1").textContent = err;
+      }
+    };
+  })();
+</script>
+
+<!-- Code cell 2 -->
+<div class="py-cell">
+  <textarea id="pycode2" rows="4" cols="40">sum([1,2,3,4,5])</textarea><br>
+  <button id="run2">Run</button>
+  <pre id="out2"></pre>
+</div>
+
+<script>
+  (async () => {
+    const pyodide = await pyodideReady;
+    document.getElementById("run2").onclick = async () => {
+      const code = document.getElementById("pycode2").value;
+      try {
+        const result = await pyodide.runPythonAsync(code);
+        document.getElementById("out2").textContent = result;
+      } catch (err) {
+        document.getElementById("out2").textContent = err;
+      }
+    };
+  })();
+</script>
+
+<p>
+A math test: \(a+b^{2}\). Another: \(\rho\colon G\to \mathrm{GL}(V)\).
+</p>
+
+<!-- PROCESSED-BY-ORG-HTML-FINAL-FUNCTION -->
