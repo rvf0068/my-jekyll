@@ -252,3 +252,8 @@ pre.line-numbers > code {
   font-size: 0.9rem;
   line-height: 1.4;
 }
+
+/* Hide inline script elements that shouldn't be visible */
+script {
+  display: none !important;
+}
