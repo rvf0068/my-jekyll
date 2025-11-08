@@ -122,6 +122,14 @@ automatic descriptions derived from the label name."
       (string-match-p "import matplotlib" code)
       (string-match-p "from matplotlib" code)))
 
+;; Function to detect if code contains sympy
+(defun org-python-code-uses-sympy (code)
+  "Return non-nil if CODE uses sympy."
+  (or (string-match-p "import sympy" code)
+      (string-match-p "from sympy" code)
+      (string-match-p "sp\\." code)
+      (string-match-p "sympy\\." code)))
+
 ;; Function to convert python-cell source blocks to HTML
 (defun org-python-cell-block-filter (text backend info)
   "Convert python-cell source blocks to interactive Pyodide cells.
@@ -166,22 +174,46 @@ INFO is the export plist."
                    (cell-id (format "pycell%d" (setq org-python-cell-counter 
                                                      (1+ org-python-cell-counter))))
                    (is-matplotlib (org-python-code-uses-matplotlib code))
+                   (is-sympy (org-python-code-uses-sympy code))
                    (pyodide-init (if (not org-python-pyodide-initialized)
                                      (progn
                                        (setq org-python-pyodide-initialized t)
                                        "<script>\n  const pyodideReady = loadPyodide();\n</script>\n\n")
                                    ""))
-                   (html-code (if is-matplotlib
-                                  ;; Matplotlib cell: output is an image
-                                  (format "%s<!-- Python cell %s with matplotlib -->\n<div class=\"py-cell\">\n  <textarea id=\"%s-code\" rows=\"8\" cols=\"60\">%s</textarea><br>\n  <button id=\"%s-run\">Run</button><br>\n  <div id=\"%s-out\"></div>\n</div>\n\n<script>\n(async () => {\n  const pyodide = await pyodideReady;\n  await pyodide.loadPackage([\"micropip\"]);\n  await pyodide.runPythonAsync(`\nimport micropip\nawait micropip.install([\"matplotlib\", \"numpy\"])\n  `);\n  \n  document.getElementById(\"%s-run\").onclick = async () => {\n    const code = document.getElementById(\"%s-code\").value;\n    try {\n      const result = await pyodide.runPythonAsync(`\nimport matplotlib\nmatplotlib.use(\"AGG\")\nimport io, base64\n${code}\nbuf = io.BytesIO()\nplt.savefig(buf, format='png')\nbuf.seek(0)\nimg_data = base64.b64encode(buf.read()).decode()\nplt.clf()\nbuf.close()\nimg_data\n      `);\n      const img = document.createElement(\"img\");\n      img.src = \"data:image/png;base64,\" + result;\n      const out = document.getElementById(\"%s-out\");\n      out.innerHTML = \"\";\n      out.appendChild(img);\n    } catch (err) {\n      document.getElementById(\"%s-out\").textContent = err;\n    }\n  };\n})();\n</script>"
-                                          pyodide-init cell-id
-                                          cell-id code
-                                          cell-id
-                                          cell-id
-                                          cell-id cell-id
-                                          cell-id
-                                          cell-id)
-                                ;; Regular cell: output is text
+                   ;; Build package list based on detected libraries
+                   (packages (append
+                              (when is-matplotlib '("matplotlib" "numpy"))
+                              (when is-sympy '("sympy"))))
+                   (packages-str (if packages
+                                    (format "[%s]"
+                                            (mapconcat (lambda (p) (format "\"%s\"" p))
+                                                      packages ", "))
+                                  "[]"))
+                   (html-code (cond
+                               ;; Matplotlib cell: output is an image
+                               (is-matplotlib
+                                (format "%s<!-- Python cell %s with matplotlib%s -->\n<div class=\"py-cell\">\n  <textarea id=\"%s-code\" rows=\"8\" cols=\"60\">%s</textarea><br>\n  <button id=\"%s-run\">Run</button><br>\n  <div id=\"%s-out\"></div>\n</div>\n\n<script>\n(async () => {\n  const pyodide = await pyodideReady;\n  await pyodide.loadPackage([\"micropip\"]);\n  await pyodide.runPythonAsync(`\nimport micropip\nawait micropip.install(%s)\n  `);\n  \n  document.getElementById(\"%s-run\").onclick = async () => {\n    const code = document.getElementById(\"%s-code\").value;\n    try {\n      const result = await pyodide.runPythonAsync(`\nimport matplotlib\nmatplotlib.use(\"AGG\")\nimport io, base64\n${code}\nbuf = io.BytesIO()\nplt.savefig(buf, format='png')\nbuf.seek(0)\nimg_data = base64.b64encode(buf.read()).decode()\nplt.clf()\nbuf.close()\nimg_data\n      `);\n      const img = document.createElement(\"img\");\n      img.src = \"data:image/png;base64,\" + result;\n      const out = document.getElementById(\"%s-out\");\n      out.innerHTML = \"\";\n      out.appendChild(img);\n    } catch (err) {\n      document.getElementById(\"%s-out\").textContent = err;\n    }\n  };\n})();\n</script>"
+                                        pyodide-init cell-id
+                                        (if is-sympy " and sympy" "")
+                                        cell-id code
+                                        cell-id
+                                        cell-id
+                                        packages-str
+                                        cell-id cell-id
+                                        cell-id
+                                        cell-id))
+                               ;; Sympy cell: output is text but needs sympy package
+                               (is-sympy
+                                (format "%s<!-- Python cell %s with sympy -->\n<div class=\"py-cell\">\n  <textarea id=\"%s-code\" rows=\"4\" cols=\"40\">%s</textarea><br>\n  <button id=\"%s-run\">Run</button>\n  <pre id=\"%s-out\"></pre>\n</div>\n\n<script>\n(async () => {\n  const pyodide = await pyodideReady;\n  await pyodide.loadPackage([\"micropip\"]);\n  await pyodide.runPythonAsync(`\nimport micropip\nawait micropip.install([\"sympy\"])\n  `);\n  \n  document.getElementById(\"%s-run\").onclick = async () => {\n    const code = document.getElementById(\"%s-code\").value;\n    try {\n      const result = await pyodide.runPythonAsync(code);\n      document.getElementById(\"%s-out\").textContent = result;\n    } catch (err) {\n      document.getElementById(\"%s-out\").textContent = err;\n    }\n  };\n})();\n</script>"
+                                        pyodide-init cell-id
+                                        cell-id code
+                                        cell-id
+                                        cell-id
+                                        cell-id cell-id
+                                        cell-id
+                                        cell-id))
+                               ;; Regular cell: output is text
+                               (t
                                 (format "%s<!-- Python cell %s -->\n<div class=\"py-cell\">\n  <textarea id=\"%s-code\" rows=\"4\" cols=\"40\">%s</textarea><br>\n  <button id=\"%s-run\">Run</button>\n  <pre id=\"%s-out\"></pre>\n</div>\n\n<script>\n(async () => {\n  const pyodide = await pyodideReady;\n  document.getElementById(\"%s-run\").onclick = async () => {\n    const code = document.getElementById(\"%s-code\").value;\n    try {\n      const result = await pyodide.runPythonAsync(code);\n      document.getElementById(\"%s-out\").textContent = result;\n    } catch (err) {\n      document.getElementById(\"%s-out\").textContent = err;\n    }\n  };\n})();\n</script>"
                                         pyodide-init cell-id
                                         cell-id code
@@ -189,7 +221,7 @@ INFO is the export plist."
                                         cell-id
                                         cell-id cell-id
                                         cell-id
-                                        cell-id))))
+                                        cell-id)))))
               (replace-match html-code t t)))
           
           (buffer-string)))
