@@ -11,6 +11,43 @@ Welcome! This is the homepage of my blog, powered by Org-mode and Jekyll.
 Check out the <a href="/my-jekyll/2025/11/03/pyodide-demo.html">Live Python Cell with Pyodide</a> demo page!
 </p>
 
+<h2>Categories</h2>
+{% assign sorted_categories = site.categories | sort %}
+<ul>
+{% for category in sorted_categories %}
+  <li>
+    <strong>{{ category[0] }}</strong> ({{ category[1].size }} post{% if category[1].size != 1 %}s{% endif %})
+    <ul>
+    {% for post in category[1] %}
+      <li>
+        <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+        <span class="post-date"> - {{ post.date | date: "%B %d, %Y" }}</span>
+      </li>
+    {% endfor %}
+    </ul>
+  </li>
+{% endfor %}
+</ul>
+
+<h2>Tags</h2>
+{% assign sorted_tags = site.tags | sort %}
+<ul>
+{% for tag in sorted_tags %}
+  <li>
+    <strong>{{ tag[0] }}</strong> ({{ tag[1].size }} post{% if tag[1].size != 1 %}s{% endif %})
+    <ul>
+    {% for post in tag[1] %}
+      <li>
+        <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+        <span class="post-date"> - {{ post.date | date: "%B %d, %Y" }}</span>
+      </li>
+    {% endfor %}
+    </ul>
+  </li>
+{% endfor %}
+</ul>
+
+<h2>All Posts</h2>
 <ul>
 {% for post in site.posts %}
   <li>
