@@ -18,7 +18,8 @@ Check out the <a href="/my-jekyll/2025/11/03/pyodide-demo.html">Live Python Cell
   <li>
     <strong>{{ category[0] }}</strong> ({{ category[1].size }} post{% if category[1].size != 1 %}s{% endif %})
     <ul>
-    {% for post in category[1] %}
+    {% assign category_posts = category[1] | sort: 'date' | reverse %}
+    {% for post in category_posts %}
       <li>
         <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
         <span class="post-date"> - {{ post.date | date: "%B %d, %Y" }}</span>
@@ -36,7 +37,8 @@ Check out the <a href="/my-jekyll/2025/11/03/pyodide-demo.html">Live Python Cell
   <li>
     <strong>{{ tag[0] }}</strong> ({{ tag[1].size }} post{% if tag[1].size != 1 %}s{% endif %})
     <ul>
-    {% for post in tag[1] %}
+    {% assign tag_posts = tag[1] | sort: 'date' | reverse %}
+    {% for post in tag_posts %}
       <li>
         <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
         <span class="post-date"> - {{ post.date | date: "%B %d, %Y" }}</span>
