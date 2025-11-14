@@ -8,7 +8,7 @@ This is a Jekyll-based blog that uses Org-mode for authoring posts. The setup au
 - Automatic Jekyll front matter generation from Org properties
 - Support for LaTeX math content with MathJax
 - **Automatic equation referencing** with numbered links for LaTeX equations
-- **Enhanced code blocks** with syntax highlighting, line numbers, and copy-to-clipboard button
+- **Enhanced code blocks** with syntax highlighting (Prism.js), line numbers, copy-to-clipboard button, and language badges
 - **Interactive Python cells** powered by Pyodide - run Python code directly in the browser
 - Customizable layouts and themes
 
@@ -367,6 +367,37 @@ This demonstrates the citation system.
 The bibliography will be automatically generated from the cited works, formatted with author names, year, and publication details.
 
 Example post with citations: `org/_posts/2025-10-30-sample-with-citations.org`
+
+### Enhanced Code Blocks
+
+Code snippets in Org-mode posts are automatically enhanced with:
+
+1. **Syntax highlighting** using Prism.js - supports Python, JavaScript, Bash, Java, C/C++, Ruby, Go, Rust, PHP, HTML, CSS, SQL, JSON, YAML, Markdown, Lisp variants, and many more
+2. **Line numbers** for easy reference
+3. **Copy-to-clipboard button** - appears on hover (always visible on mobile), shows "Copied!" feedback
+4. **Language badges** showing the programming language in the top-left corner
+
+#### Usage
+
+Simply write code blocks in standard Org-mode syntax:
+
+```org
+#+BEGIN_SRC python
+def hello_world():
+    print("Hello, World!")
+
+hello_world()
+#+END_SRC
+```
+
+The enhancement happens automatically during export. The language identifier (e.g., `python`) is used for syntax highlighting.
+
+#### Implementation Details
+
+- **JavaScript Enhancement**: The `assets/js/code-blocks.js` script detects `.org-src-container` elements and wraps them in proper Prism.js markup
+- **Styling**: Custom styling in `css/code-blocks.css` with Computer Modern Typewriter font
+- **Browser Compatibility**: Uses modern Clipboard API with fallback to `document.execCommand('copy')` for older browsers
+- **Dependencies**: Prism.js core, autoloader, and line-numbers plugins loaded from cdnjs.cloudflare.com
 
 ## Publishing
 
