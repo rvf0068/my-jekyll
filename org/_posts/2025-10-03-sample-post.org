@@ -18,9 +18,8 @@ Org-mode supports inline math like \( E = mc^2 \) and display math:
 \]
 
 * Images
-Include images with =[[/my-jekyll/assets/sample-image.jpg]]= syntax.
 
-Here's an example image link: [[/my-jekyll/assets/sample-image.jpg][Sample Image]]
+Here's an example image link: [[/my-jekyll/assets/ciclos6-0.png][Sample Image]]
 
 Let us see if this works:
 
