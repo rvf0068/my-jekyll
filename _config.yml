@@ -2,7 +2,6 @@ title: My Org-Jekyll Blog
 description: A blog powered by Org-mode and Jekyll
 baseurl: "/my-jekyll"
 url: "https://rvf0068.github.io"
-markdown: kramdown
 permalink: /:year/:month/:day/:title.html
 exclude:
   - scripts/
