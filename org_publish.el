@@ -11,7 +11,6 @@
 (require 'oc)
 (require 'oc-basic)
 (require 'oc-biblatex)
-(require 'oc-csl)
 
 ;; Configure citation export processors to use basic style for HTML
 (setq org-cite-export-processors

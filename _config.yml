@@ -4,8 +4,6 @@ baseurl: "/my-jekyll"
 url: "https://rvf0068.github.io"
 markdown: kramdown
 permalink: /:year/:month/:day/:title.html
-plugins:
-  - github-pages
 exclude:
   - scripts/
   - .github/
