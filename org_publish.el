@@ -4,16 +4,8 @@
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 (package-initialize)
 
-;; Try to install required packages, but don't fail if unavailable
-(ignore-errors
-  (unless (package-installed-p 'htmlize)
-    (package-install 'htmlize)))
-
 (require 'ox-html)
 (require 'ox-publish)
-;; Require htmlize only if available
-(when (locate-library "htmlize")
-  (require 'htmlize))
 
 ;; Enable org-cite for citation support
 (require 'oc)
@@ -39,10 +31,6 @@ BODY is a list of backend-value pairs, e.g., (latex \"file.tex\") (t \"file.png\
 
 ;; Configuration for Jekyll baseurl
 (setq jekyll-baseurl "/my-jekyll")
-
-;; Disable syntax highlighting (htmlize) if not available
-;; Set to nil to use inline CSS when htmlize is available
-(setq org-html-htmlize-output-type nil)
 
 ;; Function to generate Jekyll front matter from org properties
 (defun org-jekyll-front-matter (info)

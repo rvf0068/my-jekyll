@@ -49,24 +49,6 @@ More content...
 - `#+JEKYLL_TAGS:` - Space-separated list of tags
 - `#+FILETAGS:` - Alternative way to specify tags using Org's native filetags
 
-### Manual Front Matter (Legacy)
-
-You can also manually write the Jekyll front matter using `#+BEGIN_EXPORT html` blocks:
-
-```org
-#+BEGIN_EXPORT html
----
-layout: post
-title: "Your Post Title"
-date: 2025-10-29 17:00:00 -0500
-categories: category1 category2
-tags: tag1 tag2
----
-#+END_EXPORT
-
-Your content goes here...
-```
-
 ### Figure and Table Labeling
 
 Org-mode provides native support for labeling and referencing figures and tables, which works both for HTML export (blog) and LaTeX export:

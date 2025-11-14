@@ -7,7 +7,6 @@ paginate: 5
 markdown: kramdown
 permalink: /:year/:month/:day/:title.html
 plugins:
-  - jekyll-paginate
   - github-pages
 exclude:
   - scripts/
