@@ -333,9 +333,8 @@ Places anchors BEFORE equation blocks and adds \\tag{n} inside equations for dis
                         (concat "src=\"" jekyll-baseurl "/assets/\\1\"")
                         contents)))
       
-      ;; Add Jekyll front matter for posts (only if not already present)
-      (when (and (string-match-p "/_posts/" (or (plist-get info :output-file) ""))
-                 (not (string-prefix-p "---" contents)))
+      ;; Add Jekyll front matter for posts
+      (when (string-match-p "/_posts/" (or (plist-get info :output-file) ""))
         (let ((front-matter (org-jekyll-front-matter info)))
           (setq contents (concat front-matter contents))))
       
