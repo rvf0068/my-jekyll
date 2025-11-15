@@ -8,3 +8,26 @@ layout: default
 </h1>
 
 {{ content }}
+
+<!-- Post navigation -->
+<nav class="post-navigation">
+  <div class="nav-links">
+    {% if page.previous %}
+      <div class="nav-previous">
+        <a href="{{ page.previous.url | relative_url }}" rel="prev">
+          <span class="nav-subtitle">← Previous</span>
+          <span class="nav-title">{{ page.previous.title }}</span>
+        </a>
+      </div>
+    {% endif %}
+
+    {% if page.next %}
+      <div class="nav-next">
+        <a href="{{ page.next.url | relative_url }}" rel="next">
+          <span class="nav-subtitle">Next →</span>
+          <span class="nav-title">{{ page.next.title }}</span>
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</nav>
