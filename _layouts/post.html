@@ -7,13 +7,15 @@ layout: default
   {{ page.title }}
 </h1>
 
-<!-- Post metadata -->
-<div class="post-meta">
+{{ content }}
+
+<!-- Post metadata at end -->
+<div class="post-meta-footer">
   {% if page.categories and page.categories.size > 0 %}
     <div class="post-categories">
       <span class="meta-label">Categories:</span>
       {% for category in page.categories %}
-        <a href="{{ site.baseurl }}/categories/{{ category | slugify }}/" class="category-link">{{ category }}</a>{% unless forloop.last %}, {% endunless %}
+        <a href="{{ site.baseurl }}/categories/{{ category | slugify }}/" class="category-link">{{ category }}</a>
       {% endfor %}
     </div>
   {% endif %}
@@ -22,15 +24,11 @@ layout: default
     <div class="post-tags">
       <span class="meta-label">Tags:</span>
       {% for tag in page.tags %}
-        <a href="{{ site.baseurl }}/tags/{{ tag | slugify }}/" class="tag-link">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
+        <a href="{{ site.baseurl }}/tags/{{ tag | slugify }}/" class="tag-link">{{ tag }}</a>
       {% endfor %}
     </div>
   {% endif %}
-</div>
-
-{{ content }}
-
-<!-- Post navigation -->
+</div><!-- Post navigation -->
 <nav class="post-navigation">
   <div class="nav-links">
     {% if page.previous %}
