@@ -4,6 +4,7 @@
 #+JEKYLL_LAYOUT: post
 #+JEKYLL_CATEGORIES: python
 #+JEKYLL_TAGS: pyodide python-cell matplotlib test
+#+HAS_PYTHON_CELLS: yes
 
 This post demonstrates the new org-mode filters for python-cell blocks that automatically generate interactive Pyodide cells.
 

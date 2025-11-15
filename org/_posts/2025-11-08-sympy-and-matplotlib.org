@@ -4,6 +4,7 @@
 #+JEKYLL_LAYOUT: post
 #+JEKYLL_CATEGORIES: python
 #+JEKYLL_TAGS: pyodide sympy matplotlib
+#+HAS_PYTHON_CELLS: yes
 
 Let us test symbolic math and graphics using Pyodide.
 
