@@ -47,7 +47,7 @@ INFO is the plist used as a communication channel."
          (all-tags (delete-dups
                     (append
                      (when tags-prop (split-string tags-prop))
-                     (when filetags filetags))))
+                     filetags)))
          ;; Build front matter
          (front-matter (concat "---\n"
                                "layout: " layout "\n"
@@ -329,15 +329,8 @@ Places anchors BEFORE equation blocks and adds \\tag{n} inside equations for dis
       (setq contents (concat contents "\n<!-- PROCESSED-BY-ORG-HTML-FINAL-FUNCTION -->\n"))))
   contents)
 
-;; Only add the filter if it's not already in the list
-(unless (memq 'org-html-final-function org-export-filter-final-output-functions)
-  (add-to-list 'org-export-filter-final-output-functions 'org-html-final-function))
-
-;; Custom property extraction for Jekyll metadata
-(defun org-jekyll-get-property (property info)
-  "Get PROPERTY value from INFO plist or from file keywords."
-  (or (plist-get info property)
-      (org-export-data (plist-get info property) info)))
+;; Add the final processing filter
+(add-to-list 'org-export-filter-final-output-functions 'org-html-final-function)
 
 ;; Add custom export options for Jekyll properties
 (eval-after-load 'ox
@@ -379,12 +372,6 @@ Places anchors BEFORE equation blocks and adds \\tag{n} inside equations for dis
          :publishing-directory "./assets"
          :recursive t
          :publishing-function org-publish-attachment)
-        ("post-resources"
-         :base-directory "./org/_posts"
-         :base-extension "png\\|jpg\\|gif\\|pdf"
-         :publishing-directory "./assets"
-         :recursive nil
-         :publishing-function org-publish-attachment)
-        ("all" :components ("main-site" "posts" "resources" "post-resources"))))
+        ("all" :components ("main-site" "posts" "resources"))))
 
 (provide 'org_publish)
