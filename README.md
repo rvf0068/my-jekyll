@@ -29,6 +29,8 @@ Example post structure:
 #+JEKYLL_LAYOUT: post
 #+JEKYLL_CATEGORIES: category1 category2
 #+JEKYLL_TAGS: tag1 tag2 tag3
+#+HAS_MATH: yes
+#+HAS_PYTHON_CELLS: no
 
 * Introduction
 
@@ -39,7 +41,56 @@ Your content goes here...
 More content...
 ```
 
-#### Supported Properties
+### Performance Optimization
+
+The blog supports conditional loading of heavy JavaScript libraries to improve page load performance:
+
+#### MathJax (Mathematical Content)
+- **Default**: MathJax loads automatically for backward compatibility
+- **To disable**: Add `#+HAS_MATH: no` to skip MathJax loading (~150KB saved)
+- **Use case**: Text-only posts, programming tutorials, or any content without mathematical formulas
+
+#### Pyodide (Interactive Python)
+- **Default**: Pyodide does not load (saves ~6MB)
+- **To enable**: Add `#+HAS_PYTHON_CELLS: yes` to load Pyodide for interactive Python execution
+- **Use case**: Posts with `python-cell` source blocks for live code execution
+
+#### Examples
+
+**Lightweight text post:**
+```org
+#+TITLE: Simple Blog Post
+#+DATE: 2025-11-14
+#+HAS_MATH: no
+```
+→ Fastest loading, no heavy libraries
+
+**Math-heavy post:**
+```org
+#+TITLE: Advanced Calculus Tutorial
+#+DATE: 2025-11-14
+#+HAS_MATH: yes
+```
+→ Loads MathJax for equation rendering
+
+**Interactive Python post:**
+```org
+#+TITLE: Python Data Analysis Demo
+#+DATE: 2025-11-14
+#+HAS_PYTHON_CELLS: yes
+```
+→ Loads Pyodide for live Python execution
+
+**Full-featured post:**
+```org
+#+TITLE: Complete Tutorial
+#+DATE: 2025-11-14
+#+HAS_MATH: yes
+#+HAS_PYTHON_CELLS: yes
+```
+→ Loads both MathJax and Pyodide
+
+### Figure and Table Labeling
 
 - `#+TITLE:` - The title of your post (required)
 - `#+DATE:` - Post date in format `YYYY-MM-DD HH:MM:SS TIMEZONE` (required)
@@ -48,6 +99,8 @@ More content...
 - `#+JEKYLL_CATEGORIES:` - Space-separated list of categories
 - `#+JEKYLL_TAGS:` - Space-separated list of tags
 - `#+FILETAGS:` - Alternative way to specify tags using Org's native filetags
+- `#+HAS_MATH:` - Set to "no" to disable MathJax loading for this post (optional)
+- `#+HAS_PYTHON_CELLS:` - Set to "yes" to enable Pyodide loading for interactive Python cells (optional)
 
 ### Figure and Table Labeling
 

@@ -43,6 +43,8 @@ INFO is the plist used as a communication channel."
          (layout (or (plist-get info :jekyll-layout) "post"))
          (categories (plist-get info :jekyll-categories))
          (tags-prop (plist-get info :jekyll-tags))
+         (has-math (plist-get info :has-math))
+         (has-python-cells (plist-get info :has-python-cells))
          ;; Combine tags from both sources
          (all-tags (delete-dups
                     (append
@@ -61,6 +63,10 @@ INFO is the plist used as a communication channel."
                                  (format "categories: %s\n" categories))
                                (when all-tags
                                  (format "tags: %s\n" (mapconcat 'identity all-tags " ")))
+                               (when has-math
+                                 (format "has_math: %s\n" has-math))
+                               (when has-python-cells
+                                 (format "has_python_cells: %s\n" has-python-cells))
                                "---\n")))
     front-matter))
 
@@ -272,11 +278,6 @@ Places anchors BEFORE equation blocks and adds \\tag{n} inside equations for dis
       ;; Process python-cell blocks first
       (setq contents (org-python-cell-block-filter contents backend info))
       
-      ;; Add Pyodide script if python cells were found
-      (when (string-match-p "const pyodideReady = loadPyodide()" contents)
-        (setq contents (concat "<script src=\"https://cdn.jsdelivr.net/pyodide/v0.26.0/full/pyodide.js\"></script>\n\n"
-                               contents)))
-      
       ;; Process equation labels and references
       (setq contents (org-process-equation-references contents))
       
@@ -340,7 +341,11 @@ Places anchors BEFORE equation blocks and adds \\tag{n} inside equations for dis
      (add-to-list 'org-export-options-alist
                   '(:jekyll-categories "JEKYLL_CATEGORIES" nil nil t))
      (add-to-list 'org-export-options-alist
-                  '(:jekyll-tags "JEKYLL_TAGS" nil nil t))))
+                  '(:jekyll-tags "JEKYLL_TAGS" nil nil t))
+     (add-to-list 'org-export-options-alist
+                  '(:has-math "HAS_MATH" nil nil t))
+     (add-to-list 'org-export-options-alist
+                  '(:has-python-cells "HAS_PYTHON_CELLS" nil nil t))))
 
 (setq org-publish-project-alist
       '(("main-site"

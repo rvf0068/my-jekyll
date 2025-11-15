@@ -39,10 +39,14 @@
   <link rel="stylesheet" href="{{site.url}}{{site.baseurl}}/css/tables.css" />
   
   <!-- MathJax for rendering mathematical content -->
+  {% unless page.has_math == 'no' %}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js" async></script>
+  {% endunless %}
 
-  <!-- pyodide -->
+  <!-- Pyodide (conditionally loaded per post) -->
+  {% if page.has_python_cells == 'yes' %}
   <script src="https://cdn.jsdelivr.net/pyodide/v0.29.0/full/pyodide.js"></script>
+  {% endif %}
   
   <!-- Put your fonts here -->
 </head>

@@ -4,6 +4,7 @@
 #+JEKYLL_LAYOUT: post
 #+JEKYLL_CATEGORIES: test automation
 #+JEKYLL_TAGS: org-mode automation jekyll
+#+HAS_MATH: no
 
 * Introduction
 

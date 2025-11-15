@@ -4,6 +4,7 @@
 #+JEKYLL_LAYOUT: post
 #+JEKYLL_CATEGORIES: python
 #+JEKYLL_TAGS: test
+#+HAS_PYTHON_CELLS: yes
 
 This page demonstrates a live Python cell powered by Pyodide, allowing you to run Python code directly in your browser with Sympy and Matplotlib support.
 
