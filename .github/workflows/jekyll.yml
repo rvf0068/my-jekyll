@@ -32,6 +32,11 @@ jobs:
       - name: Publish Org files to HTML
         run: ./scripts/emacs_headless_publish.sh
 
+      - name: Generate category and tag pages
+        run: |
+          chmod +x ./scripts/create_tag_pages.sh
+          ./scripts/create_tag_pages.sh
+
       - name: Build with Jekyll
         run: bundle exec jekyll build
         env:
