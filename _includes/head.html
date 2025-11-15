@@ -38,14 +38,27 @@
   <link rel="stylesheet" href="{{site.url}}{{site.baseurl}}/css/tables.css" />
   
   <!-- MathJax for rendering mathematical content -->
-  {% unless page.has_math == 'no' %}
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js" async></script>
-  {% endunless %}
+  <script>
+  // Load MathJax unless explicitly disabled
+  var hasMath = "{{ page.has_math }}";
+  if (hasMath !== "no" && hasMath !== "false") {
+    var script = document.createElement("script");
+    script.src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js";
+    script.async = true;
+    document.head.appendChild(script);
+  }
+  </script>
 
   <!-- Pyodide (conditionally loaded per post) -->
-  {% if page.has_python_cells == 'yes' %}
-  <script src="https://cdn.jsdelivr.net/pyodide/v0.29.0/full/pyodide.js"></script>
-  {% endif %}
+  <script>
+  // Load Pyodide only when explicitly enabled
+  var hasPython = "{{ page.has_python_cells }}";
+  if (hasPython === "yes" || hasPython === "true") {
+    var script = document.createElement("script");
+    script.src = "https://cdn.jsdelivr.net/pyodide/v0.29.0/full/pyodide.js";
+    document.head.appendChild(script);
+  }
+  </script>
   
   <!-- Put your fonts here -->
 </head>
