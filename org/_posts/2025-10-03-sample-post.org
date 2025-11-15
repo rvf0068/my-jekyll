@@ -3,6 +3,7 @@
 #+JEKYLL_LAYOUT: post
 #+JEKYLL_CATEGORIES: sample org jekyll
 #+JEKYLL_TAGS: org-mode features
+#+HAS_MATH: no
 
 
 This is a sample Org-mode post demonstrating various syntax features.

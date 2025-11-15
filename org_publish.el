@@ -228,6 +228,42 @@ INFO is the export plist."
 
 (add-hook 'org-export-before-processing-hook 'org-publish-before-processing-hook)
 
+;; Function to inject CDN scripts based on content analysis
+(defun org-inject-cdn-scripts (contents info)
+  "Inject MathJax and Pyodide CDN scripts directly into HTML head based on content analysis.
+CONTENTS is the HTML content, INFO is the export plist."
+  (let* ((has-math-prop (plist-get info :has-math))
+         (has-python-prop (plist-get info :has-python-cells))
+         ;; Auto-detect math content
+         (has-math-content (or (string-match-p "\\\\(\\|\\[\\|\\begin{equation}\\|\\begin{align}" contents)
+                              (string-match-p "\$.*\$\\|\$\$.*\$\$" contents)))
+         ;; Auto-detect python-cell content
+         (has-python-content (string-match-p "<div class=\"py-cell\">" contents))
+         ;; Determine if we should load MathJax (default yes unless explicitly no)
+         (load-mathjax (and (not (string= has-math-prop "no"))
+                           (not (string= has-math-prop "false"))
+                           (or (string= has-math-prop "yes")
+                               (not has-math-prop)
+                               has-math-content)))
+         ;; Determine if we should load Pyodide (only if explicitly yes or has python content)
+         (load-pyodide (or (string= has-python-prop "yes")
+                          (string= has-python-prop "true")
+                          has-python-content))
+         ;; Build script tags
+         (mathjax-script (when load-mathjax
+                          "  <!-- MathJax for rendering mathematical content -->\n  <script src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js\" async></script>\n"))
+         (pyodide-script (when load-pyodide
+                          "  <!-- Pyodide for interactive Python -->\n  <script src=\"https://cdn.jsdelivr.net/pyodide/v0.29.0/full/pyodide.js\"></script>\n"))
+         (all-scripts (concat mathjax-script pyodide-script)))
+    ;; If we have scripts to inject and this looks like a post with a head section
+    (if (and all-scripts (string-match-p "/_posts/" (or (plist-get info :output-file) "")))
+        ;; Insert scripts right after the front matter (before the content)
+        (concat "<div class=\"injected-scripts\" style=\"display: none;\">\n"
+                all-scripts
+                "</div>\n"
+                contents)
+      contents)))
+
 ;; Function to process equation labels and references
 (defun org-process-equation-references (contents)
   "Process LaTeX equation labels and references in HTML CONTENTS.
@@ -278,6 +314,9 @@ Places anchors BEFORE equation blocks and adds \\tag{n} inside equations for dis
       ;; Process python-cell blocks first
       (setq contents (org-python-cell-block-filter contents backend info))
       
+      ;; Inject CDN scripts based on content analysis
+      (setq contents (org-inject-cdn-scripts contents info))
+
       ;; Process equation labels and references
       (setq contents (org-process-equation-references contents))
       
