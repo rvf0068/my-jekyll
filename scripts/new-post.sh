@@ -9,6 +9,17 @@ POSTS_DIR="org/_posts"
 DATE=$(date +"%Y-%m-%d")
 TIME=$(date +"%H:%M")
 
+# Get author from .blog-config
+get_author() {
+    if [ -f ".blog-config" ]; then
+        grep "^AUTHOR_NAME=" .blog-config | cut -d'"' -f2
+    else
+        echo "rvf0068"  # fallback
+    fi
+}
+
+AUTHOR=$(get_author)
+
 # Colors
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
@@ -32,7 +43,7 @@ create_basic_post() {
     cat > "$filepath" << EOF
 #+TITLE: $title
 #+DATE: $DATE $TIME
-#+AUTHOR: rvf0068
+#+AUTHOR: $AUTHOR
 #+JEKYLL_LAYOUT: post
 #+JEKYLL_CATEGORIES: 
 #+JEKYLL_TAGS: 
@@ -64,10 +75,10 @@ create_math_post() {
     cat > "$filepath" << EOF
 #+TITLE: $title
 #+DATE: $DATE $TIME
-#+AUTHOR: rvf0068
+#+AUTHOR: $AUTHOR
 #+JEKYLL_LAYOUT: post
 #+JEKYLL_CATEGORIES: mathematics
-#+JEKYLL_TAGS: math theory
+#+JEKYLL_TAGS: math equations
 #+HAS_MATH: yes
 
 * Introduction
@@ -104,7 +115,7 @@ create_code_post() {
     cat > "$filepath" << EOF
 #+TITLE: $title
 #+DATE: $DATE $TIME
-#+AUTHOR: rvf0068
+#+AUTHOR: $AUTHOR
 #+JEKYLL_LAYOUT: post
 #+JEKYLL_CATEGORIES: programming
 #+JEKYLL_TAGS: code tutorial

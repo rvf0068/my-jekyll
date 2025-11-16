@@ -1,0 +1,22 @@
+# Blog Configuration
+# This file is read by both Jekyll (_config.yml generation) and org_publish.el
+# Use simple KEY=VALUE format for cross-tool compatibility
+
+# Site Identity
+SITE_TITLE="My Org-Jekyll Blog"
+SITE_DESCRIPTION="A blog powered by Org-mode and Jekyll"
+SITE_URL="https://rvf0068.github.io"
+SITE_BASEURL="/my-jekyll"
+
+# Author Information
+AUTHOR_NAME="rvf0068"
+GITHUB_USERNAME="rvf0068"
+
+# Development Settings
+DEV_HOST="localhost"
+DEV_PORT="4000"
+
+# Feature Flags
+ENABLE_MATHJAX="true"
+ENABLE_SEARCH="true"
+ENABLE_DARK_MODE="true"

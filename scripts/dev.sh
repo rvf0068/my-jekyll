@@ -29,6 +29,15 @@ error() {
     echo -e "${RED}[$(date +'%H:%M:%S')] ❌ $1${NC}"
 }
 
+# Get baseurl from .blog-config file
+get_baseurl() {
+    if [ -f ".blog-config" ]; then
+        grep "^SITE_BASEURL=" .blog-config | cut -d'"' -f2
+    else
+        echo "/"  # fallback to root
+    fi
+}
+
 # Function to check prerequisites
 check_prereqs() {
     log "🔍 Checking prerequisites..."
@@ -61,6 +70,11 @@ install_deps() {
 # Function to build org files
 build_org() {
     log "📝 Converting Org files to HTML..."
+    # Ensure config is up to date before publishing
+    if [ ! -f "_config.yml" ] || [ ".blog-config" -nt "_config.yml" ]; then
+        log "🔄 Generating _config.yml from .blog-config..."
+        ./scripts/generate-config.sh
+    fi
     ./scripts/emacs_headless_publish.sh
     log "✅ Org files converted"
 }
@@ -81,8 +95,9 @@ build_jekyll() {
 
 # Function to serve the site
 serve() {
+    BASEURL=$(get_baseurl)
     log "🚀 Starting development server..."
-    log "📡 Site will be available at: http://localhost:4000/my-jekyll/"
+    log "📡 Site will be available at: http://localhost:4000${BASEURL}/"
     bundle exec jekyll serve --host 0.0.0.0 --port 4000 --livereload --incremental
 }
 

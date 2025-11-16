@@ -28,8 +28,19 @@
 BODY is a list of backend-value pairs, e.g., (latex \"file.tex\") (t \"file.png\")."
   `(cl-case org-export-current-backend ,@body))
 
+;; Function to read configuration from .blog-config file
+(defun read-blog-config (key)
+  "Read configuration value for KEY from .blog-config file."
+  (when (file-exists-p ".blog-config")
+    (with-temp-buffer
+      (insert-file-contents ".blog-config")
+      (goto-char (point-min))
+      (when (re-search-forward (concat "^" key "=\"\\([^\"]*\\)\"") nil t)
+        (match-string 1)))))
+
 ;; Configuration for Jekyll baseurl
-(setq jekyll-baseurl "/my-jekyll")
+;; Read from .blog-config file or fallback to root
+(setq jekyll-baseurl (or (read-blog-config "SITE_BASEURL") "/"))
 
 ;; Function to generate Jekyll front matter from org properties
 (defun org-jekyll-front-matter (info)
