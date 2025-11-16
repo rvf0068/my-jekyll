@@ -403,6 +403,119 @@ The bibliography will be automatically generated from the cited works, formatted
 
 Example post with citations: `org/_posts/2025-10-30-sample-with-citations.org`
 
+## Development Scripts
+
+This project includes several utility scripts to streamline the development workflow.
+
+### dev.sh - Comprehensive Development Tool
+
+The `./scripts/dev.sh` script provides a unified interface for all development tasks:
+
+```bash
+# Show help and available commands
+./scripts/dev.sh help
+
+# Install dependencies
+./scripts/dev.sh install
+
+# Complete build process (Org → HTML → Jekyll)
+./scripts/dev.sh build
+
+# Start development server with live reload
+./scripts/dev.sh serve
+
+# Clean build artifacts
+./scripts/dev.sh clean
+
+# Individual build steps
+./scripts/dev.sh org     # Convert Org files only
+./scripts/dev.sh tags    # Generate category/tag pages only  
+./scripts/dev.sh jekyll  # Build Jekyll site only
+```
+
+#### Features
+
+- **Prerequisites checking**: Verifies Emacs, Bundler, and project structure
+- **Colored output**: Clear visual feedback with timestamps
+- **Error handling**: Stops on first error with clear messages
+- **Incremental builds**: Option to run individual build steps
+- **Live reload**: Development server with automatic page refresh
+- **Clean builds**: Remove all generated files and caches
+
+#### Typical Workflow
+
+```bash
+# First time setup
+./scripts/dev.sh install
+
+# Daily development
+./scripts/dev.sh serve    # Builds and starts dev server
+
+# Manual builds
+./scripts/dev.sh clean build
+```
+
+### new-post.sh - Post Template Generator
+
+The `./scripts/new-post.sh` script creates properly formatted Org-mode posts with all necessary front matter:
+
+```bash
+# Create a basic blog post
+./scripts/new-post.sh basic "My First Post"
+
+# Create a math-heavy post
+./scripts/new-post.sh math "Introduction to Calculus" "intro-calculus"
+
+# Create a programming tutorial
+./scripts/new-post.sh code "Python Data Analysis"
+```
+
+#### Post Types
+
+**Basic Post Template** (`basic`):
+- Simple structure with Introduction, Main Content, Conclusion
+- Minimal front matter for general blog posts
+- No special library loading
+
+**Math Post Template** (`math`):  
+- Pre-configured with `#+HAS_MATH: yes` for MathJax loading
+- Example theorem/proof structure with LaTeX equations
+- Mathematics category and tags
+- Equation numbering and referencing examples
+
+**Code Post Template** (`code`):
+- Includes `#+HAS_PYTHON_CELLS: yes` for interactive Python
+- Example code blocks and interactive Python cells
+- Programming category and tags
+- Mix of syntax-highlighted and executable code
+
+#### Features
+
+- **Automatic date/time**: Uses current date and time in proper format
+- **Slug generation**: Converts titles to URL-friendly slugs automatically  
+- **Custom slugs**: Optional third parameter to override auto-generated slug
+- **Proper front matter**: All required Org properties pre-filled
+- **Category defaults**: Sensible defaults based on post type
+- **Ready to edit**: Opens with example content to guide structure
+
+#### Examples
+
+```bash
+# Auto-generated slug
+./scripts/new-post.sh basic "Understanding Machine Learning"
+# Creates: 2025-11-15-understanding-machine-learning.org
+
+# Custom slug  
+./scripts/new-post.sh math "Advanced Topology" "topology-advanced"
+# Creates: 2025-11-15-topology-advanced.org
+
+# Code tutorial
+./scripts/new-post.sh code "NumPy Tutorial"  
+# Creates: 2025-11-15-numpy-tutorial.org
+```
+
+After creating a post, run `./scripts/dev.sh serve` to start the development server and preview your new post.
+
 ### Enhanced Code Blocks
 
 Code snippets in Org-mode posts are automatically enhanced with:

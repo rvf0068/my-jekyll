@@ -2,6 +2,24 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+  <!-- Immediate dark mode application to prevent flash -->
+  <script>
+    // Apply saved dark mode preference immediately
+    (function() {
+      const savedMode = localStorage.getItem('blog-dark-mode');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const shouldUseDark = savedMode === 'dark' || (savedMode === null && systemPrefersDark);
+
+      if (shouldUseDark) {
+        document.documentElement.classList.add('dark-mode');
+        document.documentElement.classList.remove('light-mode');
+      } else {
+        document.documentElement.classList.remove('dark-mode');
+        document.documentElement.classList.add('light-mode');
+      }
+    })();
+  </script>
+
   <!-- Plain Description -->
   <title>
     {{page.title | strip_newlines | strip_html | escape}} -- {{ site.title | strip_newlines |
@@ -30,15 +48,24 @@
   <link rel="stylesheet" href="{{site.url}}{{site.baseurl}}/css/vendor/reset.css" />
   <link rel="stylesheet" href="{{site.url}}{{site.baseurl}}/css/app.css" />
   
-  <!-- Prism.js for syntax highlighting -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" integrity="sha512-cbQXwDFK7lj2Fqfkuxbo5iD1dSbLlJGXGpfTDqbggqjHJeyzx88I3rfwjS38WJag/ihH7lzuGlGHpDBymLirZQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="{{site.url}}{{site.baseurl}}/css/code-blocks.css" />
+  <!-- Custom code block enhancement (no external dependencies) -->
+
+  <!-- Our custom styles -->
+  <link rel="stylesheet" href="{{site.url}}{{site.baseurl}}/css/code-blocks.css?v=3" />
   <link rel="stylesheet" href="{{site.url}}{{site.baseurl}}/css/math-blocks.css" />
   <link rel="stylesheet" href="{{site.url}}{{site.baseurl}}/css/tables.css" />
-  
+
   <!-- CDN scripts are now injected directly by org_publish.el based on content analysis -->
   <!-- This eliminates the need for Jekyll Liquid templating -->
+
+  <!-- Search functionality -->
+  <script src="{{site.url}}{{site.baseurl}}/assets/js/search.js" defer></script>
+
+  <!-- Dark mode toggle -->
+  <script src="{{site.url}}{{site.baseurl}}/assets/js/dark-mode.js" defer></script>
+
+  <!-- Code block enhancements -->
+  <script src="{{site.url}}{{site.baseurl}}/assets/js/code-blocks.js?v=4"></script>
   
   <!-- Put your fonts here -->
 </head>

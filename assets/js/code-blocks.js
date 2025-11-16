@@ -1,192 +1,181 @@
-/**
- * Enhanced code blocks with syntax highlighting, line numbers, and copy-to-clipboard
- */
-(function() {
-  'use strict';
+// Pure custom code block enhancement for org-mode
+// No external dependencies, clean and simple
 
-  // Language mapping from Org-mode class names to Prism language identifiers
-  const languageMap = {
-    'python': 'python',
-    'jupyter-python': 'python',
-    'bash': 'bash',
-    'shell': 'bash',
-    'javascript': 'javascript',
-    'js': 'javascript',
-    'typescript': 'typescript',
-    'ts': 'typescript',
-    'java': 'java',
-    'c': 'c',
-    'cpp': 'cpp',
-    'csharp': 'csharp',
-    'ruby': 'ruby',
-    'go': 'go',
-    'rust': 'rust',
-    'php': 'php',
-    'html': 'markup',
-    'xml': 'markup',
-    'css': 'css',
-    'sql': 'sql',
-    'json': 'json',
-    'yaml': 'yaml',
-    'markdown': 'markdown',
-    'md': 'markdown',
-    'elisp': 'lisp',
-    'emacs-lisp': 'lisp',
-    'lisp': 'lisp',
-    'scheme': 'scheme',
-    'clojure': 'clojure'
-  };
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Starting custom code block enhancement...');
+    enhanceCodeBlocks();
+});
 
-  /**
-   * Extract language from Org-mode class name (e.g., "src-python" -> "python")
-   */
-  function extractLanguage(pre) {
-    const classList = pre.className.split(' ');
-    for (let className of classList) {
-      if (className.startsWith('src-')) {
-        return className.substring(4);
-      }
-    }
-    return null;
-  }
+function enhanceCodeBlocks() {
+    const codeContainers = document.querySelectorAll('.org-src-container');
+    console.log('Found', codeContainers.length, 'code containers');
 
-  /**
-   * Get Prism language identifier from Org-mode language
-   */
-  function getPrismLanguage(orgLanguage) {
-    if (!orgLanguage) return 'none';
-    const lower = orgLanguage.toLowerCase();
-    return languageMap[lower] || lower;
-  }
+    codeContainers.forEach(function(container, index) {
+        // Skip if already processed
+        if (container.dataset.enhanced) {
+            return;
+        }
 
-  /**
-   * Enhance a code block with Prism highlighting, line numbers, and copy button
-   */
-  function enhanceCodeBlock(pre) {
-    const container = pre.parentElement;
-    if (!container || !container.classList.contains('org-src-container')) {
-      return;
-    }
+        const codeBlock = container.querySelector('pre.src');
+        if (!codeBlock) {
+            return;
+        }
 
-    // Extract language
-    const orgLanguage = extractLanguage(pre);
-    const prismLanguage = getPrismLanguage(orgLanguage);
+        // Get language from org-mode class
+        const classList = Array.from(codeBlock.classList);
+        let language = 'text';
+        for (const className of classList) {
+            if (className.startsWith('src-')) {
+                language = className.substring(4);
+                break;
+            }
+        }
 
-    // Get the code content
-    const code = pre.textContent;
+        // Create custom toolbar
+        const toolbar = document.createElement('div');
+        toolbar.className = 'code-toolbar-custom';
+        toolbar.style.cssText = 'position: absolute; top: 8px; right: 8px; display: flex; gap: 8px; z-index: 10;';
 
-    // Create new code element with proper Prism classes
-    const codeElement = document.createElement('code');
-    codeElement.className = 'language-' + prismLanguage;
-    codeElement.textContent = code;
+        // Language badge
+        const languageBadge = document.createElement('span');
+        languageBadge.className = 'language-badge';
+        languageBadge.textContent = language.toUpperCase();
 
-    // Update pre element classes for Prism
-    pre.className = 'language-' + prismLanguage + ' line-numbers';
-    pre.innerHTML = '';
-    pre.appendChild(codeElement);
+        // Style based on current mode
+        const isDarkMode = document.documentElement.classList.contains('dark-mode');
+        const badgeStyle = isDarkMode
+            ? 'background-color: #3e4451; color: #abb2bf; border: 1px solid #5c6370; border-radius: 12px; padding: 3px 10px; font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; cursor: default;'
+            : 'background-color: #f8f9fa; color: #6c757d; border: 1px solid #dee2e6; border-radius: 12px; padding: 3px 10px; font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; cursor: default;';
+        languageBadge.style.cssText = badgeStyle;
 
-    // Add language badge if language is identified
-    if (orgLanguage && orgLanguage !== 'none') {
-      const badge = document.createElement('span');
-      badge.className = 'code-language-badge';
-      badge.textContent = orgLanguage;
-      container.insertBefore(badge, pre);
-    }
+        // Copy button
+        const copyButton = document.createElement('button');
+        copyButton.className = 'copy-button';
+        copyButton.textContent = 'Copy';
 
-    // Add copy button
-    const copyButton = document.createElement('button');
-    copyButton.className = 'copy-code-button';
-    copyButton.textContent = 'Copy';
-    copyButton.setAttribute('aria-label', 'Copy code to clipboard');
-    copyButton.addEventListener('click', function() {
-      copyCodeToClipboard(code, copyButton);
+        const buttonStyle = isDarkMode
+            ? 'background-color: #61dafb; color: #282c34; border: none; border-radius: 4px; padding: 4px 8px; font-size: 0.8rem; cursor: pointer; min-width: 50px; transition: background-color 0.2s;'
+            : 'background-color: #007bff; color: white; border: none; border-radius: 4px; padding: 4px 8px; font-size: 0.8rem; cursor: pointer; min-width: 50px; transition: background-color 0.2s;';
+        copyButton.style.cssText = buttonStyle;
+
+        // Copy functionality with multiple fallback methods
+        copyButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const textToCopy = codeBlock.textContent || codeBlock.innerText;
+            console.log('Copy clicked, text length:', textToCopy.length);
+
+            // Try modern clipboard API first
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    console.log('Copied via clipboard API');
+                    showSuccess();
+                }).catch(function(err) {
+                    console.log('Clipboard API failed:', err);
+                    tryFallbackCopy(textToCopy);
+                });
+            } else {
+                // Use fallback method
+                tryFallbackCopy(textToCopy);
+            }
+
+            function tryFallbackCopy(text) {
+                console.log('Trying fallback copy method');
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                textArea.style.cssText = 'position: fixed; left: -9999px; top: -9999px; opacity: 0;';
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+
+                try {
+                    const successful = document.execCommand('copy');
+                    console.log('Fallback copy result:', successful);
+                    if (successful) {
+                        showSuccess();
+                    } else {
+                        showError();
+                    }
+                } catch (err) {
+                    console.error('Fallback copy failed:', err);
+                    showError();
+                } finally {
+                    document.body.removeChild(textArea);
+                }
+            }
+
+            function showSuccess() {
+                const originalText = copyButton.textContent;
+                const originalBg = copyButton.style.backgroundColor;
+                copyButton.textContent = 'Copied!';
+                copyButton.style.backgroundColor = '#28a745';
+                setTimeout(function() {
+                    copyButton.textContent = originalText;
+                    copyButton.style.backgroundColor = originalBg;
+                }, 2000);
+            }
+
+            function showError() {
+                const originalText = copyButton.textContent;
+                const originalBg = copyButton.style.backgroundColor;
+                copyButton.textContent = 'Error';
+                copyButton.style.backgroundColor = '#dc3545';
+                setTimeout(function() {
+                    copyButton.textContent = originalText;
+                    copyButton.style.backgroundColor = originalBg;
+                }, 1500);
+            }
+        });
+
+        // Assemble toolbar
+        toolbar.appendChild(languageBadge);
+        toolbar.appendChild(copyButton);
+        container.appendChild(toolbar);
+
+        // Mark as processed
+        container.dataset.enhanced = 'true';
+
+        console.log('Enhanced code block:', language);
     });
-    container.appendChild(copyButton);
-
-    // Apply Prism highlighting
-    if (window.Prism) {
-      Prism.highlightElement(codeElement);
-      // Trigger line numbers plugin if available
-      if (Prism.plugins && Prism.plugins.lineNumbers) {
-        Prism.plugins.lineNumbers.resize(pre);
-      }
-    }
-  }
-
-  /**
-   * Copy code to clipboard
-   */
-  function copyCodeToClipboard(code, button) {
-    // Use modern clipboard API if available
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(code).then(function() {
-        showCopySuccess(button);
-      }).catch(function(err) {
-        console.error('Failed to copy code: ', err);
-        fallbackCopy(code, button);
-      });
-    } else {
-      // Fallback for older browsers
-      fallbackCopy(code, button);
-    }
-  }
-
-  /**
-   * Fallback copy method for older browsers
-   */
-  function fallbackCopy(code, button) {
-    const textArea = document.createElement('textarea');
-    textArea.value = code;
-    textArea.style.position = 'fixed';
-    textArea.style.left = '-9999px';
-    document.body.appendChild(textArea);
-    textArea.select();
     
-    try {
-      document.execCommand('copy');
-      showCopySuccess(button);
-    } catch (err) {
-      console.error('Failed to copy code: ', err);
-      button.textContent = 'Failed';
-      setTimeout(function() {
-        button.textContent = 'Copy';
-      }, 2000);
-    }
-    
-    document.body.removeChild(textArea);
-  }
+    // Set up dark mode listener to update existing toolbars
+    observeDarkModeChanges();
+}
 
-  /**
-   * Show visual feedback when code is copied
-   */
-  function showCopySuccess(button) {
-    const originalText = button.textContent;
-    button.textContent = 'Copied!';
-    button.classList.add('copied');
-    
-    setTimeout(function() {
-      button.textContent = originalText;
-      button.classList.remove('copied');
-    }, 2000);
-  }
-
-  /**
-   * Initialize all code blocks on the page
-   */
-  function initCodeBlocks() {
-    // Find all Org-mode code blocks
-    const codeBlocks = document.querySelectorAll('.org-src-container pre[class*="src-"]');
-    
-    codeBlocks.forEach(function(pre) {
-      enhanceCodeBlock(pre);
+function observeDarkModeChanges() {
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.attributeName === 'class' && mutation.target === document.documentElement) {
+                updateToolbarsForMode();
+            }
+        });
     });
-  }
+    
+    observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class']
+    });
+}
 
-  // Initialize when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initCodeBlocks);
-  } else {
-    // DOM is already loaded
-    initCodeBlocks();
-  }
-})();
+function updateToolbarsForMode() {
+    const isDarkMode = document.documentElement.classList.contains('dark-mode');
+    
+    // Update language badges
+    document.querySelectorAll('.language-badge').forEach(function(badge) {
+        if (isDarkMode) {
+            badge.style.cssText = 'background-color: #3e4451; color: #abb2bf; border: 1px solid #5c6370; border-radius: 12px; padding: 3px 10px; font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; cursor: default;';
+        } else {
+            badge.style.cssText = 'background-color: #f8f9fa; color: #6c757d; border: 1px solid #dee2e6; border-radius: 12px; padding: 3px 10px; font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; cursor: default;';
+        }
+    });
+    
+    // Update copy buttons
+    document.querySelectorAll('.copy-button').forEach(function(button) {
+        if (isDarkMode) {
+            button.style.cssText = 'background-color: #61dafb; color: #282c34; border: none; border-radius: 4px; padding: 4px 8px; font-size: 0.8rem; cursor: pointer; min-width: 50px; transition: background-color 0.2s;';
+        } else {
+            button.style.cssText = 'background-color: #007bff; color: white; border: none; border-radius: 4px; padding: 4px 8px; font-size: 0.8rem; cursor: pointer; min-width: 50px; transition: background-color 0.2s;';
+        }
+    });
+}

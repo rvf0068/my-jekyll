@@ -13,3 +13,10 @@ test-math-blocks.html
 /org/_posts/ltximg/
 /org/_posts/*.tikz
 screenshot-*.png
+# Exclude all PDF files
+*.pdf
+/_posts/
+/assets/_posts/
+/categories/
+/index.html
+/tags/

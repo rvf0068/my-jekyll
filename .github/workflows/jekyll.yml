@@ -5,6 +5,9 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  schedule:
+    # Rebuild monthly to update dependencies
+    - cron: '0 0 1 * *'
 
 permissions:
   contents: write
@@ -24,23 +27,52 @@ jobs:
           ruby-version: '3.1'
           bundler-cache: true
 
+      - name: Cache Emacs packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.emacs.d/elpa
+          key: emacs-packages-${{ hashFiles('org_publish.el') }}
+          restore-keys: emacs-packages-
+
       - name: Set up Emacs
         uses: purcell/setup-emacs@master
         with:
           version: 30.1
 
       - name: Publish Org files to HTML
-        run: ./scripts/emacs_headless_publish.sh
+        run: |
+          set -e
+          echo "📝 Converting Org files to HTML..."
+          ./scripts/emacs_headless_publish.sh
+          echo "✅ Org files converted successfully"
 
       - name: Generate category and tag pages
         run: |
+          echo "🏷️  Generating category and tag pages..."
           chmod +x ./scripts/create_tag_pages.sh
           ./scripts/create_tag_pages.sh
+          echo "✅ Category and tag pages generated"
 
       - name: Build with Jekyll
-        run: bundle exec jekyll build
+        run: |
+          echo "🏗️  Building Jekyll site..."
+          bundle exec jekyll build
+          echo "✅ Jekyll build complete"
         env:
           JEKYLL_ENV: production
+
+      - name: Validate build output
+        run: |
+          echo "🔍 Validating build..."
+          if [ ! -d "_site" ]; then
+            echo "❌ _site directory not found"
+            exit 1
+          fi
+          if [ ! -f "_site/index.html" ]; then
+            echo "❌ index.html not found"
+            exit 1
+          fi
+          echo "✅ Build validation passed"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
