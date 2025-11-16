@@ -498,13 +498,13 @@ html.dark-mode .footer-copyright a:hover {
 /* Responsive design */
 @media (max-width: 768px) {
   .site-header {
-    margin: 0 0.5rem 2rem 0.5rem;
-    max-width: calc(100vw - 1rem);
+    margin: 1rem 1rem 1rem 1rem;
+    max-width: calc(100vw - 2rem);
   }
 
   .site-footer {
-    margin: 4rem 0.5rem 0 0.5rem;
-    max-width: calc(100vw - 1rem);
+    margin: 4rem 1rem 0 1rem;
+    max-width: calc(100vw - 2rem);
   }
 
   .header-content {
@@ -644,22 +644,22 @@ h6 {
   font-weight: bold;
 }
 h1 {
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 h2 {
-  font-size: 1.7rem;
-}
-h3 {
   font-size: 1.5rem;
 }
-h4 {
+h3 {
   font-size: 1.3rem;
 }
-h5 {
+h4 {
   font-size: 1.2rem;
 }
-h6 {
+h5 {
   font-size: 1.1rem;
+}
+h6 {
+  font-size: 1rem;
 }
 
 p,
