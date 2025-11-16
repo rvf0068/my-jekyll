@@ -498,11 +498,13 @@ html.dark-mode .footer-copyright a:hover {
 /* Responsive design */
 @media (max-width: 768px) {
   .site-header {
-    margin: 0 1rem 2rem 1rem;
+    margin: 0 0.5rem 2rem 0.5rem;
+    max-width: calc(100vw - 1rem);
   }
 
   .site-footer {
-    margin: 4rem 1rem 0 1rem;
+    margin: 4rem 0.5rem 0 0.5rem;
+    max-width: calc(100vw - 1rem);
   }
 
   .header-content {
@@ -586,6 +588,26 @@ html.dark-mode .footer-copyright a:hover {
     overflow-x: auto;
     max-width: 100%;
   }
+
+  /* Mobile-optimized heading sizes */
+  h1 {
+    font-size: 1.8rem;
+  }
+  h2 {
+    font-size: 1.6rem;
+  }
+  h3 {
+    font-size: 1.4rem;
+  }
+  h4 {
+    font-size: 1.3rem;
+  }
+  h5 {
+    font-size: 1.2rem;
+  }
+  h6 {
+    font-size: 1.1rem;
+  }
 }
 
 /* Legacy layout rules - keeping for compatibility */
@@ -622,22 +644,22 @@ h6 {
   font-weight: bold;
 }
 h1 {
-  font-size: 2.6rem;
-}
-h2 {
-  font-size: 2.4rem;
-}
-h3 {
-  font-size: 2.2rem;
-}
-h4 {
   font-size: 2rem;
 }
+h2 {
+  font-size: 1.7rem;
+}
+h3 {
+  font-size: 1.5rem;
+}
+h4 {
+  font-size: 1.3rem;
+}
 h5 {
-  font-size: 1.8rem;
+  font-size: 1.2rem;
 }
 h6 {
-  font-size: 1.5rem;
+  font-size: 1.1rem;
 }
 
 p,
