@@ -24,7 +24,7 @@ Example post structure:
 
 ```org
 #+TITLE: Your Post Title
-#+DATE: 2025-10-29 17:00:00 -0500
+#+DATE: 2025-12-01 12:00:00 -0500
 #+AUTHOR: Your Name
 #+JEKYLL_LAYOUT: post
 #+JEKYLL_CATEGORIES: category1 category2
@@ -60,7 +60,7 @@ The blog supports conditional loading of heavy JavaScript libraries to improve p
 **Lightweight text post:**
 ```org
 #+TITLE: Simple Blog Post
-#+DATE: 2025-11-14
+#+DATE: 2025-12-01
 #+HAS_MATH: no
 ```
 → Fastest loading, no heavy libraries
@@ -68,7 +68,7 @@ The blog supports conditional loading of heavy JavaScript libraries to improve p
 **Math-heavy post:**
 ```org
 #+TITLE: Advanced Calculus Tutorial
-#+DATE: 2025-11-14
+#+DATE: 2025-12-01
 #+HAS_MATH: yes
 ```
 → Loads MathJax for equation rendering
@@ -76,7 +76,7 @@ The blog supports conditional loading of heavy JavaScript libraries to improve p
 **Interactive Python post:**
 ```org
 #+TITLE: Python Data Analysis Demo
-#+DATE: 2025-11-14
+#+DATE: 2025-12-01
 #+HAS_PYTHON_CELLS: yes
 ```
 → Loads Pyodide for live Python execution
@@ -84,7 +84,7 @@ The blog supports conditional loading of heavy JavaScript libraries to improve p
 **Full-featured post:**
 ```org
 #+TITLE: Complete Tutorial
-#+DATE: 2025-11-14
+#+DATE: 2025-12-01
 #+HAS_MATH: yes
 #+HAS_PYTHON_CELLS: yes
 ```
@@ -172,8 +172,6 @@ Table [[tab:my-table]] shows the results.
 As shown in Figure [[fig:plot1]], the trend is clear. The detailed values 
 in Table [[tab:results]] confirm this pattern.
 ```
-
-For a complete example, see `org/_posts/2025-10-30-generated-images.org`.
 
 ### Equation Referencing
 
@@ -347,9 +345,9 @@ The Sympy package will be loaded automatically when your code imports it.
 - **Editable code** - users can modify and re-run the code in their browser
 - **Fast execution** - Pyodide compiles to WebAssembly for near-native performance
 
-#### Example Post
+#### Complete Demonstration
 
-See `org/_posts/2025-11-08-python-cell-filter-test.org` for a complete demonstration of interactive Python cells with various examples including regular computations, Sympy symbolic math, and matplotlib plotting.
+Create posts with Python cells to demonstrate interactive computations, Sympy symbolic math, and matplotlib plotting capabilities.
 
 ### Citations and Bibliography
 
@@ -384,7 +382,7 @@ Multiple citations can be combined [cite:@key1;@key2;@key3].
 
 ```org
 #+TITLE: Research Post with Citations
-#+DATE: 2025-10-30
+#+DATE: 2025-12-01
 #+BIBLIOGRAPHY: ../../references.bib
 
 * Introduction
@@ -400,8 +398,6 @@ This demonstrates the citation system.
 ```
 
 The bibliography will be automatically generated from the cited works, formatted with author names, year, and publication details.
-
-Example post with citations: `org/_posts/2025-10-30-sample-with-citations.org`
 
 ## Development Scripts
 
@@ -503,15 +499,15 @@ The `./scripts/new-post.sh` script creates properly formatted Org-mode posts wit
 ```bash
 # Auto-generated slug
 ./scripts/new-post.sh basic "Understanding Machine Learning"
-# Creates: 2025-11-15-understanding-machine-learning.org
+# Creates: YYYY-MM-DD-understanding-machine-learning.org
 
 # Custom slug  
 ./scripts/new-post.sh math "Advanced Topology" "topology-advanced"
-# Creates: 2025-11-15-topology-advanced.org
+# Creates: YYYY-MM-DD-topology-advanced.org
 
 # Code tutorial
 ./scripts/new-post.sh code "NumPy Tutorial"  
-# Creates: 2025-11-15-numpy-tutorial.org
+# Creates: YYYY-MM-DD-numpy-tutorial.org
 ```
 
 After creating a post, run `./scripts/dev.sh serve` to start the development server and preview your new post.
@@ -564,15 +560,46 @@ This will:
 
 ```
 .
-├── org/                    # Source Org files
-│   └── _posts/            # Blog posts in Org format
-├── _posts/                # Generated HTML posts with front matter
-├── _layouts/              # Jekyll layout templates
-├── _includes/             # Jekyll includes
-├── assets/                # Static assets (images, CSS, JS)
-├── scripts/               # Build and utility scripts
-├── org_publish.el         # Emacs publishing configuration
-└── _config.yml           # Jekyll configuration
+├── _config.yml                    # Jekyll configuration
+├── _includes/                     # Jekyll template includes
+│   ├── footer.html                # Site footer template
+│   ├── head.html                  # HTML head with scripts/CSS
+│   └── header.html                # Site header with navigation
+├── _layouts/                      # Jekyll layout templates
+│   ├── default.html               # Base site layout
+│   └── post.html                  # Blog post layout
+├── _posts/                        # Generated HTML posts (auto-generated)
+├── assets/                        # Static assets
+│   ├── _posts/                    # Post-specific assets
+│   └── js/                        # JavaScript files
+│       ├── code-blocks.js         # Code enhancement functionality
+│       ├── dark-mode.js           # Dark mode toggle
+│       └── search.js              # Site search functionality
+├── categories/                    # Category pages
+│   └── index.html                 # Category listing page
+├── css/                          # Stylesheets
+│   ├── app.css                   # Main application styles
+│   ├── code-blocks.css           # Code block styling
+│   ├── math-blocks.css           # Mathematical content styling
+│   ├── tables.css                # Table formatting
+│   └── vendor/                   # Third-party CSS
+│       ├── reset.css             # CSS reset
+│       └── syntax.css            # Syntax highlighting
+├── Gemfile                       # Ruby dependencies
+├── index.html                    # Site homepage
+├── org/                          # Source Org files
+│   ├── _drafts/                  # Draft posts
+│   ├── _posts/                   # Blog posts in Org format
+│   └── index.org                 # Homepage source
+├── org_publish.el                # Emacs publishing configuration
+├── references.bib                # Bibliography database
+├── scripts/                      # Development and build scripts
+│   ├── create_tag_pages.sh       # Generate category/tag pages
+│   ├── dev.sh                    # Main development script
+│   ├── emacs_headless_publish.sh # Org-to-HTML conversion
+│   └── new-post.sh               # Post template generator
+└── tags/                         # Tag pages
+    └── index.html                # Tag listing page
 ```
 
 ## How It Works
