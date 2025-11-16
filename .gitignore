@@ -17,6 +17,6 @@ screenshot-*.png
 *.pdf
 /_posts/
 /assets/_posts/
-/categories/
+/categories/*.html
+/tags/*.html
 /index.html
-/tags/
