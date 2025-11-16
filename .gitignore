@@ -18,5 +18,7 @@ screenshot-*.png
 /_posts/
 /assets/_posts/
 /categories/*.html
+!/categories/index.html
 /tags/*.html
+!/tags/index.html
 /index.html
