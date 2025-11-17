@@ -210,7 +210,9 @@ plt.show()
 
 * Cross-References and Integration
 
-The interactive computing capabilities demonstrated here complement the theoretical foundations shown in the [[http://localhost:4000/my-jekyll/2025/11/16/mathematical-foundations.html][Mathematical Foundations]] post and the programming techniques from the [[http://localhost:4000/my-jekyll/2025/11/16/programming-showcase.html][Programming Showcase]].
+The interactive computing capabilities demonstrated here complement the theoretical foundations shown in the [[file:2025-11-16-mathematical-foundations.org][Mathematical Foundations]] post and the programming techniques from the [[file:2025-11-16-programming-showcase.org][Programming Showcase]].
+
+Check if this links work: [[file:2025-11-16-mathematical-foundations.org][Math post]].
 
 For example:
 - The numerical methods here could verify the mathematical theorems

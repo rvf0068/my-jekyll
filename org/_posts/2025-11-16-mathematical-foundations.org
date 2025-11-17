@@ -160,7 +160,7 @@ The theoretical foundations presented here connect directly to practical impleme
 
 ** Programming Implementation
 
-The [[http://localhost:4000/my-jekyll/2025/11/16/programming-showcase.html][Programming Showcase]] demonstrates how the mathematical structures defined here can be implemented algorithmically. For example:
+The [[file:2025-11-16-programming-showcase.org][Programming Showcase]] demonstrates how the mathematical structures defined here can be implemented algorithmically. For example:
 
 - The group operations from our group definition could be implemented using the C data structures shown in that post
 - The topological concepts from our topological space definition can be modeled with object-oriented Python classes
@@ -168,7 +168,7 @@ The [[http://localhost:4000/my-jekyll/2025/11/16/programming-showcase.html][Prog
 
 ** Interactive Computing
 
-The [[http://localhost:4000/my-jekyll/2025/11/16/interactive-python.html][Interactive Python Computing]] post shows how to numerically explore these theoretical concepts:
+The [[file:2025-11-16-interactive-python.org][Interactive Python Computing]] post shows how to numerically explore these theoretical concepts:
 
 - Lagrange's Theorem can be verified computationally for specific groups using matrix representations
 - The orbit-stabilizer equation can be validated through direct computation of group actions

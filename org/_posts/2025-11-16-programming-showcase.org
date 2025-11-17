@@ -562,7 +562,7 @@ void generic_sort(void *base, size_t nmemb, size_t size,
 
 * Cross-References and Integration
 
-The mathematical concepts demonstrated in the [[http://localhost:4000/my-jekyll/2025/11/16/mathematical-foundations.html][Mathematical Foundations]] post can be implemented algorithmically using the data structures and algorithms shown in this programming showcase.
+The mathematical concepts demonstrated in the [[file:2025-11-16-mathematical-foundations.org][Mathematical Foundations]] post can be implemented algorithmically using the data structures and algorithms shown in this programming showcase.
 
 For example, the group operations defined mathematically could be implemented using the C structures shown above, while the Python object-oriented examples could model the mathematical objects like groups and topological spaces.
 
