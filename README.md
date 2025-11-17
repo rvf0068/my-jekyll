@@ -10,6 +10,7 @@ This is a Jekyll-based blog that uses Org-mode for authoring posts. The setup au
 - **Automatic equation referencing** with numbered links for LaTeX equations
 - **Enhanced code blocks** with syntax highlighting (Prism.js), line numbers, copy-to-clipboard button, and language badges
 - **Interactive Python cells** powered by Pyodide - run Python code directly in the browser
+- **GitHub Discussions-powered comments** with Giscus integration
 - Customizable layouts and themes
 
 ## Writing Posts
@@ -641,6 +642,8 @@ This blog uses a **shared configuration system** that eliminates hard-coded para
 3. **Cross-tool compatibility**: Both Jekyll and Emacs Lisp read the same configuration
 4. **GitHub Actions ready**: Deployment workflow generates config automatically
 
+**Important**: Never edit `_config.yml` directly! All changes should be made in `.blog-config`, then run `./scripts/generate-config.sh` to regenerate the Jekyll configuration.
+
 ### Configuration Files
 
 #### .blog-config (Primary Configuration)
@@ -747,6 +750,96 @@ The publishing configuration defines three projects:
 - `main-site`: Publishes Org files from `org/` to the root directory
 - `posts`: Publishes blog posts from `org/_posts/` to `_posts/`
 - `resources`: Copies resources to the `assets/` directory
+
+## Comments System
+
+This blog uses **Giscus** for comments, which provides a modern, privacy-friendly commenting system powered by GitHub Discussions.
+
+### Features
+
+- 🗨️ **GitHub Discussions-based**: Comments stored as GitHub Discussions
+- 🔒 **Privacy-friendly**: No tracking, no ads, open source
+- 💬 **Rich formatting**: Full Markdown support with syntax highlighting
+- ⚡ **Real-time**: Instant updates and notifications
+- 🎨 **Theme integration**: Automatically matches your site's appearance
+- 📱 **Responsive**: Works on all devices
+- 🔍 **Searchable**: Comments are indexed by GitHub
+
+### Setup (Already Configured)
+
+The blog is configured with the following Giscus settings:
+- **Repository**: `rvf0068/my-jekyll`
+- **Category**: "General" (GitHub Discussions category)
+- **Mapping**: `pathname` (each page gets its own discussion)
+- **Theme**: `dark` (can be changed in `_config.yml`)
+
+### Configuration
+
+Comments are configured in `.blog-config` (the primary configuration file):
+
+```bash
+# Giscus Comments Configuration
+GISCUS_REPO="rvf0068/my-jekyll"
+GISCUS_REPO_ID="R_kgDOP75IWQ"
+GISCUS_CATEGORY="General"
+GISCUS_CATEGORY_ID="DIC_kwDOP75IWc4Cx5N8"
+GISCUS_MAPPING="pathname"
+GISCUS_STRICT="1"
+GISCUS_REACTIONS_ENABLED="1"
+GISCUS_EMIT_METADATA="0"
+GISCUS_INPUT_POSITION="bottom"
+GISCUS_THEME="dark"
+GISCUS_LANG="en"
+```
+
+**Note:** After modifying `.blog-config`, run `./scripts/generate-config.sh` to regenerate `_config.yml` with the new settings.
+
+### Disabling Comments
+
+To disable comments on a specific post, add this to the post's front matter:
+
+```yaml
+---
+title: "Your Post Title"
+comments: false
+---
+```
+
+Or in Org-mode format:
+```org
+#+TITLE: Your Post Title
+#+JEKYLL_COMMENTS: false
+```
+
+### Customization
+
+**Theme Options** (change `GISCUS_THEME` in `.blog-config`):
+- `light`, `dark`, `dark_dimmed`
+- `preferred_color_scheme` (automatic based on user's system)
+- `transparent_dark`, `dark_high_contrast`
+
+**Position Options** (change `GISCUS_INPUT_POSITION`):
+- `bottom` (default) - Comment box at bottom
+- `top` - Comment box at top
+
+**After making changes:**
+1. Edit the appropriate variable in `.blog-config`
+2. Run `./scripts/generate-config.sh` to update `_config.yml`
+3. Rebuild the site with `./scripts/dev.sh build` or `./scripts/dev.sh serve`
+
+### Moderation
+
+- Comments are moderated through GitHub Discussions
+- Repository owners/collaborators can moderate all comments
+- Standard GitHub moderation tools apply (delete, edit, lock discussions)
+- Spam protection through GitHub's built-in systems
+
+### Privacy
+
+- Users must have GitHub accounts to comment
+- No anonymous comments (reduces spam)
+- No external tracking or cookies
+- All data stored on GitHub (GDPR compliant)
 
 ## Requirements
 

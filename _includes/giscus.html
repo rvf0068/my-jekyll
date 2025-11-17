@@ -1,0 +1,58 @@
+{% if site.giscus.repo %}
+<div class="comments-section">
+  <h3>💬 Comments</h3>
+  <script src="https://giscus.app/client.js"
+	  data-repo="{{ site.giscus.repo }}"
+	  data-repo-id="{{ site.giscus.repo_id }}"
+	  data-category="{{ site.giscus.category }}"
+	  data-category-id="{{ site.giscus.category_id }}"
+	  data-mapping="{{ site.giscus.mapping | default: 'pathname' }}"
+	  data-strict="{{ site.giscus.strict | default: '0' }}"
+	  data-reactions-enabled="{{ site.giscus.reactions_enabled | default: '1' }}"
+	  data-emit-metadata="{{ site.giscus.emit_metadata | default: '0' }}"
+	  data-input-position="{{ site.giscus.input_position | default: 'bottom' }}"
+	  data-theme="{{ site.giscus.theme | default: 'preferred_color_scheme' }}"
+	  data-lang="{{ site.giscus.lang | default: 'en' }}"
+	  crossorigin="anonymous"
+	  async>
+  </script>
+
+  <script>
+    // Function to update Giscus theme when dark mode changes
+    function updateGiscusTheme() {
+      const iframe = document.querySelector('iframe.giscus-frame');
+      if (iframe) {
+	const isDark = document.documentElement.classList.contains('dark-mode');
+	const theme = isDark ? 'dark' : 'light';
+
+	// Send theme update message to Giscus iframe
+	iframe.contentWindow.postMessage(
+	  { giscus: { setConfig: { theme: theme } } },
+	  'https://giscus.app'
+	);
+      }
+    }
+
+    // Wait for Giscus to load, then set up theme observer
+    window.addEventListener('load', function() {
+      // Set up MutationObserver to watch for dark mode changes
+      const observer = new MutationObserver(function(mutations) {
+	mutations.forEach(function(mutation) {
+	  if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+	    updateGiscusTheme();
+	  }
+	});
+      });
+
+      // Start observing changes to the document element's class
+      observer.observe(document.documentElement, {
+	attributes: true,
+	attributeFilter: ['class']
+      });
+
+      // Also set theme immediately if Giscus is already loaded
+      setTimeout(updateGiscusTheme, 1000);
+    });
+  </script>
+</div>
+{% endif %}

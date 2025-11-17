@@ -42,6 +42,20 @@ plugins:
   - jekyll-sitemap
   - jekyll-feed
 
+# Giscus comments configuration
+giscus:
+  repo: "${GISCUS_REPO}"
+  repo_id: "${GISCUS_REPO_ID}"
+  category: "${GISCUS_CATEGORY}"
+  category_id: "${GISCUS_CATEGORY_ID}"
+  mapping: "${GISCUS_MAPPING}"
+  strict: "${GISCUS_STRICT}"
+  reactions_enabled: "${GISCUS_REACTIONS_ENABLED}"
+  emit_metadata: "${GISCUS_EMIT_METADATA}"
+  input_position: "${GISCUS_INPUT_POSITION}"
+  theme: "${GISCUS_THEME}"
+  lang: "${GISCUS_LANG}"
+
 # Performance optimizations
 sass:
   style: compressed
