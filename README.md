@@ -849,5 +849,14 @@ Or in Org-mode format:
 
 ## License
 
-[Add your license here]
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+### What's Covered
+
+- ✅ **Framework code**: Scripts, templates, configurations, CSS, JavaScript
+- ✅ **Integration work**: Org-mode publishing, Jekyll setup, Pyodide integration  
+- ✅ **Documentation**: Setup instructions, examples, tutorials
+- ❌ **Blog content**: Individual posts and articles remain under their authors' copyright
+
+Feel free to use this blog framework for your own projects, whether personal, academic, or commercial!
 
