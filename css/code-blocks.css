@@ -1,5 +1,5 @@
-/* Clean Custom Code Block Styling */
-/* No external dependencies - pure custom solution */
+/* Code Block Styling with Prism.js Integration */
+/* Preserves custom features: language badges, copy buttons, dark mode */
 
 /* Container styling */
 .org-src-container {
@@ -17,11 +17,33 @@
   margin: 0;
   padding: 1.2rem;
   background-color: transparent;
-  color: #212529;
   overflow-x: auto;
   font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Courier New', monospace;
   font-size: 14px;
-  line-height: 1.4;
+  line-height: 1.5;
+}
+
+/* Prism.js line numbers integration */
+.org-src-container pre.line-numbers {
+  padding-left: 3.8em;
+  counter-reset: linenumber;
+}
+
+.org-src-container pre.line-numbers > code {
+  position: relative;
+  white-space: inherit;
+}
+
+/* Override Prism's default styling to match our theme */
+.org-src-container pre[class*="language-"] {
+  background: transparent;
+  color: inherit;
+}
+
+.org-src-container code[class*="language-"] {
+  background: transparent;
+  color: inherit;
+  text-shadow: none;
 }
 
 /* Dark mode styling */
@@ -32,6 +54,118 @@ html.dark-mode .org-src-container {
 
 html.dark-mode .org-src-container pre {
   color: #abb2bf;
+}
+
+/* Dark mode Prism.js token colors (One Dark theme inspired) */
+html.dark-mode .token.comment,
+html.dark-mode .token.prolog,
+html.dark-mode .token.doctype,
+html.dark-mode .token.cdata {
+  color: #5c6370;
+}
+
+html.dark-mode .token.punctuation {
+  color: #abb2bf;
+}
+
+html.dark-mode .token.property,
+html.dark-mode .token.tag,
+html.dark-mode .token.boolean,
+html.dark-mode .token.number,
+html.dark-mode .token.constant,
+html.dark-mode .token.symbol,
+html.dark-mode .token.deleted {
+  color: #d19a66;
+}
+
+html.dark-mode .token.selector,
+html.dark-mode .token.attr-name,
+html.dark-mode .token.string,
+html.dark-mode .token.char,
+html.dark-mode .token.builtin,
+html.dark-mode .token.inserted {
+  color: #98c379;
+}
+
+html.dark-mode .token.operator,
+html.dark-mode .token.entity,
+html.dark-mode .token.url,
+html.dark-mode .language-css .token.string,
+html.dark-mode .style .token.string {
+  color: #56b6c2;
+}
+
+html.dark-mode .token.atrule,
+html.dark-mode .token.attr-value,
+html.dark-mode .token.keyword {
+  color: #c678dd;
+}
+
+html.dark-mode .token.function,
+html.dark-mode .token.class-name {
+  color: #61afef;
+}
+
+html.dark-mode .token.regex,
+html.dark-mode .token.important,
+html.dark-mode .token.variable {
+  color: #e06c75;
+}
+
+/* Light mode Prism.js token colors */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #708090;
+}
+
+.token.punctuation {
+  color: #999;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #9a6e3a;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #07a;
+}
+
+.token.function,
+.token.class-name {
+  color: #DD4A68;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: #e90;
 }
 
 /* Inline code styling */
@@ -48,6 +182,15 @@ html.dark-mode p code,
 html.dark-mode li code {
   background-color: #3e4451;
   color: #e06c75;
+}
+
+/* Line numbers styling for dark mode */
+html.dark-mode .line-numbers .line-numbers-rows {
+  border-right-color: #3e4451;
+}
+
+html.dark-mode .line-numbers-rows > span:before {
+  color: #5c6370;
 }
 
 /* Toolbar styling is handled by JavaScript inline styles for maximum compatibility */

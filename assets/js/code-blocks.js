@@ -1,8 +1,8 @@
-// Pure custom code block enhancement for org-mode
-// No external dependencies, clean and simple
+// Code block enhancement for org-mode with Prism.js syntax highlighting
+// Integrates Prism.js while preserving custom features (copy button, language badge, dark mode)
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Starting custom code block enhancement...');
+    console.log('Starting code block enhancement with Prism.js...');
     enhanceCodeBlocks();
 });
 
@@ -29,6 +29,36 @@ function enhanceCodeBlocks() {
                 language = className.substring(4);
                 break;
             }
+        }
+
+        // Map org-mode language names to Prism language names
+        const languageMap = {
+            'emacs-lisp': 'lisp',
+            'elisp': 'lisp',
+            'shell': 'bash',
+            'sh': 'bash',
+            'c++': 'cpp',
+            'python-cell': 'python'
+        };
+        const prismLanguage = languageMap[language] || language;
+
+        // Apply Prism.js syntax highlighting
+        const code = codeBlock.querySelector('code') || codeBlock;
+        const codeContent = code.textContent;
+        
+        // Create new code element for Prism
+        const newCode = document.createElement('code');
+        newCode.className = 'language-' + prismLanguage;
+        newCode.textContent = codeContent;
+        
+        // Replace pre content with Prism-ready code
+        codeBlock.innerHTML = '';
+        codeBlock.appendChild(newCode);
+        codeBlock.classList.add('line-numbers');
+        
+        // Run Prism highlighting
+        if (typeof Prism !== 'undefined') {
+            Prism.highlightElement(newCode);
         }
 
         // Create custom toolbar
@@ -63,7 +93,7 @@ function enhanceCodeBlocks() {
             e.preventDefault();
             e.stopPropagation();
 
-            const textToCopy = codeBlock.textContent || codeBlock.innerText;
+            const textToCopy = newCode.textContent || newCode.innerText;
             console.log('Copy clicked, text length:', textToCopy.length);
 
             // Try modern clipboard API first
