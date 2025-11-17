@@ -1,0 +1,581 @@
+#+TITLE: Programming Languages Showcase
+#+DATE: 2025-11-16 17:54
+#+AUTHOR: rvf0068
+#+JEKYLL_LAYOUT: post
+#+JEKYLL_CATEGORIES: programming tutorial
+#+JEKYLL_TAGS: code python emacs-lisp c programming examples
+#+HAS_MATH: no
+
+* Introduction
+
+This post demonstrates the blog's syntax highlighting and code presentation capabilities across multiple programming languages. We'll explore Python, Emacs Lisp, and C with practical examples and best practices.
+
+* Python Programming
+
+Python's elegance lies in its readability and powerful standard library. Here are comprehensive examples showcasing different aspects of the language.
+
+** Data Structures and Algorithms
+
+#+BEGIN_SRC python
+def fibonacci_memoized(n, memo={}):
+    """
+    Compute Fibonacci numbers using memoization for efficiency.
+    Time complexity: O(n), Space complexity: O(n)
+    """
+    if n in memo:
+        return memo[n]
+    
+    if n <= 2:
+        return 1
+    
+    memo[n] = fibonacci_memoized(n-1, memo) + fibonacci_memoized(n-2, memo)
+    return memo[n]
+
+# Example usage with list comprehension
+fibonacci_sequence = [fibonacci_memoized(i) for i in range(1, 11)]
+print("First 10 Fibonacci numbers:", fibonacci_sequence)
+
+# Dictionary comprehension example
+squares = {x: x**2 for x in range(1, 6)}
+print("Squares dictionary:", squares)
+#+END_SRC
+
+** Object-Oriented Programming
+
+#+BEGIN_SRC python
+from abc import ABC, abstractmethod
+from typing import List, Optional
+import math
+
+class Shape(ABC):
+    """Abstract base class for geometric shapes."""
+    
+    @abstractmethod
+    def area(self) -> float:
+        pass
+    
+    @abstractmethod
+    def perimeter(self) -> float:
+        pass
+
+class Circle(Shape):
+    """Circle implementation with radius."""
+    
+    def __init__(self, radius: float):
+        if radius <= 0:
+            raise ValueError("Radius must be positive")
+        self.radius = radius
+    
+    def area(self) -> float:
+        return math.pi * self.radius ** 2
+    
+    def perimeter(self) -> float:
+        return 2 * math.pi * self.radius
+    
+    def __str__(self) -> str:
+        return f"Circle(radius={self.radius:.2f})"
+
+class Rectangle(Shape):
+    """Rectangle implementation with width and height."""
+    
+    def __init__(self, width: float, height: float):
+        self.width = width
+        self.height = height
+    
+    def area(self) -> float:
+        return self.width * self.height
+    
+    def perimeter(self) -> float:
+        return 2 * (self.width + self.height)
+    
+    def __str__(self) -> str:
+        return f"Rectangle(width={self.width}, height={self.height})"
+
+# Polymorphism in action
+shapes: List[Shape] = [
+    Circle(5.0),
+    Rectangle(4.0, 6.0),
+    Circle(3.2)
+]
+
+for shape in shapes:
+    print(f"{shape}: Area = {shape.area():.2f}, Perimeter = {shape.perimeter():.2f}")
+#+END_SRC
+
+** Functional Programming Features
+
+#+BEGIN_SRC python
+from functools import reduce, partial
+from itertools import chain, filter, map
+
+# Higher-order functions and lambda expressions
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+# Function composition example
+def compose(f, g):
+    """Compose two functions: compose(f, g)(x) = f(g(x))"""
+    return lambda x: f(g(x))
+
+square = lambda x: x ** 2
+add_one = lambda x: x + 1
+
+# Compose functions
+square_then_add_one = compose(add_one, square)
+print("Composed function result:", square_then_add_one(4))  # (4^2) + 1 = 17
+
+# Functional pipeline
+result = reduce(
+    lambda acc, x: acc + x,
+    filter(
+        lambda x: x % 2 == 0,
+        map(square, numbers)
+    ),
+    0
+)
+print("Sum of squares of even numbers:", result)
+
+# Partial function application
+def power(base, exponent):
+    return base ** exponent
+
+square_func = partial(power, exponent=2)
+cube_func = partial(power, exponent=3)
+
+print("Partial functions:", square_func(5), cube_func(3))
+#+END_SRC
+
+* Emacs Lisp Programming
+
+Emacs Lisp powers the extensibility of Emacs. Here we explore its functional programming paradigm and text processing capabilities.
+
+** Basic List Processing
+
+#+BEGIN_SRC emacs-lisp
+;; Fundamental list operations in Emacs Lisp
+(defun factorial (n)
+  "Compute factorial of N using recursion."
+  (if (<= n 1)
+      1
+    (* n (factorial (1- n)))))
+
+;; Tail-recursive version for better performance
+(defun factorial-tail (n &optional acc)
+  "Compute factorial of N using tail recursion."
+  (setq acc (or acc 1))
+  (if (<= n 1)
+      acc
+    (factorial-tail (1- n) (* n acc))))
+
+;; List manipulation functions
+(defun my-map (func list)
+  "Apply FUNC to each element of LIST."
+  (when list
+    (cons (funcall func (car list))
+          (my-map func (cdr list)))))
+
+;; Filter function implementation
+(defun my-filter (predicate list)
+  "Return elements of LIST that satisfy PREDICATE."
+  (cond ((null list) nil)
+        ((funcall predicate (car list))
+         (cons (car list) (my-filter predicate (cdr list))))
+        (t (my-filter predicate (cdr list)))))
+
+;; Example usage
+(setq test-numbers '(1 2 3 4 5 6 7 8 9 10))
+
+;; Square each number
+(setq squared (my-map (lambda (x) (* x x)) test-numbers))
+
+;; Filter even numbers
+(setq evens (my-filter (lambda (x) (= (% x 2) 0)) test-numbers))
+
+(message "Original: %s" test-numbers)
+(message "Squared: %s" squared)
+(message "Evens: %s" evens)
+#+END_SRC
+
+** Text Processing and Buffer Manipulation
+
+#+BEGIN_SRC emacs-lisp
+;; Advanced text processing in Emacs Lisp
+(defun count-word-occurrences (word)
+  "Count occurrences of WORD in current buffer."
+  (interactive "sWord to count: ")
+  (save-excursion
+    (goto-char (point-min))
+    (let ((count 0))
+      (while (search-forward word nil t)
+        (setq count (1+ count)))
+      (message "Word '%s' appears %d times" word count)
+      count)))
+
+(defun capitalize-words-in-region (start end)
+  "Capitalize each word in region from START to END."
+  (interactive "r")
+  (save-excursion
+    (save-restriction
+      (narrow-to-region start end)
+      (goto-char (point-min))
+      (while (re-search-forward "\\b\\w" nil t)
+        (upcase-region (match-beginning 0) (match-end 0))))))
+
+;; Custom major mode example
+(defvar my-mode-keywords
+  '(("\\<\\(def\\|let\\|setq\\|when\\|if\\|cond\\)\\>" . font-lock-keyword-face)
+    ("\\<\\(nil\\|t\\)\\>" . font-lock-constant-face)
+    (";.*$" . font-lock-comment-face)))
+
+(define-derived-mode my-mode fundamental-mode "My Mode"
+  "A simple example of a custom major mode."
+  (setq font-lock-defaults '(my-mode-keywords))
+  (setq comment-start ";")
+  (setq comment-end ""))
+
+;; Hash table operations
+(defun demo-hash-table ()
+  "Demonstrate hash table operations."
+  (let ((ht (make-hash-table :test 'equal)))
+    ;; Insert key-value pairs
+    (puthash "name" "Emacs" ht)
+    (puthash "version" "29.1" ht)
+    (puthash "language" "Emacs Lisp" ht)
+    
+    ;; Iterate over hash table
+    (maphash (lambda (key value)
+               (message "%s: %s" key value))
+             ht)
+    
+    ;; Return the hash table
+    ht))
+#+END_SRC
+
+** Macro System
+
+#+BEGIN_SRC emacs-lisp
+;; Powerful macro system for code generation
+(defmacro with-timing (form)
+  "Execute FORM and report execution time."
+  `(let ((start-time (current-time)))
+     (prog1 ,form
+       (message "Execution time: %.3f seconds"
+                (float-time (time-subtract (current-time) start-time))))))
+
+(defmacro def-counter (name)
+  "Define a counter function named NAME."
+  `(let ((count 0))
+     (defun ,name ()
+       ,(format "Counter function %s" name)
+       (setq count (1+ count))
+       count)))
+
+;; Generate counter functions
+(def-counter my-counter)
+(def-counter another-counter)
+
+;; Anaphoric macro example
+(defmacro aif (test then &optional else)
+  "Anaphoric if: bind result of TEST to 'it'."
+  `(let ((it ,test))
+     (if it ,then ,else)))
+
+;; Usage examples
+;; (aif (some-complex-computation)
+;;     (process it)
+;;   (handle-nil-case))
+#+END_SRC
+
+* C Programming
+
+C provides low-level control and high performance. These examples demonstrate memory management, data structures, and system programming concepts.
+
+** Memory Management and Data Structures
+
+#+BEGIN_SRC c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// Dynamic array implementation
+typedef struct {
+    int *data;
+    size_t size;
+    size_t capacity;
+} DynamicArray;
+
+DynamicArray *da_create(size_t initial_capacity) {
+    DynamicArray *da = malloc(sizeof(DynamicArray));
+    if (!da) return NULL;
+    
+    da->data = malloc(initial_capacity * sizeof(int));
+    if (!da->data) {
+        free(da);
+        return NULL;
+    }
+    
+    da->size = 0;
+    da->capacity = initial_capacity;
+    return da;
+}
+
+int da_push(DynamicArray *da, int value) {
+    if (da->size >= da->capacity) {
+        size_t new_capacity = da->capacity * 2;
+        int *new_data = realloc(da->data, new_capacity * sizeof(int));
+        if (!new_data) return -1;  // Allocation failed
+        
+        da->data = new_data;
+        da->capacity = new_capacity;
+    }
+    
+    da->data[da->size++] = value;
+    return 0;  // Success
+}
+
+void da_destroy(DynamicArray *da) {
+    if (da) {
+        free(da->data);
+        free(da);
+    }
+}
+
+// Linked list implementation
+typedef struct Node {
+    int data;
+    struct Node *next;
+} Node;
+
+typedef struct {
+    Node *head;
+    size_t size;
+} LinkedList;
+
+LinkedList *ll_create() {
+    LinkedList *ll = malloc(sizeof(LinkedList));
+    if (ll) {
+        ll->head = NULL;
+        ll->size = 0;
+    }
+    return ll;
+}
+
+int ll_prepend(LinkedList *ll, int value) {
+    Node *new_node = malloc(sizeof(Node));
+    if (!new_node) return -1;
+    
+    new_node->data = value;
+    new_node->next = ll->head;
+    ll->head = new_node;
+    ll->size++;
+    return 0;
+}
+
+void ll_destroy(LinkedList *ll) {
+    if (!ll) return;
+    
+    Node *current = ll->head;
+    while (current) {
+        Node *next = current->next;
+        free(current);
+        current = next;
+    }
+    free(ll);
+}
+#+END_SRC
+
+** Advanced Algorithms
+
+#+BEGIN_SRC c
+// Quick sort implementation with Hoare partition
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+int partition(int arr[], int low, int high) {
+    int pivot = arr[low];
+    int i = low - 1;
+    int j = high + 1;
+    
+    while (1) {
+        do {
+            i++;
+        } while (arr[i] < pivot);
+        
+        do {
+            j--;
+        } while (arr[j] > pivot);
+        
+        if (i >= j) {
+            return j;
+        }
+        
+        swap(&arr[i], &arr[j]);
+    }
+}
+
+void quicksort(int arr[], int low, int high) {
+    if (low < high) {
+        int p = partition(arr, low, high);
+        quicksort(arr, low, p);
+        quicksort(arr, p + 1, high);
+    }
+}
+
+// Binary search tree implementation
+typedef struct BSTNode {
+    int data;
+    struct BSTNode *left;
+    struct BSTNode *right;
+} BSTNode;
+
+BSTNode *bst_create_node(int value) {
+    BSTNode *node = malloc(sizeof(BSTNode));
+    if (node) {
+        node->data = value;
+        node->left = NULL;
+        node->right = NULL;
+    }
+    return node;
+}
+
+BSTNode *bst_insert(BSTNode *root, int value) {
+    if (root == NULL) {
+        return bst_create_node(value);
+    }
+    
+    if (value < root->data) {
+        root->left = bst_insert(root->left, value);
+    } else if (value > root->data) {
+        root->right = bst_insert(root->right, value);
+    }
+    // Ignore duplicates
+    
+    return root;
+}
+
+void bst_inorder(BSTNode *root, void (*callback)(int)) {
+    if (root != NULL) {
+        bst_inorder(root->left, callback);
+        callback(root->data);
+        bst_inorder(root->right, callback);
+    }
+}
+
+void print_value(int value) {
+    printf("%d ", value);
+}
+#+END_SRC
+
+** File I/O and System Programming
+
+#+BEGIN_SRC c
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <errno.h>
+
+// File copying utility with error handling
+int copy_file(const char *source, const char *destination) {
+    int src_fd, dest_fd;
+    ssize_t bytes_read, bytes_written;
+    char buffer[4096];
+    
+    // Open source file
+    src_fd = open(source, O_RDONLY);
+    if (src_fd == -1) {
+        perror("Error opening source file");
+        return -1;
+    }
+    
+    // Create/open destination file
+    dest_fd = open(destination, O_WRONLY | O_CREAT | O_TRUNC, 
+                   S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+    if (dest_fd == -1) {
+        perror("Error opening destination file");
+        close(src_fd);
+        return -1;
+    }
+    
+    // Copy data in chunks
+    while ((bytes_read = read(src_fd, buffer, sizeof(buffer))) > 0) {
+        char *write_ptr = buffer;
+        while (bytes_read > 0) {
+            bytes_written = write(dest_fd, write_ptr, bytes_read);
+            if (bytes_written == -1) {
+                if (errno == EINTR) continue;  // Interrupted, retry
+                perror("Error writing to destination");
+                close(src_fd);
+                close(dest_fd);
+                return -1;
+            }
+            bytes_read -= bytes_written;
+            write_ptr += bytes_written;
+        }
+    }
+    
+    if (bytes_read == -1) {
+        perror("Error reading from source");
+        close(src_fd);
+        close(dest_fd);
+        return -1;
+    }
+    
+    close(src_fd);
+    close(dest_fd);
+    return 0;  // Success
+}
+
+// Function pointer example for callbacks
+typedef int (*compare_func_t)(const void *a, const void *b);
+
+int int_compare(const void *a, const void *b) {
+    int ia = *(const int*)a;
+    int ib = *(const int*)b;
+    return (ia > ib) - (ia < ib);
+}
+
+void generic_sort(void *base, size_t nmemb, size_t size, 
+                  compare_func_t compare) {
+    // Simplified bubble sort for demonstration
+    char *arr = (char*)base;
+    char *temp = malloc(size);
+    
+    for (size_t i = 0; i < nmemb - 1; i++) {
+        for (size_t j = 0; j < nmemb - i - 1; j++) {
+            void *elem1 = arr + j * size;
+            void *elem2 = arr + (j + 1) * size;
+            
+            if (compare(elem1, elem2) > 0) {
+                memcpy(temp, elem1, size);
+                memcpy(elem1, elem2, size);
+                memcpy(elem2, temp, size);
+            }
+        }
+    }
+    
+    free(temp);
+}
+#+END_SRC
+
+* Cross-References and Integration
+
+The mathematical concepts demonstrated in the [[http://localhost:4000/my-jekyll/2025/11/16/mathematical-foundations.html][Mathematical Foundations]] post can be implemented algorithmically using the data structures and algorithms shown in this programming showcase.
+
+For example, the group operations defined mathematically could be implemented using the C structures shown above, while the Python object-oriented examples could model the mathematical objects like groups and topological spaces.
+
+The Emacs Lisp examples demonstrate how symbolic computation could support the equation manipulation discussed in the mathematical foundations, particularly in the context of computer algebra systems.
+
+* Conclusion
+
+This post has showcased the syntax highlighting and code presentation capabilities across three distinct programming paradigms:
+
+- **Python**: High-level, object-oriented and functional programming
+- **Emacs Lisp**: Functional programming with powerful macro system  
+- **C**: Low-level systems programming with manual memory management
+
+Each language serves different purposes and demonstrates the blog's ability to present complex code examples with proper syntax highlighting, making them easy to read and understand.
+
+The combination of mathematical foundations and practical programming implementations provides a comprehensive view of both theoretical and applied computer science concepts.

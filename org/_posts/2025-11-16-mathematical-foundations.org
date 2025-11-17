@@ -1,0 +1,191 @@
+#+TITLE: Mathematical Foundations and Formal Proofs
+#+DATE: 2025-11-16 17:54
+#+AUTHOR: rvf0068
+#+JEKYLL_LAYOUT: post
+#+JEKYLL_CATEGORIES: mathematics research
+#+JEKYLL_TAGS: math equations theorems proofs definitions figures tables citations
+#+HAS_MATH: yes
+#+BIBLIOGRAPHY: ../../references.bib
+
+* Introduction
+
+This post demonstrates the blog's mathematical typesetting capabilities, including formal definitions, theorems, proofs, equation numbering, figure references, and citations. We explore fundamental concepts in algebra and topology.
+
+* Group Theory Foundations
+
+** Basic Definitions
+
+#+begin_definition
+A *group* is a set $G$ together with a binary operation $\cdot: G \times G \to G$ satisfying:
+1. *Closure*: For all $a, b \in G$, we have $a \cdot b \in G$
+2. *Associativity*: $(a \cdot b) \cdot c = a \cdot (b \cdot c)$ for all $a, b, c \in G$
+3. *Identity*: There exists an element $e \in G$ such that $e \cdot a = a \cdot e = a$ for all $a \in G$
+4. *Inverse*: For each $a \in G$, there exists $a^{-1} \in G$ such that $a \cdot a^{-1} = a^{-1} \cdot a = e$
+#+end_definition
+
+#+begin_definition
+The *order* of a group $G$, denoted $|G|$, is the number of elements in $G$. If $G$ is finite, we say $G$ has finite order; otherwise, $G$ has infinite order.
+#+end_definition
+
+** Fundamental Theorems
+
+#+begin_theorem
+*(Lagrange's Theorem)* Let $G$ be a finite group and $H$ a subgroup of $G$. 
+Then the order of $H$ divides the order of $G$.
+#+end_theorem
+
+#+begin_proof
+Consider the left cosets of $H$ in $G$. Each coset $aH = \{ah : h \in H\}$ has exactly $|H|$ elements, and the cosets partition $G$. Therefore, $|G| = k|H|$ for some integer $k$, proving that $|H|$ divides $|G|$.
+#+end_proof
+
+#+begin_corollary
+If $G$ is a group of prime order $p$, then $G$ is cyclic.
+#+end_corollary
+
+#+begin_lemma
+A non-empty subset $H \subseteq G$ is a subgroup if and only if $ab^{-1} \in H$ for all $a, b \in H$.
+#+end_lemma
+
+* Algebraic Equations and Formulas
+
+The fundamental theorem of algebra can be expressed through the following equation:
+
+\begin{equation}
+\label{org1234567}
+p(z) = a_n z^n + a_{n-1} z^{n-1} + \cdots + a_1 z + a_0 = 0
+\end{equation}
+
+where $p(z)$ is a polynomial of degree $n \geq 1$ with complex coefficients, and this equation has exactly $n$ complex roots (counting multiplicities).
+
+For quadratic equations, we have the well-known formula:
+
+\begin{equation}
+\label{org2345678}
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+\end{equation}
+
+The discriminant $\Delta = b^2 - 4ac$ in equation \eqref{org2345678} determines the nature of the roots.
+
+** Group Actions and Orbits
+
+Let $G$ act on a finite set $X$. The orbit-stabilizer theorem states:
+
+\begin{equation}
+\label{org3456789}
+|G| = |\text{Orb}(x)| \cdot |\text{Stab}(x)|
+\end{equation}
+
+where $\text{Orb}(x) = \{g \cdot x : g \in G\}$ and $\text{Stab}(x) = \{g \in G : g \cdot x = x\}$.
+
+* Topological Spaces
+
+#+begin_definition
+A *topological space* is a pair $(X, \tau)$ where $X$ is a set and $\tau$ is a collection of subsets of $X$ called *open sets* satisfying:
+1. $\emptyset, X \in \tau$
+2. Any union of sets in $\tau$ is in $\tau$
+3. Any finite intersection of sets in $\tau$ is in $\tau$
+#+end_definition
+
+#+begin_proposition
+Every metric space $(X, d)$ can be given a topology by declaring $U \subseteq X$ open if for every $x \in U$, there exists $\epsilon > 0$ such that $B(x, \epsilon) \subseteq U$.
+#+end_proposition
+
+* Figures and Visual Content
+
+Mathematical concepts often benefit from visual representation. Consider the following diagram illustrating group relationships:
+
+#+ATTR_HTML: :width 400 :alt Group structure diagram :align center
+#+NAME: fig:group-diagram
+#+CAPTION: Subgroup lattice showing relationships between cyclic groups
+[[file:ciclos6-0.png]]
+
+Figure [[fig:group-diagram]] demonstrates the lattice structure of subgroups in a cyclic group of order 6. 
+
+We can also include generated mathematical plots:
+
+#+ATTR_HTML: :width 500 :alt Mathematical function plot :align center  
+#+NAME: fig:math-plot
+#+CAPTION: Plot of polynomial functions and their derivatives
+[[file:mymatplotg.png]]
+
+The visualization in Figure [[fig:math-plot]] shows how polynomial functions behave, which relates to our discussion of equation \eqref{org1234567}.
+
+* Tables and Data
+
+Mathematical results are often summarized in tabular form:
+
+#+NAME: tab:group-examples
+#+CAPTION: Examples of finite groups and their properties
+| Group | Order | Abelian | Cyclic | Generators |
+|-------+-------+---------+--------+------------|
+| $\mathbb{Z}_5$ | 5 | Yes | Yes | 1, 2, 3, 4 |
+| $S_3$ | 6 | No | No | $(1\,2)$, $(1\,2\,3)$ |
+| $\mathbb{Z}_2 \times \mathbb{Z}_2$ | 4 | Yes | No | $(1,0)$, $(0,1)$ |
+| $\mathbb{Z}_8$ | 8 | Yes | Yes | 1, 3, 5, 7 |
+
+Table [[tab:group-examples]] provides a comparison of different group structures, illustrating the diversity described in our definitions above.
+
+#+NAME: tab:equation-types
+#+CAPTION: Classification of polynomial equations by degree
+| Degree | Name | General Form | Solving Method |
+|--------+------+--------------+----------------|
+| 1 | Linear | $ax + b = 0$ | Direct |
+| 2 | Quadratic | $ax^2 + bx + c = 0$ | Formula \eqref{org2345678} |
+| 3 | Cubic | $ax^3 + bx^2 + cx + d = 0$ | Cardano's method |
+| 4 | Quartic | $ax^4 + \cdots = 0$ | Ferrari's method |
+| $\geq 5$ | Quintic+ | $ax^n + \cdots = 0$ | No general formula |
+
+* Advanced Topics with Citations
+
+Recent research in algebraic topology has focused on computational methods [cite:@quillen1978homotopy]. The relationship between group theory and topology becomes apparent when studying fundamental groups and covering spaces [cite:@bjorner1995topology].
+
+** Homological Algebra
+
+The study of chain complexes leads to important invariants. Consider the exact sequence:
+
+\begin{equation}
+\label{org4567890}
+0 \to A \xrightarrow{f} B \xrightarrow{g} C \to 0
+\end{equation}
+
+where the sequence in equation \eqref{org4567890} is exact if $\text{im}(f) = \ker(g)$.
+
+#+begin_theorem
+*(Fundamental Theorem of Homological Algebra)* Every short exact sequence of modules over a principal ideal domain splits.
+#+end_theorem
+
+* Cross-References and Related Topics
+
+The theoretical foundations presented here connect directly to practical implementations and computational applications demonstrated in the companion posts:
+
+** Programming Implementation
+
+The [[http://localhost:4000/my-jekyll/2025/11/16/programming-showcase.html][Programming Showcase]] demonstrates how the mathematical structures defined here can be implemented algorithmically. For example:
+
+- The group operations from our group definition could be implemented using the C data structures shown in that post
+- The topological concepts from our topological space definition can be modeled with object-oriented Python classes
+- The algebraic manipulations of equations like our polynomial and quadratic examples could be performed using the symbolic computation techniques in Emacs Lisp
+
+** Interactive Computing
+
+The [[http://localhost:4000/my-jekyll/2025/11/16/interactive-python.html][Interactive Python Computing]] post shows how to numerically explore these theoretical concepts:
+
+- Lagrange's Theorem can be verified computationally for specific groups using matrix representations
+- The orbit-stabilizer equation can be validated through direct computation of group actions
+- The statistical methods in the interactive post could analyze data related to the group examples in our comparison tables
+
+These connections illustrate how theoretical mathematics, algorithmic implementation, and computational exploration complement each other in modern mathematical research and education.
+
+* Conclusion
+
+This post has demonstrated the mathematical typesetting capabilities of the blog system, including:
+
+- Formal definitions, theorems, and proofs with proper styling
+- Equation numbering and cross-referencing with labeled equations
+- Figure references to both external and generated mathematical plots  
+- Table references with structured mathematical data
+- Bibliography citations using org-cite
+
+The combination of LaTeX math rendering, proper cross-references, and visual elements creates a professional mathematical document suitable for research or educational purposes.
+
+#+print_bibliography:

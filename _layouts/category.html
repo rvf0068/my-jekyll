@@ -11,8 +11,10 @@ layout: default
 </div>
 
 <ul class="post-list">
-  {% assign sorted_posts = site.categories[page.category] | sort: 'date' | reverse %}
-  {% for post in sorted_posts %}
+  {% assign category_posts = site.categories[page.category] %}
+  {% if category_posts and category_posts.size > 0 %}
+    {% assign sorted_posts = category_posts | sort: 'date' | reverse %}
+    {% for post in sorted_posts %}
     <li class="post-item">
       <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
       <div class="post-date">{{ post.date | date: "%B %d, %Y" }}</div>
@@ -30,6 +32,11 @@ layout: default
       {% endif %}
     </li>
   {% endfor %}
+  {% else %}
+    <li class="post-item">
+      <p>No posts found in this category.</p>
+    </li>
+  {% endif %}
 </ul>
 
 <div style="margin-top: 3em; text-align: center;">

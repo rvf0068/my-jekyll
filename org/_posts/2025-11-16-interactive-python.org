@@ -1,0 +1,203 @@
+#+TITLE: Interactive Python Computing
+#+DATE: 2025-11-16 17:54
+#+AUTHOR: rvf0068
+#+JEKYLL_LAYOUT: post
+#+JEKYLL_CATEGORIES: computing interactive
+#+JEKYLL_TAGS: python jupyter pyodide interactive computing data-science
+#+HAS_PYTHON_CELLS: yes
+
+* Introduction
+
+This post demonstrates interactive Python computing capabilities in the blog using Pyodide. These cells execute Python code directly in your browser, making this a truly interactive computing environment for data science, mathematical computation, and visualization.
+
+* Basic Mathematical Computing
+
+Interactive Python cells provide powerful mathematical computing capabilities. Let's explore numerical computation and visualization.
+
+** Simple Numerical Analysis
+
+#+BEGIN_SRC python-cell
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Define a function to analyze
+def f(x):
+    return np.sin(x) * np.exp(-x/5)
+
+# Create data points
+x = np.linspace(0, 10, 500)
+y = f(x)
+
+print(f"Function analysis for f(x) = sin(x) * exp(-x/5)")
+print(f"Domain: [0, 10]")
+print(f"Maximum value: {np.max(y):.4f} at x = {x[np.argmax(y)]:.2f}")
+print(f"Minimum value: {np.min(y):.4f} at x = {x[np.argmin(y)]:.2f}")
+
+# Plot the function
+plt.figure(figsize=(10, 6))
+plt.plot(x, y, 'b-', linewidth=2, label='f(x) = sin(x) * exp(-x/5)')
+plt.grid(True, alpha=0.3)
+plt.xlabel('x')
+plt.ylabel('f(x)')
+plt.title('Function Analysis')
+plt.legend()
+plt.show()
+#+END_SRC
+
+** Linear Algebra Example
+
+#+BEGIN_SRC python-cell
+import numpy as np
+
+# Create a sample matrix for analysis
+np.random.seed(42)  # For reproducible results
+A = np.random.randn(3, 3)
+A = A + A.T  # Make it symmetric
+
+print("Matrix Analysis Demo")
+print("=" * 30)
+print(f"Matrix A (3×3 symmetric):")
+print(A)
+print()
+
+# Eigenvalue decomposition
+eigenvalues, eigenvectors = np.linalg.eig(A)
+print("Eigenvalue Analysis:")
+print(f"Eigenvalues: {eigenvalues}")
+print(f"Largest eigenvalue: {np.max(eigenvalues):.4f}")
+print(f"Smallest eigenvalue: {np.min(eigenvalues):.4f}")
+
+# Linear system solving
+b = np.array([1, 2, 3])
+x = np.linalg.solve(A, b)
+residual = np.linalg.norm(A @ x - b)
+
+print(f"\nLinear System Ax = b:")
+print(f"Solution x: {x}")
+print(f"Residual ||Ax - b||: {residual:.2e}")
+#+END_SRC
+
+* Data Science Example
+
+Interactive Python cells excel at data analysis and visualization.
+
+** Simple Statistical Analysis
+
+#+BEGIN_SRC python-cell
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Generate sample data
+np.random.seed(123)
+n_samples = 200
+
+# Create a simple dataset
+data = {
+    'x': np.random.normal(0, 1, n_samples),
+    'y': np.random.normal(0, 1, n_samples)
+}
+
+# Add some correlation
+data['y'] = 0.5 * data['x'] + 0.8 * data['y']
+
+print("Dataset Overview")
+print("=" * 30)
+print(f"Dataset size: {n_samples} samples")
+print(f"X mean: {np.mean(data['x']):.3f}, std: {np.std(data['x']):.3f}")
+print(f"Y mean: {np.mean(data['y']):.3f}, std: {np.std(data['y']):.3f}")
+
+# Calculate correlation
+correlation = np.corrcoef(data['x'], data['y'])[0, 1]
+print(f"Correlation: {correlation:.3f}")
+
+# Visualization
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+
+# Scatter plot
+ax1.scatter(data['x'], data['y'], alpha=0.6, color='blue')
+ax1.set_xlabel('X')
+ax1.set_ylabel('Y')
+ax1.set_title(f'Scatter Plot (r = {correlation:.3f})')
+ax1.grid(True, alpha=0.3)
+
+# Histograms
+ax2.hist(data['x'], bins=20, alpha=0.7, color='red', label='X')
+ax2.hist(data['y'], bins=20, alpha=0.7, color='blue', label='Y')
+ax2.set_xlabel('Value')
+ax2.set_ylabel('Frequency')
+ax2.set_title('Distributions')
+ax2.legend()
+ax2.grid(True, alpha=0.3)
+
+plt.tight_layout()
+plt.show()
+#+END_SRC
+
+* Symbolic Mathematics
+
+Python's SymPy library enables symbolic computation.
+
+** Basic Symbolic Operations
+
+#+BEGIN_SRC python-cell
+import sympy as sp
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Define symbolic variables
+x = sp.symbols('x')
+
+print("Symbolic Mathematics with SymPy")
+print("=" * 40)
+
+# Define a function
+f = sp.sin(x) * sp.exp(-x/2)
+print(f"Function: f(x) = {f}")
+
+# Calculus operations
+f_prime = sp.diff(f, x)
+f_integral = sp.integrate(f, x)
+
+print(f"Derivative: f'(x) = {f_prime}")
+print(f"Integral: ∫f(x)dx = {f_integral}")
+
+# Evaluate at specific points
+x_val = sp.pi/2
+f_at_point = f.subs(x, x_val)
+print(f"f(π/2) = {f_at_point} = {float(f_at_point):.4f}")
+
+# Plot the function and its derivative
+x_vals = np.linspace(0, 2*np.pi, 200)
+f_func = sp.lambdify(x, f, 'numpy')
+f_prime_func = sp.lambdify(x, f_prime, 'numpy')
+
+plt.figure(figsize=(10, 6))
+plt.plot(x_vals, f_func(x_vals), 'b-', linewidth=2, label='f(x)')
+plt.plot(x_vals, f_prime_func(x_vals), 'r--', linewidth=2, label="f'(x)")
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Function and Derivative')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.show()
+#+END_SRC
+
+* Cross-References and Integration
+
+The interactive computing capabilities demonstrated here complement the theoretical foundations shown in the [[http://localhost:4000/my-jekyll/2025/11/16/mathematical-foundations.html][Mathematical Foundations]] post and the programming techniques from the [[http://localhost:4000/my-jekyll/2025/11/16/programming-showcase.html][Programming Showcase]].
+
+For example:
+- The numerical methods here could verify the mathematical theorems
+- The data analysis techniques could explore group theory examples
+- The symbolic computation supports the equation manipulation from mathematical foundations
+
+* Conclusion
+
+Interactive Python cells powered by Pyodide provide a complete computational environment directly in the browser, enabling:
+
+- **Numerical Computing**: Mathematical analysis with NumPy and SciPy
+- **Data Science**: Statistical analysis and visualization workflows  
+- **Symbolic Mathematics**: Exact computation with SymPy
+- **Scientific Visualization**: Rich plotting capabilities
+
+This creates an interactive platform for exploring mathematical and scientific concepts, bridging theory and practical implementation.
