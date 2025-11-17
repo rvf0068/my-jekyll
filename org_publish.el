@@ -6,6 +6,7 @@
 
 (require 'ox-html)
 (require 'ox-publish)
+(require 'seq)
 
 ;; Enable org-cite for citation support
 (require 'oc)
@@ -117,22 +118,26 @@ automatic descriptions derived from the label name."
 ;; Function to detect if code contains matplotlib
 (defun org-python-code-uses-matplotlib (code)
   "Return non-nil if CODE uses matplotlib (plt.show() or plt.plot() etc)."
-  (or (string-match-p "plt\\.show()" code)
-      (string-match-p "plt\\.plot(" code)
-      (string-match-p "plt\\.scatter(" code)
-      (string-match-p "plt\\.bar(" code)
-      (string-match-p "plt\\.hist(" code)
-      (string-match-p "plt\\.imshow(" code)
-      (string-match-p "import matplotlib" code)
-      (string-match-p "from matplotlib" code)))
+  (seq-some (lambda (pattern)
+              (string-match-p pattern code))
+            '("plt\\.show"
+              "plt\\.plot("
+              "plt\\.scatter("
+              "plt\\.bar("
+              "plt\\.hist("
+              "plt\\.imshow("
+              "import matplotlib"
+              "from matplotlib")))
 
 ;; Function to detect if code contains sympy
 (defun org-python-code-uses-sympy (code)
   "Return non-nil if CODE uses sympy."
-  (or (string-match-p "import sympy" code)
-      (string-match-p "from sympy" code)
-      (string-match-p "sp\\." code)
-      (string-match-p "sympy\\." code)))
+  (seq-some (lambda (pattern)
+              (string-match-p pattern code))
+            '("import sympy"
+              "from sympy"
+              "sp\."
+              "sympy\.")))
 
 ;; Function to convert python-cell source blocks to HTML
 (defun org-python-cell-block-filter (text backend info)
@@ -350,17 +355,18 @@ Places anchors BEFORE equation blocks and adds \\tag{n} inside equations for dis
 		      contents))
 
       ;; Fix LaTeX special characters that weren't properly converted
-      (setq contents (replace-regexp-in-string "{\\\\\"o}" "ö" contents))
-      (setq contents (replace-regexp-in-string "{\\\\\"a}" "ä" contents))
-      (setq contents (replace-regexp-in-string "{\\\\\"u}" "ü" contents))
-      (setq contents (replace-regexp-in-string "{\\\\\"O}" "Ö" contents))
-      (setq contents (replace-regexp-in-string "{\\\\\"A}" "Ä" contents))
-      (setq contents (replace-regexp-in-string "{\\\\\"U}" "Ü" contents))
-      (setq contents (replace-regexp-in-string "{\\\\'e}" "é" contents))
-      (setq contents (replace-regexp-in-string "{\\\\'a}" "á" contents))
-      (setq contents (replace-regexp-in-string "{\\\\'i}" "í" contents))
-      (setq contents (replace-regexp-in-string "{\\\\'o}" "ó" contents))
-      (setq contents (replace-regexp-in-string "{\\\\'u}" "ú" contents))
+      (dolist (pair '(("{\\\"o}" . "ö")
+		      ("{\\\"a}" . "ä")
+		      ("{\\\"u}" . "ü")
+		      ("{\\\"O}" . "Ö")
+		      ("{\\\"A}" . "Ä")
+		      ("{\\\"U}" . "Ü")
+		      ("{\\'e}" . "é")
+		      ("{\\'a}" . "á")
+		      ("{\\'i}" . "í")
+		      ("{\\'o}" . "ó")
+		      ("{\\'u}" . "ú")))
+	(setq contents (replace-regexp-in-string (car pair) (cdr pair) contents)))
 
       ;; Replace file:// URLs with proper HTTP paths for baseurl
       (let ((file-url-pattern (concat "href=\"file:/+" jekyll-baseurl "/"))
@@ -397,33 +403,6 @@ Places anchors BEFORE equation blocks and adds \\tag{n} inside equations for dis
       ;; Add processing marker at the end
       (setq contents (concat contents "\n<!-- PROCESSED-BY-ORG-HTML-FINAL-FUNCTION -->\n"))))
   contents)
-
-;; Function to convert internal file links to Jekyll URLs
-(defun org-jekyll-link-filter (text backend info)
-  "Convert internal file links to Jekyll URLs in exported HTML.
-TEXT is the exported text. BACKEND is the export backend. INFO is the plist."
-  (when (eq backend 'html)
-    ;; Convert links like href="2025-11-16-post.html" to proper Jekyll URLs
-    (setq text (replace-regexp-in-string
-		"href=\"\\([0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}-[^\"]+\\)\\.html\""
-		(lambda (match)
-		  (let ((filename (match-string 1 match)))
-		    ;; Only process if this looks like a blog post filename
-		    (if (string-match "^\\([0-9]\\{4\\}\\)-\\([0-9]\\{2\\}\\)-\\([0-9]\\{2\\}\\)-\\(.+\\)$" filename)
-			(let ((year (match-string 1 filename))
-			      (month (match-string 2 filename))
-			      (day (match-string 3 filename))
-			      (slug (match-string 4 filename)))
-			  ;; Build Jekyll URL: baseurl/year/month/day/slug.html
-			  (format "href=\"%s/%s/%s/%s/%s.html\""
-				  jekyll-baseurl year month day slug))
-		      ;; Return original if it doesn't match pattern
-		      match)))
-		text)))
-  text)
-
-;; Add the link conversion filter (now integrated into org-html-final-function)
-;; (add-to-list 'org-export-filter-final-output-functions 'org-jekyll-link-filter)
 
 ;; Add the final processing filter
 (add-to-list 'org-export-filter-final-output-functions 'org-html-final-function)
