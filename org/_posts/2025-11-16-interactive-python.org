@@ -10,6 +10,32 @@
 
 This post demonstrates interactive Python computing capabilities in the blog using Pyodide. These cells execute Python code directly in your browser, making this a truly interactive computing environment for data science, mathematical computation, and visualization.
 
+* Getting Started with Python
+
+Let's start with some simple Python examples to get familiar with the interactive cells.
+
+** Basic Arithmetic
+
+#+BEGIN_SRC python-cell
+# Simple arithmetic
+result = 2 + 2
+print(f"2 + 2 = {result}")
+result
+#+END_SRC
+
+** Hello World
+
+#+BEGIN_SRC python-cell
+# Classic hello world
+print("Hello, World!")
+print("Welcome to interactive Python!")
+
+# You can also do calculations
+x = 5
+y = 10
+print(f"x + y = {x + y}")
+#+END_SRC
+
 * Basic Mathematical Computing
 
 Interactive Python cells provide powerful mathematical computing capabilities. Let's explore numerical computation and visualization.

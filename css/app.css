@@ -1331,3 +1331,236 @@ html.dark-mode .comments-section h3 {
     color: #f0f6fc;
   }
 }
+
+/* Interactive Python Cell Styling */
+.py-cell {
+  margin: 2.5rem 0;
+  padding: 1.5rem;
+  border: 2px solid #e1e8ed;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f8fafe 0%, #f0f7ff 100%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.py-cell:hover {
+  border-color: #0366d6;
+  box-shadow: 0 4px 16px rgba(3, 102, 214, 0.15);
+}
+
+.py-cell textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: 1rem;
+  border: 1px solid #d1d9e0;
+  border-radius: 8px;
+  background-color: #fff;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #24292e;
+  resize: vertical;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.py-cell textarea:focus {
+  outline: none;
+  border-color: #0366d6;
+  box-shadow: 0 0 0 3px rgba(3, 102, 214, 0.1);
+}
+
+.py-cell button {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(40, 167, 69, 0.2);
+}
+
+.py-cell button:disabled {
+  background: linear-gradient(135deg, #6c757d 0%, #868e96 100%);
+  cursor: not-allowed;
+  opacity: 0.7;
+  position: relative;
+}
+
+.py-cell button:disabled::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  margin: auto;
+  border: 2px solid transparent;
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.py-cell button:hover {
+  background: linear-gradient(135deg, #218838 0%, #1ea378 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+}
+
+.py-cell button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(40, 167, 69, 0.2);
+}
+
+.py-cell pre {
+  background-color: #f6f8fa;
+  border: 1px solid #e1e4e8;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 0;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #586069;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  min-height: 2.5rem;
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: auto;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+/* Handle images and canvas elements in Python cell output */
+.py-cell pre img,
+.py-cell pre canvas,
+.py-cell img,
+.py-cell canvas {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0.5rem 0;
+  box-sizing: border-box;
+}
+
+/* Handle matplotlib/plotly output containers */
+.py-cell .output-container,
+.py-cell .plotly-graph-div {
+  max-width: 100%;
+  overflow-x: auto;
+  box-sizing: border-box;
+}
+
+/* Dark mode styling for Python cells */
+html.dark-mode .py-cell {
+  background: linear-gradient(135deg, #1a1f2e 0%, #242937 100%);
+  border-color: #30363d;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+html.dark-mode .py-cell:hover {
+  border-color: #58a6ff;
+  box-shadow: 0 4px 16px rgba(88, 166, 255, 0.2);
+}
+
+html.dark-mode .py-cell textarea {
+  background-color: #21262d;
+  border-color: #30363d;
+  color: #f0f6fc;
+}
+
+html.dark-mode .py-cell textarea:focus {
+  border-color: #58a6ff;
+  box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
+}
+
+html.dark-mode .py-cell button {
+  background: linear-gradient(135deg, #238636 0%, #2ea043 100%);
+  box-shadow: 0 2px 4px rgba(35, 134, 54, 0.3);
+}
+
+html.dark-mode .py-cell button:disabled {
+  background: linear-gradient(135deg, #495057 0%, #5a6268 100%);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+html.dark-mode .py-cell button:disabled::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  margin: auto;
+  border: 2px solid transparent;
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Spinning animation for loading indicator */
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+html.dark-mode .py-cell button:hover {
+  background: linear-gradient(135deg, #2ea043 0%, #26a641 100%);
+  box-shadow: 0 4px 8px rgba(35, 134, 54, 0.4);
+}
+
+html.dark-mode .py-cell pre {
+  background-color: #161b22;
+  border-color: #21262d;
+  color: #8b949e;
+}
+
+/* Responsive adjustments for Python cells */
+@media (max-width: 768px) {
+  .py-cell {
+    margin: 2rem 0;
+    padding: 1.2rem;
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+
+  .py-cell textarea {
+    min-height: 100px;
+    font-size: 13px;
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+
+  .py-cell button {
+    width: 100%;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+  }
+
+  .py-cell pre {
+    box-sizing: border-box;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+}
+
+/* Extra spacing after Python cells to separate from following content */
+.py-cell + h2,
+.py-cell + h3,
+.py-cell + h4,
+.py-cell + p {
+  margin-top: 3rem;
+}
