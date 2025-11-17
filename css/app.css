@@ -1531,8 +1531,8 @@ html.dark-mode .py-cell pre {
 /* Responsive adjustments for Python cells */
 @media (max-width: 768px) {
   .py-cell {
-    margin: 2rem 0;
-    padding: 1.2rem;
+    margin: 0.4rem 0;
+    padding: 0.4rem;
     box-sizing: border-box;
     max-width: 100%;
   }
@@ -1542,18 +1542,21 @@ html.dark-mode .py-cell pre {
     font-size: 13px;
     box-sizing: border-box;
     max-width: 100%;
+    padding: 0.4rem;
   }
 
   .py-cell button {
     width: 100%;
-    margin-bottom: 1rem;
+    margin-bottom: 0.4rem;
     box-sizing: border-box;
+    padding: 0.4rem 0.8rem;
   }
 
   .py-cell pre {
     box-sizing: border-box;
     max-width: 100%;
     overflow-x: auto;
+    padding: 0.4rem;
   }
 }
 
