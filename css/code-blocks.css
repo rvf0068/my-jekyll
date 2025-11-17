@@ -23,13 +23,12 @@
   line-height: 1.5;
 }
 
-/* Prism.js line numbers integration */
-.org-src-container pre.line-numbers {
-  padding-left: 3.8em;
-  counter-reset: linenumber;
+/* Simple code block styling without line numbers */
+.org-src-container pre {
+  /* No special line number padding needed */
 }
 
-.org-src-container pre.line-numbers > code {
+.org-src-container pre > code {
   position: relative;
   white-space: inherit;
 }
@@ -184,13 +183,24 @@ html.dark-mode li code {
   color: #e06c75;
 }
 
-/* Line numbers styling for dark mode */
-html.dark-mode .line-numbers .line-numbers-rows {
-  border-right-color: #3e4451;
-}
 
-html.dark-mode .line-numbers-rows > span:before {
-  color: #5c6370;
+
+/* Mobile optimization for code blocks */
+@media (max-width: 768px) {
+  .org-src-container {
+    margin: 1rem 0;
+    max-width: 100%;
+  }
+
+  .org-src-container pre {
+    padding: 0.8rem;
+    font-size: 13px;
+  }
+
+  /* No special line number padding needed on mobile */
+  .org-src-container pre {
+    /* Consistent padding without line number space */
+  }
 }
 
 /* Toolbar styling is handled by JavaScript inline styles for maximum compatibility */

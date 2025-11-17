@@ -54,7 +54,6 @@ function enhanceCodeBlocks() {
         // Replace pre content with Prism-ready code
         codeBlock.innerHTML = '';
         codeBlock.appendChild(newCode);
-        codeBlock.classList.add('line-numbers');
         
         // Run Prism highlighting
         if (typeof Prism !== 'undefined') {
