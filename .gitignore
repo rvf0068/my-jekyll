@@ -12,10 +12,8 @@ test-math-blocks.html
 # Generated configuration file (source is .blog-config)
 /_config.yml
 # Generated content
-/categories/*.html
-!/categories/index.html
-/tags/*.html
-!/tags/index.html
+/categories/
+/tags/
 /index.html
 # Sample files and temporary content
 /script.sh

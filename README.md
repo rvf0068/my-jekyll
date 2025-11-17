@@ -851,6 +851,3 @@ Or in Org-mode format:
 
 [Add your license here]
 
-## TODO
-
-- **Make `create_tag_pages.sh` fully self-contained**: Modify the script to generate `categories/index.html` and `tags/index.html` automatically, eliminating the need to commit these files. This would make the blog code fully distributable without any generated content in the repository. The script would need to include the HTML templates and styling for the index pages as here-documents.
