@@ -419,7 +419,7 @@ Places anchors BEFORE equation blocks and adds \\tag{n} inside equations for dis
      (add-to-list 'org-export-options-alist
 		  '(:has-math "HAS_MATH" nil nil t))
      (add-to-list 'org-export-options-alist
-		  '(:has-python-cells "HAS_PYTHON_CELLS" nil nil t))))
+	  '(:has-python-cells "HAS_PYTHON_CELLS" nil nil t))))
 
 (setq org-publish-project-alist
       '(("main-site"
@@ -427,7 +427,18 @@ Places anchors BEFORE equation blocks and adds \\tag{n} inside equations for dis
 	 :base-extension "org"
 	 :publishing-directory "./"
 	 :recursive t
-	 :exclude "_posts"  ;; Exclude _posts subdirectory - handled by "posts" project
+	 :exclude "_posts\\|_pages"  ;; Exclude subdirectories handled by dedicated projects
+	 :publishing-function org-html-publish-to-html
+	 :headline-levels 4
+	 :html-extension "html"
+	 :body-only t
+	 :with-title t
+	 :with-toc nil)
+	("pages"
+	 :base-directory "./org/_pages"
+	 :base-extension "org"
+	 :publishing-directory "./pages"
+	 :recursive t
 	 :publishing-function org-html-publish-to-html
 	 :headline-levels 4
 	 :html-extension "html"
@@ -451,6 +462,6 @@ Places anchors BEFORE equation blocks and adds \\tag{n} inside equations for dis
 	 :publishing-directory "./assets"
 	 :recursive t
 	 :publishing-function org-publish-attachment)
-	("all" :components ("main-site" "posts" "resources"))))
+	("all" :components ("main-site" "pages" "posts" "resources"))))
 
 (provide 'org_publish)

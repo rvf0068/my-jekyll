@@ -13,6 +13,34 @@ This is a Jekyll-based blog that uses Org-mode for authoring posts. The setup au
 - **GitHub Discussions-powered comments** with Giscus integration
 - Customizable layouts and themes
 
+## Creating Standalone Pages
+
+Not everything belongs in the regular post stream. Use the `page` layout to add evergreen sections such as “About”, “Work with me”, or “Now”. The recommended flow keeps Org as the single source of truth and exports each page into the `pages/` directory that Jekyll reads.
+
+1. Create an Org file under `org/_pages/`, e.g., `org/_pages/about-this-blog.org`. Wrap the front matter in an HTML export block—`#+BEGIN_EXPORT html` / `#+END_EXPORT`—just like `org/index.org` does:
+
+  ```org
+  #+BEGIN_EXPORT html
+  ---
+  layout: page
+  title: "Example Page"
+  permalink: /example/
+  description: "Optional short summary for meta tags."
+  ---
+  #+END_EXPORT
+  ```
+
+2. Add the body of your page using Org headings, lists, and special blocks. See `org/_pages/about-this-blog.org` for a ready-to-edit template.
+3. Run the publisher so the Org source is converted into `pages/example.html`:
+
+  ```bash
+  ./scripts/dev.sh build
+  ```
+
+4. Link to the page from `org/index.org`, `_includes/header.html`, or anywhere else using `{{ site.baseurl }}/example/`.
+
+The shared `page` layout lives in `_layouts/page.html`, so every standalone page gets consistent typography and spacing without duplicating markup. If you truly need a hand-written Markdown/HTML page, drop it directly under `pages/`, but remember that Org sources in `org/_pages/` are exported automatically during each build.
+
 ## Writing Posts
 
 ### Using Org Properties (Recommended)

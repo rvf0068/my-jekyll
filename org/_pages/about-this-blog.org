@@ -1,0 +1,21 @@
+#+BEGIN_EXPORT html
+---
+layout: page
+title: "About this blog"
+permalink: /about/
+description: "Personal background, goals, and ways to connect."
+---
+#+END_EXPORT
+
+Welcome to the corner of the site where long-form introductions live. Replace the placeholders below with your own story, photos, or embeds whenever you are ready.
+
+* Why I publish here
+- Summarize the mission of the blog and what topics you plan to explore.
+- Mention any recurring series (tutorials, research notes, reading logs, etc.).
+- Share the workflow or tools that make this site special (Org-mode, Jekyll, Pyodide, and so on).
+
+* About me
+Add a short bio, relevant experience, or anything else that helps visitors relate to you. Feel free to include links to social profiles or a résumé stored elsewhere in the repo.
+
+* Get in touch
+Provide the best way to reach you—email, Fediverse handle, GitHub profile, or a contact form. You can also outline expectations for collaboration or feedback.

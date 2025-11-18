@@ -8,6 +8,22 @@ title: "Home"
 Welcome! This is the homepage of my blog, powered by Org-mode and Jekyll.
 
 #+BEGIN_EXPORT html
+<p class="home-about-link">
+  <a href="{{ site.baseurl }}/about/">About this blog</a>
+</p>
+#+END_EXPORT
+
+#+BEGIN_EXPORT html
+<h2>All Posts</h2>
+<ul>
+{% for post in site.posts %}
+  <li>
+    <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+    <span class="post-date"> - {{ post.date | date: "%B %d, %Y" }}</span>
+  </li>
+{% endfor %}
+</ul>
+
 <h2>Categories</h2>
 {% assign sorted_categories = site.categories | sort %}
 <ul>
@@ -42,16 +58,6 @@ Welcome! This is the homepage of my blog, powered by Org-mode and Jekyll.
       </li>
     {% endfor %}
     </ul>
-  </li>
-{% endfor %}
-</ul>
-
-<h2>All Posts</h2>
-<ul>
-{% for post in site.posts %}
-  <li>
-    <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
-    <span class="post-date"> - {{ post.date | date: "%B %d, %Y" }}</span>
   </li>
 {% endfor %}
 </ul>
