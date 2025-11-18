@@ -366,7 +366,7 @@ Places anchors BEFORE equation blocks and adds \\tag{n} inside equations for dis
 		      ("{\\'i}" . "í")
 		      ("{\\'o}" . "ó")
 		      ("{\\'u}" . "ú")))
-	(setq contents (replace-regexp-in-string (car pair) (cdr pair) contents)))
+	(setq contents (replace-regexp-in-string (regexp-quote (car pair)) (cdr pair) contents nil 'literal)))
 
       ;; Replace file:// URLs with proper HTTP paths for baseurl
       (let ((file-url-pattern (concat "href=\"file:/+" jekyll-baseurl "/"))
