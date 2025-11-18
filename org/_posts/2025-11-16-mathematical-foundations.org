@@ -15,36 +15,49 @@ This post demonstrates the blog's mathematical typesetting capabilities, includi
 
 ** Basic Definitions
 
+#+NAME: def:group
 #+begin_definition
-A *group* is a set $G$ together with a binary operation $\cdot: G \times G \to G$ satisfying:
-1. *Closure*: For all $a, b \in G$, we have $a \cdot b \in G$
-2. *Associativity*: $(a \cdot b) \cdot c = a \cdot (b \cdot c)$ for all $a, b, c \in G$
-3. *Identity*: There exists an element $e \in G$ such that $e \cdot a = a \cdot e = a$ for all $a \in G$
-4. *Inverse*: For each $a \in G$, there exists $a^{-1} \in G$ such that $a \cdot a^{-1} = a^{-1} \cdot a = e$
+A *group* is a set \(G\) together with a binary operation \(\cdot: G \times G \to G\) satisfying:
+1. *Closure*: For all \(a, b \in G\), we have \(a \cdot b \in G\)
+2. *Associativity*: \((a \cdot b) \cdot c = a \cdot (b \cdot c)\) for all \(a, b, c \in G\)
+3. *Identity*: There exists an element \(e \in G\) such that \(e \cdot a = a \cdot e = a\) for all \(a \in G\)
+4. *Inverse*: For each \(a \in G\), there exists \(a^{-1} \in G\) such that \(a \cdot a^{-1} = a^{-1} \cdot a = e\)
 #+end_definition
 
+Definition [[def:group]] formalizes the algebraic structure we reference throughout the post.
+
+#+NAME: def:order
 #+begin_definition
-The *order* of a group $G$, denoted $|G|$, is the number of elements in $G$. If $G$ is finite, we say $G$ has finite order; otherwise, $G$ has infinite order.
+The *order* of a group \(G\), denoted \(|G|\), is the number of elements in \(G\). If \(G\) is finite, we say \(G\) has finite order; otherwise, \(G\) has infinite order.
 #+end_definition
+
+Definition [[def:order]] lets us quantify the examples that appear later in Table [[tab:group-examples]].
 
 ** Fundamental Theorems
 
+#+NAME: thm:lagrange
 #+begin_theorem
-*(Lagrange's Theorem)* Let $G$ be a finite group and $H$ a subgroup of $G$. 
-Then the order of $H$ divides the order of $G$.
+*(Lagrange's Theorem)* Let \(G\) be a finite group and \(H\) a subgroup of \(G\). 
+Then the order of \(H\) divides the order of \(G\).
 #+end_theorem
 
+Theorem [[thm:lagrange]] is the backbone for the consequences that follow.
+
 #+begin_proof
-Consider the left cosets of $H$ in $G$. Each coset $aH = \{ah : h \in H\}$ has exactly $|H|$ elements, and the cosets partition $G$. Therefore, $|G| = k|H|$ for some integer $k$, proving that $|H|$ divides $|G|$.
+Consider the left cosets of \(H\) in \(G\). Each coset \(aH = \{ah : h \in H\}\) has exactly \(|H|\) elements, and the cosets partition \(G\). Therefore, \(|G| = k|H|\) for some integer \(k\), proving that \(|H|\) divides \(|G|\).
 #+end_proof
 
+#+NAME: cor:prime-cyclic
 #+begin_corollary
-If $G$ is a group of prime order $p$, then $G$ is cyclic.
+If \(G\) is a group of prime order \(p\), then \(G\) is cyclic.
 #+end_corollary
 
+#+NAME: lem:subgroup-test
 #+begin_lemma
-A non-empty subset $H \subseteq G$ is a subgroup if and only if $ab^{-1} \in H$ for all $a, b \in H$.
+A non-empty subset \(H \subseteq G\) is a subgroup if and only if \(ab^{-1} \in H\) for all \(a, b \in H\).
 #+end_lemma
+
+Corollary [[cor:prime-cyclic]] follows immediately from Theorem [[thm:lagrange]], and Lemma [[lem:subgroup-test]] provides a quick test we use when constructing explicit examples.
 
 * Algebraic Equations and Formulas
 
@@ -55,7 +68,7 @@ The fundamental theorem of algebra can be expressed through the following equati
 p(z) = a_n z^n + a_{n-1} z^{n-1} + \cdots + a_1 z + a_0 = 0
 \end{equation}
 
-where $p(z)$ is a polynomial of degree $n \geq 1$ with complex coefficients, and this equation has exactly $n$ complex roots (counting multiplicities).
+where \(p(z)\) is a polynomial of degree \(n \geq 1\) with complex coefficients, and this equation has exactly \(n\) complex roots (counting multiplicities).
 
 For quadratic equations, we have the well-known formula:
 
@@ -64,31 +77,37 @@ For quadratic equations, we have the well-known formula:
 x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
 \end{equation}
 
-The discriminant $\Delta = b^2 - 4ac$ in equation \eqref{org2345678} determines the nature of the roots.
+The discriminant \(\Delta = b^2 - 4ac\) in equation \eqref{org2345678} determines the nature of the roots.
 
 ** Group Actions and Orbits
 
-Let $G$ act on a finite set $X$. The orbit-stabilizer theorem states:
+Let \(G\) act on a finite set \(X\). The orbit-stabilizer theorem states:
 
 \begin{equation}
 \label{org3456789}
 |G| = |\text{Orb}(x)| \cdot |\text{Stab}(x)|
 \end{equation}
 
-where $\text{Orb}(x) = \{g \cdot x : g \in G\}$ and $\text{Stab}(x) = \{g \in G : g \cdot x = x\}$.
+where \(\text{Orb}(x) = \{g \cdot x : g \in G\}\) and \(\text{Stab}(x) = \{g \in G : g \cdot x = x\}\).
 
 * Topological Spaces
 
+#+NAME: def:topology
 #+begin_definition
-A *topological space* is a pair $(X, \tau)$ where $X$ is a set and $\tau$ is a collection of subsets of $X$ called *open sets* satisfying:
-1. $\emptyset, X \in \tau$
-2. Any union of sets in $\tau$ is in $\tau$
-3. Any finite intersection of sets in $\tau$ is in $\tau$
+A *topological space* is a pair \((X, \tau)\) where \(X\) is a set and \(\tau\) is a collection of subsets of \(X\) called *open sets* satisfying:
+1. \(\emptyset, X \in \tau\)
+2. Any union of sets in \(\tau\) is in \(\tau\)
+3. Any finite intersection of sets in \(\tau\) is in \(\tau\)
 #+end_definition
 
+Definition [[def:topology]] underpins the more geometric intuition used in the visual figures below.
+
+#+NAME: pro:metric-topology
 #+begin_proposition
-Every metric space $(X, d)$ can be given a topology by declaring $U \subseteq X$ open if for every $x \in U$, there exists $\epsilon > 0$ such that $B(x, \epsilon) \subseteq U$.
+Every metric space \((X, d)\) can be given a topology by declaring \(U \subseteq X\) open if for every \(x \in U\), there exists \(\epsilon > 0\) such that \(B(x, \epsilon) \subseteq U\).
 #+end_proposition
+
+Proposition [[pro:metric-topology]] provides a concrete construction of the abstract notion introduced in Definition [[def:topology]].
 
 * Figures and Visual Content
 
@@ -118,10 +137,10 @@ Mathematical results are often summarized in tabular form:
 #+CAPTION: Examples of finite groups and their properties
 | Group | Order | Abelian | Cyclic | Generators |
 |-------+-------+---------+--------+------------|
-| $\mathbb{Z}_5$ | 5 | Yes | Yes | 1, 2, 3, 4 |
-| $S_3$ | 6 | No | No | $(1\,2)$, $(1\,2\,3)$ |
-| $\mathbb{Z}_2 \times \mathbb{Z}_2$ | 4 | Yes | No | $(1,0)$, $(0,1)$ |
-| $\mathbb{Z}_8$ | 8 | Yes | Yes | 1, 3, 5, 7 |
+| \(\mathbb{Z}_5\) | 5 | Yes | Yes | 1, 2, 3, 4 |
+| \(S_3\) | 6 | No | No | \((1\,2)\), \((1\,2\,3)\) |
+| \(\mathbb{Z}_2 \times \mathbb{Z}_2\) | 4 | Yes | No | \((1,0)\), \((0,1)\) |
+| \(\mathbb{Z}_8\) | 8 | Yes | Yes | 1, 3, 5, 7 |
 
 Table [[tab:group-examples]] provides a comparison of different group structures, illustrating the diversity described in our definitions above.
 
@@ -129,11 +148,11 @@ Table [[tab:group-examples]] provides a comparison of different group structures
 #+CAPTION: Classification of polynomial equations by degree
 | Degree | Name | General Form | Solving Method |
 |--------+------+--------------+----------------|
-| 1 | Linear | $ax + b = 0$ | Direct |
-| 2 | Quadratic | $ax^2 + bx + c = 0$ | Formula \eqref{org2345678} |
-| 3 | Cubic | $ax^3 + bx^2 + cx + d = 0$ | Cardano's method |
-| 4 | Quartic | $ax^4 + \cdots = 0$ | Ferrari's method |
-| $\geq 5$ | Quintic+ | $ax^n + \cdots = 0$ | No general formula |
+| 1 | Linear | \(ax + b = 0\) | Direct |
+| 2 | Quadratic | \(ax^2 + bx + c = 0\) | Formula \eqref{org2345678} |
+| 3 | Cubic | \(ax^3 + bx^2 + cx + d = 0\) | Cardano's method |
+| 4 | Quartic | \(ax^4 + \cdots = 0\) | Ferrari's method |
+| \(\geq 5\) | Quintic+ | \(ax^n + \cdots = 0\) | No general formula |
 
 * Advanced Topics with Citations
 
@@ -148,11 +167,14 @@ The study of chain complexes leads to important invariants. Consider the exact s
 0 \to A \xrightarrow{f} B \xrightarrow{g} C \to 0
 \end{equation}
 
-where the sequence in equation \eqref{org4567890} is exact if $\text{im}(f) = \ker(g)$.
+where the sequence in equation \eqref{org4567890} is exact if \(\text{im}(f) = \ker(g)\).
 
+#+NAME: thm:homological
 #+begin_theorem
 *(Fundamental Theorem of Homological Algebra)* Every short exact sequence of modules over a principal ideal domain splits.
 #+end_theorem
+
+Theorem [[thm:homological]] guarantees that the exact sequence in equation \eqref{org4567890} decomposes in a way that is amenable to computation.
 
 * Cross-References and Related Topics
 
