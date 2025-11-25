@@ -112,7 +112,7 @@ A new theorem.
 #+name: def:group
 #+label: def:group
 #+begin_definition
-
+A representation of \(G\) on a vector space \(V\) is a morphism \(\rho\colon G\to \mathrm{GL}(V)\).
 #+end_definition
 
 #+name: eq:newest
@@ -120,4 +120,4 @@ A new theorem.
 2+2=4
 \end{equation}
 
-We reference Theorem [[thm:new]].
+We reference Theorem [[thm:new]], and Equation [[eq:newest]].
