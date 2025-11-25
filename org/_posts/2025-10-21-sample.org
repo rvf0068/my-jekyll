@@ -49,7 +49,7 @@ In a group \((G, *)\), the identity element is unique, and for each element \(a 
 The identity element is unique. Assume \(e\) and \(e'\) are both identity elements in \(G\).
 Since \(e\) is an identity element, \(e * e' = e'\).
 Since \(e'\) is an identity element, \(e * e' = e\).
-Thus, \(e = e'\), proving the identity element is unique. The full proof is detailed in our Org Roam Note: [[roam:some-math-note]].
+Thus, \(e = e'\), proving the identity element is unique. 
 #+end_proof
 
 * Corollaries and Lemmas
