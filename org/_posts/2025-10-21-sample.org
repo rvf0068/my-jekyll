@@ -29,7 +29,31 @@ The study of algebraic structures begins with the notion of a group. This block 
 A *group* is a set \(G\) together with a binary operation \(*\) (called the group operation) that satisfies the four fundamental properties: closure, associativity, identity, and inverses.
 #+end_definition
 
-The set of integers \(\mathbb{Z}\) (inserted via CDLaTeX) under addition is a classic example.
+The set of integers \(\mathbb{Z}\) under addition is a classic example.
+
+#+name: exa:symmetric
+#+label: exa:symmetric
+#+begin_exampleblock
+The symmetric group \(S_n\).
+#+end_exampleblock
+
+Another example:
+
+#+name: exa:alternating
+#+label: exa:alternating
+#+begin_exampleblock
+The alternating group \(A_{n}\).
+#+end_exampleblock
+
+
+We make a remark:
+
+#+name: rem:other
+#+label: rem:other
+#+begin_remark
+There are many other examples.
+#+end_remark
+
 
 * Theorems on Group Uniqueness
 

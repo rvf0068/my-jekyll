@@ -83,7 +83,7 @@ INFO is the plist used as a communication channel."
     front-matter))
 
 ;; Mathematical reference link prefixes
-(defvar org-math-link-prefixes '("thm" "cor" "lem" "prf" "def" "pro" "eq")
+(defvar org-math-link-prefixes '("thm" "cor" "lem" "prf" "def" "pro" "eq" "exa" "rem")
   "List of prefixes for mathematical reference links that should get auto-descriptions.")
 
 ;; Function to add descriptions to mathematical reference links before export
@@ -119,25 +119,25 @@ automatic descriptions derived from the label name."
 (defun org-python-code-uses-matplotlib (code)
   "Return non-nil if CODE uses matplotlib (plt.show() or plt.plot() etc)."
   (seq-some (lambda (pattern)
-              (string-match-p pattern code))
-            '("plt\\.show"
-              "plt\\.plot("
-              "plt\\.scatter("
-              "plt\\.bar("
-              "plt\\.hist("
-              "plt\\.imshow("
-              "import matplotlib"
-              "from matplotlib")))
+	      (string-match-p pattern code))
+	    '("plt\\.show"
+	      "plt\\.plot("
+	      "plt\\.scatter("
+	      "plt\\.bar("
+	      "plt\\.hist("
+	      "plt\\.imshow("
+	      "import matplotlib"
+	      "from matplotlib")))
 
 ;; Function to detect if code contains sympy
 (defun org-python-code-uses-sympy (code)
   "Return non-nil if CODE uses sympy."
   (seq-some (lambda (pattern)
-              (string-match-p pattern code))
-            '("import sympy"
-              "from sympy"
-              "sp\."
-              "sympy\.")))
+	      (string-match-p pattern code))
+	    '("import sympy"
+	      "from sympy"
+	      "sp\."
+	      "sympy\.")))
 
 ;; Function to convert python-cell source blocks to HTML
 (defun org-python-cell-block-filter (text backend info)
@@ -318,6 +318,50 @@ Places anchors BEFORE equation blocks and adds \\tag{n} inside equations for dis
 
       (buffer-string))))
 
+;; Function to process theorem numbers and references
+(defun org-process-theorem-numbers (contents)
+  "Add numbers to theorem-like environments and update references.
+Replaces CSS-generated headers with explicit HTML headers containing numbers.
+Updates links to these environments to use the numbered label (e.g., 'Theorem 1')."
+  (let ((label-map (make-hash-table :test 'equal)))
+    ;; Process each environment type
+    (dolist (env-info '(("theorem" . "Theorem")
+			("lemma" . "Lemma")
+			("corollary" . "Corollary")
+			("proposition" . "Proposition")
+			("definition" . "Definition")
+			("exampleblock" . "Example")
+			("remark" . "Remark")))
+      (let ((env (car env-info))
+	    (name (cdr env-info))
+	    (count 0))
+	(setq contents
+	      (replace-regexp-in-string
+	       (format "<div class=\"%s\"\\([^>]*\\)>" env)
+	       (lambda (match)
+		 (save-match-data
+		   (setq count (1+ count))
+		   ;; Extract attributes from the matched string directly
+		   (let ((attrs ""))
+		     (when (string-match (format "<div class=\"%s\"\\([^>]*\\)>" env) match)
+		       (setq attrs (match-string 1 match)))
+
+		     ;; Check for id in attributes to map label
+		     (when (string-match "id=\"\\([^\"]+\\)\"" attrs)
+		       (puthash (match-string 1 attrs) (format "%d" count) label-map))
+
+		     ;; Return the div with an injected header
+		     (format "<div class=\"%s\"%s>\n<span class=\"theorem-header\">%s %d</span>"
+			     env attrs name count))))
+	       contents))))    ;; Update links based on the map
+    (maphash (lambda (id label-text)
+	       (setq contents (replace-regexp-in-string
+			       (format "<a href=\"#%s\"[^>]*>[^<]+</a>" (regexp-quote id))
+			       (format "<a href=\"#%s\">%s</a>" id label-text)
+			       contents t t)))
+	     label-map)
+    contents))
+
 ;; Custom function to fix Jekyll baseurl links and add front matter
 ;; This prevents org-mode from converting paths starting with baseurl to file:// URLs
 (defun org-html-final-function (contents backend info)
@@ -330,6 +374,9 @@ Places anchors BEFORE equation blocks and adds \\tag{n} inside equations for dis
 
       ;; Inject CDN scripts based on content analysis
       (setq contents (org-inject-cdn-scripts contents info))
+
+      ;; Process theorem numbers and references
+      (setq contents (org-process-theorem-numbers contents))
 
       ;; Process equation labels and references
       (setq contents (org-process-equation-references contents))

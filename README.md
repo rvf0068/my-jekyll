@@ -295,6 +295,25 @@ Renders with:
 
 **Note:** If your proof already contains `\qed` or another end marker, you may see two symbols. The styling automatically adds the square symbol for consistency.
 
+#### Example and Remark Blocks
+
+```org
+#+begin_exampleblock
+Let \(G = \mathbb{Z}_6\). The subgroups are \(\{0\}, \{0, 3\}, \{0, 2, 4\}, \mathbb{Z}_6\).
+#+end_exampleblock
+
+#+begin_remark
+Note that the converse of Lagrange's Theorem is false in general.
+The group \(A_4\) has order 12, but has no subgroup of order 6.
+#+end_remark
+```
+
+Each renders with:
+- Bold header ("Example" or "Remark") on its own line
+- Content in normal font
+- Distinct colored left borders (yellow/gold for example, blue-gray for remark)
+- Automatic numbering (e.g., "Example 1", "Remark 1")
+
 ### Interactive Python Cells with Pyodide
 
 This blog supports interactive Python code execution directly in the browser using Pyodide. You can create executable Python cells using the special `python-cell` source block type.

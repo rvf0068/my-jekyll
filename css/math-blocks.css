@@ -1,5 +1,13 @@
 /* Styling for mathematical special blocks exported from org-mode */
 
+/* Common header style for numbered environments */
+.theorem-header {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  font-size: 1.1em;
+}
+
 /* Definition blocks: bold "Definition" header on its own line, text in italics */
 .definition {
   margin: 1.5em 0;
@@ -8,13 +16,7 @@
   background-color: rgba(44, 90, 160, 0.05);
 }
 
-.definition::before {
-  content: "Definition";
-  display: block;
-  font-weight: bold;
-  margin-bottom: 0.5em;
-  font-size: 1.1em;
-}
+
 
 .definition p,
 .definition ol,
@@ -37,13 +39,7 @@
   background-color: rgba(192, 64, 0, 0.05);
 }
 
-.theorem::before {
-  content: "Theorem";
-  display: block;
-  font-weight: bold;
-  margin-bottom: 0.5em;
-  font-size: 1.1em;
-}
+
 
 .theorem p {
   font-style: normal;
@@ -62,13 +58,7 @@
   background-color: rgba(0, 128, 128, 0.05);
 }
 
-.lemma::before {
-  content: "Lemma";
-  display: block;
-  font-weight: bold;
-  margin-bottom: 0.5em;
-  font-size: 1.1em;
-}
+
 
 .lemma p {
   font-style: normal;
@@ -87,13 +77,7 @@
   background-color: rgba(128, 0, 128, 0.05);
 }
 
-.corollary::before {
-  content: "Corollary";
-  display: block;
-  font-weight: bold;
-  margin-bottom: 0.5em;
-  font-size: 1.1em;
-}
+
 
 .corollary p {
   font-style: normal;
@@ -112,13 +96,7 @@
   background-color: rgba(0, 128, 0, 0.05);
 }
 
-.proposition::before {
-  content: "Proposition";
-  display: block;
-  font-weight: bold;
-  margin-bottom: 0.5em;
-  font-size: 1.1em;
-}
+
 
 .proposition p {
   font-style: normal;
@@ -159,4 +137,42 @@
   content: " \25A0";  /* Unicode for black square ■ */
   font-size: 1em;
   margin-left: 0.5em;
+}
+
+/* Example blocks */
+.exampleblock {
+  margin: 1.5em 0;
+  padding: 1em;
+  border-left: 4px solid #e6b800;
+  background-color: rgba(230, 184, 0, 0.05);
+}
+
+
+
+.exampleblock p {
+  font-style: normal;
+  margin-bottom: 0.5em;
+}
+
+.exampleblock p:last-child {
+  margin-bottom: 0;
+}
+
+/* Remark blocks */
+.remark {
+  margin: 1.5em 0;
+  padding: 1em;
+  border-left: 4px solid #607d8b;
+  background-color: rgba(96, 125, 139, 0.05);
+}
+
+
+
+.remark p {
+  font-style: normal;
+  margin-bottom: 0.5em;
+}
+
+.remark p:last-child {
+  margin-bottom: 0;
 }

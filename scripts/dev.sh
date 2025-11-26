@@ -98,7 +98,7 @@ serve() {
     BASEURL=$(get_baseurl)
     log "🚀 Starting development server..."
     log "📡 Site will be available at: http://localhost:4000${BASEURL}/"
-    bundle exec jekyll serve --host 0.0.0.0 --port 4000 --livereload --incremental
+    bundle exec jekyll serve --host localhost --port 4000 --livereload --incremental
 }
 
 # Function to do a complete build
