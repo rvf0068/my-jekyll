@@ -71,7 +71,7 @@ install_deps() {
 build_org() {
     log "📝 Converting Org files to HTML..."
     # Ensure config is up to date before publishing
-    if [ ! -f "_config.yml" ] || [ ".blog-config" -nt "_config.yml" ]; then
+    if [ ! -f "_config.yml" ] || [ ".blog-config" -nt "_config.yml" ] || [ "scripts/generate-config.sh" -nt "_config.yml" ]; then
         log "🔄 Generating _config.yml from .blog-config..."
         ./scripts/generate-config.sh
     fi

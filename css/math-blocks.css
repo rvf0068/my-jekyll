@@ -16,8 +16,6 @@
   background-color: rgba(44, 90, 160, 0.05);
 }
 
-
-
 .definition p,
 .definition ol,
 .definition ul {
@@ -39,8 +37,6 @@
   background-color: rgba(192, 64, 0, 0.05);
 }
 
-
-
 .theorem p {
   font-style: normal;
   margin-bottom: 0.5em;
@@ -57,8 +53,6 @@
   border-left: 4px solid #008080;
   background-color: rgba(0, 128, 128, 0.05);
 }
-
-
 
 .lemma p {
   font-style: normal;
@@ -77,8 +71,6 @@
   background-color: rgba(128, 0, 128, 0.05);
 }
 
-
-
 .corollary p {
   font-style: normal;
   margin-bottom: 0.5em;
@@ -95,8 +87,6 @@
   border-left: 4px solid #008000;
   background-color: rgba(0, 128, 0, 0.05);
 }
-
-
 
 .proposition p {
   font-style: normal;
@@ -147,8 +137,6 @@
   background-color: rgba(230, 184, 0, 0.05);
 }
 
-
-
 .exampleblock p {
   font-style: normal;
   margin-bottom: 0.5em;
@@ -165,8 +153,6 @@
   border-left: 4px solid #607d8b;
   background-color: rgba(96, 125, 139, 0.05);
 }
-
-
 
 .remark p {
   font-style: normal;

@@ -63,8 +63,11 @@ exclude:
 EOF
 
 # Add excludes from configuration
+# Disable glob expansion to handle patterns like **/*.pdf correctly
+set -f
 for item in $JEKYLL_EXCLUDES; do
-    echo "  - $item" >> "$OUTPUT_FILE"
+    echo "  - \"$item\"" >> "$OUTPUT_FILE"
 done
+set +f
 
 echo "Generated $_config.yml from $CONFIG_FILE"
