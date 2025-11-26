@@ -21,6 +21,9 @@ ENABLE_MATHJAX="true"
 ENABLE_SEARCH="true"
 ENABLE_DARK_MODE="true"
 
+# Jekyll Excludes (Space-separated list)
+JEKYLL_EXCLUDES="scripts/ .github/ vendor/ Gemfile Gemfile.lock README.md .blog-config org/_posts/ org/index.org **/*.pdf"
+
 # Giscus Comments Configuration
 GISCUS_REPO="rvf0068/my-jekyll"
 GISCUS_REPO_ID="R_kgDOP75IWQ"

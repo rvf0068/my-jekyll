@@ -60,16 +60,11 @@ giscus:
 sass:
   style: compressed
 exclude:
-  - scripts/
-  - .github/
-  - vendor/
-  - Gemfile
-  - Gemfile.lock
-  - README.md
-  - .blog-config
-  - org/_posts/
-  - org/index.org
-  - "**/*.pdf"
 EOF
+
+# Add excludes from configuration
+for item in $JEKYLL_EXCLUDES; do
+    echo "  - $item" >> "$OUTPUT_FILE"
+done
 
 echo "Generated $_config.yml from $CONFIG_FILE"
