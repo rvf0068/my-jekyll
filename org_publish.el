@@ -362,6 +362,79 @@ Updates links to these environments to use the numbered label (e.g., 'Theorem 1'
 	     label-map)
     contents))
 
+;; Function to convert internal file links to Jekyll URLs
+(defun org-fix-jekyll-post-links (contents)
+  "Convert internal file links to Jekyll URLs."
+  (replace-regexp-in-string
+   "href=\"\\([0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}-[^\"]+\\)\\.html\""
+   (lambda (match)
+     (let ((filename (match-string 1 match)))
+       (save-match-data
+	 (if (string-match "^\\([0-9]\\{4\\}\\)-\\([0-9]\\{2\\}\\)-\\([0-9]\\{2\\}\\)-\\(.+\\)$" filename)
+	     (let ((year (match-string 1 filename))
+		   (month (match-string 2 filename))
+		   (day (match-string 3 filename))
+		   (slug (match-string 4 filename)))
+	       (format "href=\"%s/%s/%s/%s/%s.html\""
+		       jekyll-baseurl year month day slug))
+	   match))))
+   contents))
+
+;; Function to fix LaTeX special characters
+(defun org-fix-latex-special-chars (contents)
+  "Fix LaTeX special characters that weren't properly converted."
+  (let ((result contents))
+    (dolist (pair '(("{\\\"o}" . "ö")
+		    ("{\\\"a}" . "ä")
+		    ("{\\\"u}" . "ü")
+		    ("{\\\"O}" . "Ö")
+		    ("{\\\"A}" . "Ä")
+		    ("{\\\"U}" . "Ü")
+		    ("{\\'e}" . "é")
+		    ("{\\'a}" . "á")
+		    ("{\\'i}" . "í")
+		    ("{\\'o}" . "ó")
+		    ("{\\'u}" . "ú")))
+      (setq result (replace-regexp-in-string (regexp-quote (car pair)) (cdr pair) result nil 'literal)))
+    result))
+
+;; Function to replace file:// URLs with proper HTTP paths
+(defun org-fix-baseurl-links (contents)
+  "Replace file:// URLs with proper HTTP paths for baseurl."
+  (let ((file-url-pattern (concat "href=\"file:/+" jekyll-baseurl "/"))
+	(http-path (concat "href=\"" jekyll-baseurl "/")))
+    (replace-regexp-in-string file-url-pattern http-path contents)))
+
+;; Function to convert relative file links and simple filenames to assets paths
+(defun org-fix-image-paths (contents info)
+  "Convert relative file links and simple filenames to assets paths."
+  (let ((result contents))
+    ;; Convert relative file links to images (from org/_posts/ to assets/)
+    (setq result (replace-regexp-in-string
+		  "src=\"file://\\.\\.?/\\.\\.?/assets/\\([^\"]+\\)\""
+		  (concat "src=\"" jekyll-baseurl "/assets/\\1\"")
+		  result))
+    (setq result (replace-regexp-in-string
+		  "src=\"\\.\\.?/\\.\\.?/assets/\\([^\"]+\\)\""
+		  (concat "src=\"" jekyll-baseurl "/assets/\\1\"")
+		  result))
+
+    ;; Convert simple image filenames in posts to baseurl paths
+    (when (string-match-p "/_posts/" (or (plist-get info :output-file) ""))
+      (setq result (replace-regexp-in-string
+		    "src=\"\\([^/\"]+\\.\\(png\\|jpg\\|gif\\|pdf\\)\\)\""
+		    (concat "src=\"" jekyll-baseurl "/assets/\\1\"")
+		    result)))
+    result))
+
+;; Function to add Jekyll front matter for posts
+(defun org-add-jekyll-front-matter-wrapper (contents info)
+  "Add Jekyll front matter for posts."
+  (if (string-match-p "/_posts/" (or (plist-get info :output-file) ""))
+      (let ((front-matter (org-jekyll-front-matter info)))
+	(concat front-matter contents))
+    contents))
+
 ;; Custom function to fix Jekyll baseurl links and add front matter
 ;; This prevents org-mode from converting paths starting with baseurl to file:// URLs
 (defun org-html-final-function (contents backend info)
@@ -381,71 +454,20 @@ Updates links to these environments to use the numbered label (e.g., 'Theorem 1'
       ;; Process equation labels and references
       (setq contents (org-process-equation-references contents))
 
-      ;; Convert internal file links to Jekyll URLs BEFORE other URL processing
-      (setq contents (replace-regexp-in-string
-		      "href=\"\\([0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}-[^\"]+\\)\\.html\""
-		      (lambda (match)
-			(let ((filename (match-string 1 match)))
-			  ;; Only process if this looks like a blog post filename
-			  ;; Use save-match-data to preserve outer match groups
-			  (save-match-data
-			    (if (string-match "^\\([0-9]\\{4\\}\\)-\\([0-9]\\{2\\}\\)-\\([0-9]\\{2\\}\\)-\\(.+\\)$" filename)
-				(let ((year (match-string 1 filename))
-				      (month (match-string 2 filename))
-				      (day (match-string 3 filename))
-				      (slug (match-string 4 filename)))
-				  ;; Build Jekyll URL: baseurl/year/month/day/slug.html
-				  (format "href=\"%s/%s/%s/%s/%s.html\""
-					  jekyll-baseurl year month day slug))
-			      ;; Return original if it doesn't match pattern
-			      match))))
-		      contents))
+      ;; Convert internal file links to Jekyll URLs
+      (setq contents (org-fix-jekyll-post-links contents))
 
-      ;; Fix LaTeX special characters that weren't properly converted
-      (dolist (pair '(("{\\\"o}" . "ö")
-		      ("{\\\"a}" . "ä")
-		      ("{\\\"u}" . "ü")
-		      ("{\\\"O}" . "Ö")
-		      ("{\\\"A}" . "Ä")
-		      ("{\\\"U}" . "Ü")
-		      ("{\\'e}" . "é")
-		      ("{\\'a}" . "á")
-		      ("{\\'i}" . "í")
-		      ("{\\'o}" . "ó")
-		      ("{\\'u}" . "ú")))
-	(setq contents (replace-regexp-in-string (regexp-quote (car pair)) (cdr pair) contents nil 'literal)))
+      ;; Fix LaTeX special characters
+      (setq contents (org-fix-latex-special-chars contents))
 
-      ;; Replace file:// URLs with proper HTTP paths for baseurl
-      (let ((file-url-pattern (concat "href=\"file:/+" jekyll-baseurl "/"))
-	    (http-path (concat "href=\"" jekyll-baseurl "/")))
-	(setq contents (replace-regexp-in-string file-url-pattern http-path contents)))
+      ;; Replace file:// URLs with proper HTTP paths
+      (setq contents (org-fix-baseurl-links contents))
 
-      ;; Convert relative file links to images (from org/_posts/ to assets/)
-      ;; Pattern 1: <img src="file://../../assets/filename.ext" ... />
-      ;; Pattern 2: <img src="../../assets/filename.ext" ... />
-      ;; Replace with: <img src="/my-jekyll/assets/filename.ext" ... />
-      (setq contents (replace-regexp-in-string
-		      "src=\"file://\\.\\.?/\\.\\.?/assets/\\([^\"]+\\)\""
-		      (concat "src=\"" jekyll-baseurl "/assets/\\1\"")
-		      contents))
-      (setq contents (replace-regexp-in-string
-		      "src=\"\\.\\.?/\\.\\.?/assets/\\([^\"]+\\)\""
-		      (concat "src=\"" jekyll-baseurl "/assets/\\1\"")
-		      contents))
-
-      ;; Convert simple image filenames in posts to baseurl paths
-      ;; Pattern: <img src="filename.png" ... /> in _posts files
-      ;; Replace with: <img src="/my-jekyll/assets/filename.png" ... />
-      (when (string-match-p "/_posts/" (or (plist-get info :output-file) ""))
-	(setq contents (replace-regexp-in-string
-			"src=\"\\([^/\"]+\\.\\(png\\|jpg\\|gif\\|pdf\\)\\)\""
-			(concat "src=\"" jekyll-baseurl "/assets/\\1\"")
-			contents)))
+      ;; Convert relative file links to images
+      (setq contents (org-fix-image-paths contents info))
 
       ;; Add Jekyll front matter for posts
-      (when (string-match-p "/_posts/" (or (plist-get info :output-file) ""))
-	(let ((front-matter (org-jekyll-front-matter info)))
-	  (setq contents (concat front-matter contents))))
+      (setq contents (org-add-jekyll-front-matter-wrapper contents info))
 
       ;; Add processing marker at the end
       (setq contents (concat contents "\n<!-- PROCESSED-BY-ORG-HTML-FINAL-FUNCTION -->\n"))))
