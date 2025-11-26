@@ -45,6 +45,15 @@
   text-shadow: none;
 }
 
+/* Remove the background box from operators in all modes */
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  background: none !important;
+}
+
 /* Dark mode styling */
 html.dark-mode .org-src-container {
   background-color: #282c34;
@@ -86,12 +95,17 @@ html.dark-mode .token.inserted {
   color: #98c379;
 }
 
-html.dark-mode .token.operator,
+html.dark-mode .token.operator {
+  color: #ff79c6 !important;
+  background: none !important;
+}
+
 html.dark-mode .token.entity,
 html.dark-mode .token.url,
 html.dark-mode .language-css .token.string,
 html.dark-mode .style .token.string {
   color: #56b6c2;
+  background: none !important;
 }
 
 html.dark-mode .token.atrule,
