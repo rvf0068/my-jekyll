@@ -63,29 +63,16 @@ function enhanceCodeBlocks() {
         // Create custom toolbar
         const toolbar = document.createElement('div');
         toolbar.className = 'code-toolbar-custom';
-        toolbar.style.cssText = 'position: absolute; top: 8px; right: 8px; display: flex; gap: 8px; z-index: 10;';
 
         // Language badge
         const languageBadge = document.createElement('span');
         languageBadge.className = 'language-badge';
         languageBadge.textContent = language.toUpperCase();
 
-        // Style based on current mode
-        const isDarkMode = document.documentElement.classList.contains('dark-mode');
-        const badgeStyle = isDarkMode
-            ? 'background-color: #3e4451; color: #abb2bf; border: 1px solid #5c6370; border-radius: 12px; padding: 3px 10px; font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; cursor: default;'
-            : 'background-color: #f8f9fa; color: #6c757d; border: 1px solid #dee2e6; border-radius: 12px; padding: 3px 10px; font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; cursor: default;';
-        languageBadge.style.cssText = badgeStyle;
-
         // Copy button
         const copyButton = document.createElement('button');
         copyButton.className = 'copy-button';
         copyButton.textContent = 'Copy';
-
-        const buttonStyle = isDarkMode
-            ? 'background-color: #61dafb; color: #282c34; border: none; border-radius: 4px; padding: 4px 8px; font-size: 0.8rem; cursor: pointer; min-width: 50px; transition: background-color 0.2s;'
-            : 'background-color: #007bff; color: white; border: none; border-radius: 4px; padding: 4px 8px; font-size: 0.8rem; cursor: pointer; min-width: 50px; transition: background-color 0.2s;';
-        copyButton.style.cssText = buttonStyle;
 
         // Copy functionality with multiple fallback methods
         copyButton.addEventListener('click', function(e) {
@@ -136,23 +123,21 @@ function enhanceCodeBlocks() {
 
             function showSuccess() {
                 const originalText = copyButton.textContent;
-                const originalBg = copyButton.style.backgroundColor;
                 copyButton.textContent = 'Copied!';
-                copyButton.style.backgroundColor = '#28a745';
+                copyButton.classList.add('success');
                 setTimeout(function() {
                     copyButton.textContent = originalText;
-                    copyButton.style.backgroundColor = originalBg;
+                    copyButton.classList.remove('success');
                 }, 2000);
             }
 
             function showError() {
                 const originalText = copyButton.textContent;
-                const originalBg = copyButton.style.backgroundColor;
                 copyButton.textContent = 'Error';
-                copyButton.style.backgroundColor = '#dc3545';
+                copyButton.classList.add('error');
                 setTimeout(function() {
                     copyButton.textContent = originalText;
-                    copyButton.style.backgroundColor = originalBg;
+                    copyButton.classList.remove('error');
                 }, 1500);
             }
         });
@@ -166,45 +151,5 @@ function enhanceCodeBlocks() {
         container.dataset.enhanced = 'true';
 
         console.log('Enhanced code block:', language);
-    });
-    
-    // Set up dark mode listener to update existing toolbars
-    observeDarkModeChanges();
-}
-
-function observeDarkModeChanges() {
-    const observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            if (mutation.attributeName === 'class' && mutation.target === document.documentElement) {
-                updateToolbarsForMode();
-            }
-        });
-    });
-    
-    observer.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ['class']
-    });
-}
-
-function updateToolbarsForMode() {
-    const isDarkMode = document.documentElement.classList.contains('dark-mode');
-    
-    // Update language badges
-    document.querySelectorAll('.language-badge').forEach(function(badge) {
-        if (isDarkMode) {
-            badge.style.cssText = 'background-color: #3e4451; color: #abb2bf; border: 1px solid #5c6370; border-radius: 12px; padding: 3px 10px; font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; cursor: default;';
-        } else {
-            badge.style.cssText = 'background-color: #f8f9fa; color: #6c757d; border: 1px solid #dee2e6; border-radius: 12px; padding: 3px 10px; font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; cursor: default;';
-        }
-    });
-    
-    // Update copy buttons
-    document.querySelectorAll('.copy-button').forEach(function(button) {
-        if (isDarkMode) {
-            button.style.cssText = 'background-color: #61dafb; color: #282c34; border: none; border-radius: 4px; padding: 4px 8px; font-size: 0.8rem; cursor: pointer; min-width: 50px; transition: background-color 0.2s;';
-        } else {
-            button.style.cssText = 'background-color: #007bff; color: white; border: none; border-radius: 4px; padding: 4px 8px; font-size: 0.8rem; cursor: pointer; min-width: 50px; transition: background-color 0.2s;';
-        }
     });
 }
