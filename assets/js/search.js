@@ -12,7 +12,10 @@ class BlogSearch {
   async init() {
     // Load search index
     try {
-      const response = await fetch('/my-jekyll/search.json');
+      const baseUrl = window.siteBaseUrl || '';
+      // Remove trailing slash if present to avoid double slashes
+      const cleanBaseUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+      const response = await fetch(`${cleanBaseUrl}/search.json`);
       this.posts = await response.json();
       this.buildSearchIndex();
       this.setupSearchUI();

@@ -63,6 +63,11 @@
   <!-- CDN scripts are now injected directly by org_publish.el based on content analysis -->
   <!-- This eliminates the need for Jekyll Liquid templating -->
 
+  <!-- Site configuration for JS -->
+  <script>
+    window.siteBaseUrl = "{{ site.baseurl }}";
+  </script>
+
   <!-- Search functionality -->
   <script src="{{site.url}}{{site.baseurl}}/assets/js/search.js" defer></script>
 
