@@ -87,15 +87,27 @@ This post discusses mathematical concepts with equations and proofs.
 
 * Mathematical Content
 
-** Theorem
+#+name: thm:sample-theorem
+#+label: thm:sample-theorem
+#+begin_theorem
+*(Sample Theorem)* Let \(f\) be a continuous function on \([a,b]\).
+Then \(f\) is bounded on \([a,b]\).
+#+end_theorem
+
+#+name: pf:sample-proof
+#+label: pf:sample-proof
+#+begin_proof
+The proof involves the compactness of the interval \([a,b]\).
+Consider the following equation:
+
+#+name: eq:sample-equation
 \begin{equation}
-\label{org-main-theorem}
-f(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!}(x-a)^n
+\int_{a}^{b} f(x) dx = F(b) - F(a)
 \end{equation}
 
-** Proof
-
-The proof follows from... See equation \eqref{org-main-theorem}.
+As shown in Equation [[eq:sample-equation]], the fundamental theorem of calculus applies.
+This result is formalized in Theorem [[thm:sample-theorem]].
+#+end_proof
 
 * Conclusion
 
