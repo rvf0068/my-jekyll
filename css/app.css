@@ -714,6 +714,17 @@ ul ul {
   margin-top: 0.5rem;
 }
 
+ol {
+  list-style-type: decimal;
+  padding-left: 2rem;
+  margin-left: 0;
+}
+
+ol ol {
+  padding-left: 1.5rem;
+  margin-top: 0.5rem;
+}
+
 article img {
   max-width: 100%;
 }

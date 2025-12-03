@@ -58,9 +58,24 @@ We make a remark:
 #+name: rem:other
 #+label: rem:other
 #+begin_remark
-There are many other examples.
+There are many other examples, such as:
+1. The dihedral group \(D_{n}\),
+2. The cyclic groups \(C_{n}\).
 #+end_remark
 
+#+name: rem:other2
+#+label: rem:other2
+#+begin_remark
+There are many other examples, such as:
+- The dihedral group \(D_{n}\),
+- The cyclic groups \(C_{n}\).
+#+end_remark
+
+Let us check lists outside blocks:
+
+1. First
+2. Second
+  
 
 * Theorems on Group Uniqueness
 
