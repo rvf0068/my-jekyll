@@ -398,6 +398,55 @@ Updates links to these environments to use the numbered label (e.g., 'Theorem 1'
       (setq result (replace-regexp-in-string (regexp-quote (car pair)) (cdr pair) result nil 'literal)))
     result))
 
+	;; Helper to ensure "<" and ">" have surrounding spaces inside math delimiters
+	(defun org--add-math-angle-spacing (text)
+		"Ensure literal \"<\" and \">\" in TEXT have a space on both sides."
+		(let ((result text))
+			(setq result (replace-regexp-in-string "\\([^[:space:]]\\)<" "\\1 <" result))
+			(setq result (replace-regexp-in-string "<\\([^[:space:]]\\)" "< \\1" result))
+			(setq result (replace-regexp-in-string "\\([^[:space:]]\\)>" "\\1 >" result))
+			(setq result (replace-regexp-in-string ">\\([^[:space:]]\\)" "> \\1" result))
+			result))
+
+	(defun org--process-delimited-math (contents open close)
+		"Process CONTENTS math regions delimited by OPEN and CLOSE strings."
+		(let ((pos 0)
+					(len (length contents))
+					(open-pattern (regexp-quote open))
+					(close-pattern (regexp-quote close))
+					(result ""))
+			(while (and (< pos len)
+									(string-match open-pattern contents pos))
+				(let* ((start (match-beginning 0))
+							 (open-end (match-end 0)))
+					(setq result (concat result (substring contents pos start)))
+					(let ((close-pos (string-match close-pattern contents open-end)))
+						(if close-pos
+								(let* ((close-start close-pos)
+											 (close-end (match-end 0))
+											 (inner (substring contents open-end close-start))
+											 (processed (org--add-math-angle-spacing inner)))
+									(setq result (concat result
+																			 (substring contents start open-end)
+																			 processed
+																			 (substring contents close-start close-end)))
+									(setq pos close-end))
+							(setq result (concat result (substring contents start)))
+							(setq pos len)))))
+			(concat result (substring contents pos))))
+
+	(defun org-fix-math-angle-spacing (contents)
+		"Within math delimiters, ensure literal \"<\" and \">\" have spaces on both sides."
+	  (let ((result contents))
+		(setq result (org--process-delimited-math result "\\(" "\\)"))
+		(setq result (org--process-delimited-math result "\\[" "\\]"))
+	    (dolist (env '("equation" "equation*" "align" "align*" "gather" "multline"))
+	      (setq result (org--process-delimited-math
+			    result
+		    (format "\\begin{%s}" env)
+		    (format "\\end{%s}" env))))
+	    result))
+
 ;; Function to replace file:// URLs with proper HTTP paths
 (defun org-fix-baseurl-links (contents)
   "Replace file:// URLs with proper HTTP paths for baseurl."
@@ -453,6 +502,9 @@ Updates links to these environments to use the numbered label (e.g., 'Theorem 1'
 
       ;; Process equation labels and references
       (setq contents (org-process-equation-references contents))
+
+	;; Ensure angle brackets are spaced properly inside math delimiters
+	(setq contents (org-fix-math-angle-spacing contents))
 
       ;; Convert internal file links to Jekyll URLs
       (setq contents (org-fix-jekyll-post-links contents))

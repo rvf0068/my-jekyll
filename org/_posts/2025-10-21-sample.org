@@ -45,6 +45,13 @@ Another example:
 The alternating group \(A_{n}\).
 #+end_exampleblock
 
+This is a test: \(a<b\) and \(b<c\) imply \(a<c\).
+
+Another test:
+#+name: eq:transitive
+\begin{equation}
+a<b,  b<c \Rightarrow a<c.
+\end{equation}
 
 We make a remark:
 
