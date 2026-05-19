@@ -25,3 +25,11 @@ test-math-blocks.html
 screenshot-*.png
 # Exclude all PDF files
 *.pdf
+/org/_posts/.ipynb_checkpoints/
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.toc
+*.xdv
