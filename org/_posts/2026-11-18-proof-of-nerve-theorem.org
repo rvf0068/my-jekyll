@@ -1,0 +1,15 @@
+#+DATE: 2026-11-18
+#+AUTHOR: rvf0068
+#+JEKYLL_LAYOUT: post
+#+HAS_MATH: yes
+
+:PROPERTIES:
+:ID:       37cbc203-83e5-4cff-bd6c-b9cde59f8ccf
+:END:
+
+#+title: Proof of Nerve Theorem
+
+/Nerve Theorem/ Let \(\Delta\) be a simplicial complex and let \(\mathcal{F}=\{\Delta_{i}\}\) be a finite family of subcomplexes such that \(\Delta=\cup\Delta_{i}\). The /nerve/ of the family of subcomplexes is the simplicial complex \(\mathcal{N}(\mathcal{F})\) whose vertex set is the family \(\mathcal{F}\), and in which \(\sigma\subseteq \mathcal{F}\) is a simplex if \(\cap\sigma\ne\emptyset\). If every nonempty intersection of elements of \(\mathcal{F}\) is contractible, then \(\Delta\simeq \mathcal{N}(\mathcal{F})\).
+
+/Proof/. Let \(Q=P(\Delta)\) and let \(P=P(\mathcal{N}(\mathcal{F}))\). Define \(f\colon Q\to P\) by \(f(\tau)=\{\Delta_{i}\in \mathcal{F}\mid \tau\in\Delta_{i}\}\). Note that the intersection of the elements of \(f(\tau)\) contains \(\tau\), so this intersection is nonempty, and hence \(f(\tau)\) is a simplex of \(\mathcal{N}(\mathcal{F})\). If \(\tau_{1}\subseteq \tau_{2}\), then \(f(\tau_{1})\supseteq f(\tau_{2})\), so \(f\) is order-preserving as a map from \(Q\) to \(P^{\mathrm{op}}\). If \(\sigma\in P^{\mathrm{op}}\), then \(f^{-1}((P^{\mathrm{op}})_{\leq \sigma})=\{\tau\in Q\mid f(\tau)\supseteq\sigma\}\). We claim that this equals \(\cap\sigma\). If \(\tau\) belongs to the first set, then \(f(\tau)=\{\Delta_{i}\in \mathcal{F}\mid \tau\in\Delta_{i}\}\supseteq\sigma\); that is, all the subcomplexes that are elements of \(\sigma\) contain \(\tau\), so \(\tau\in\cap\sigma\). Conversely, if \(\tau\in\cap\sigma\), then \(\tau\) belongs to every subcomplex \(\Delta_{i}\) that is an element of \(\sigma\), whence \(\sigma\subseteq f(\tau)=\{\Delta_{i}\in \mathcal{F}\mid \tau\in\Delta_{i}\}\); that is, \(\tau\in f^{-1}((P^{\mathrm{op}})_{\leq \sigma})\). By hypothesis, \(\cap\sigma\) is contractible for every \(\sigma\in \mathcal{N}(\mathcal{F})\), whence \(P(\Delta)\simeq P(\mathcal{N}(\mathcal{F}))^{\mathrm{op}}\). Since \(\Delta(P(\mathcal{N}(\mathcal{F}))^{\mathrm{op}})=\Delta(P(\mathcal{N}(\mathcal{F})))\), we obtain \(|\Delta|\cong |\Delta(P(\Delta))|\simeq |\Delta(P(\mathcal{N}(\mathcal{F})))|\cong |\mathcal{N}(\mathcal{F})|\).
+

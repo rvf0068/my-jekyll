@@ -53,6 +53,35 @@ The shared `page` layout lives in `_layouts/page.html`, so every standalone page
 
 ## Writing Posts
 
+### Adding an Org File from Anywhere
+
+Use `add-post.sh` to copy an existing Org-mode file outside the blog repository
+into `org/_posts/` as a Jekyll post:
+
+```bash
+./scripts/add-post.sh /home/rafael/Dropbox/org/reading-notes/20220209100918-proof_of_nerve_theorem.org
+```
+
+The command keeps the source file unchanged. It uses `#+TITLE:` and `#+DATE:` when
+present, otherwise it derives a title and date from the filename or modification
+time. A custom slug may be supplied:
+
+```bash
+./scripts/add-post.sh /path/to/note.org nerve-theorem
+```
+
+Use `--force` to replace an existing generated post. The same operation is
+available through the development tool. Pass `--today` to use today's date for
+both the filename and `#+DATE:`, overriding any date in the source file:
+
+```bash
+./scripts/dev.sh add /path/to/note.org
+./scripts/add-post.sh /path/to/note.org --today
+```
+
+Imported posts receive `#+HAS_MATH: yes` by default when the source does not
+already specify that property.
+
 ### Using Org Properties (Recommended)
 
 The easiest way to create a new post is to use standard Org-mode properties. The Jekyll front matter will be generated automatically during the publishing process.

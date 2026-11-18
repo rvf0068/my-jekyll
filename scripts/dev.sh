@@ -86,6 +86,11 @@ build_tags() {
     log "✅ Category and tag pages generated"
 }
 
+# Function to add an Org-mode file from anywhere on the computer
+add_post() {
+    ./scripts/add-post.sh "$@"
+}
+
 # Function to build Jekyll site
 build_jekyll() {
     log "🏗️  Building Jekyll site..."
@@ -148,12 +153,14 @@ Commands:
   org       Convert Org files to HTML only
   tags      Generate category/tag pages only
   jekyll    Build Jekyll site only
+  add       Add an external Org-mode file as a post
 
 Examples:
   ./scripts/dev.sh install     # Install dependencies
   ./scripts/dev.sh build       # Complete build
   ./scripts/dev.sh serve       # Start dev server
   ./scripts/dev.sh clean build # Clean then build
+  ./scripts/dev.sh add /path/to/note.org
 
 📚 More info: See README.md for detailed documentation
 EOF
@@ -189,6 +196,10 @@ case "${1:-help}" in
     "jekyll")
         check_prereqs
         build_jekyll
+        ;;
+    "add")
+        shift
+        add_post "$@"
         ;;
     "help"|*)
         help

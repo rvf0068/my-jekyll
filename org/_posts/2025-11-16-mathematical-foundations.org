@@ -6,6 +6,14 @@
 #+JEKYLL_TAGS: math equations theorems proofs definitions figures tables citations
 #+HAS_MATH: yes
 #+BIBLIOGRAPHY: ../../references.bib
+#+latex_header: \usepackage{amsmath}
+#+latex_header: \usepackage{amsthm}
+#+latex_header: \usepackage{amssymb}
+#+latex_header: \newtheorem{theorem}{Theorem}
+#+latex_header: \newtheorem{lemma}[theorem]{Lemma}
+#+latex_header: \newtheorem{corollary}[theorem]{Corollary}
+#+latex_header: \newtheorem{proposition}[theorem]{Proposition}
+#+latex_header: \newtheorem{definition}{Definition}
 
 * Introduction
 
